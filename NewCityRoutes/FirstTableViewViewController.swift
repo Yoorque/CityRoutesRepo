@@ -31,6 +31,7 @@ class FirstTableViewViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = selectedTransport[indexPath.row].ref
+        cell.imageView?.image = UIImage(named: selectedTransport[indexPath.row].route)
         return cell
     }
     

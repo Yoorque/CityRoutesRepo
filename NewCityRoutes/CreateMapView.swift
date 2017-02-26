@@ -67,8 +67,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             }
         }
     
-    
+    var selectedFeatureVar: Feature?
+    var selectedRelaitionVar: Relations?
     func iscrtavanjeCoordinata(coord: Coordinates, feature: Feature, relation: Relations) {
+        selectedFeatureVar = feature
+        selectedRelaitionVar = relation
         let coords = CLLocationCoordinate2DMake(coord.lat, coord.lon)
         let camera = GMSCameraPosition(target: coords, zoom: 13, bearing: 0, viewingAngle: 0)
         mapView.camera = camera
@@ -76,6 +79,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         detailMarker.icon = UIImage(named: "redCircle")
         detailMarker.map = mapView
         detailMarker.title = feature.property.name
+        detailMarker.accessibilityLanguage = relation.reltags.ref
+        
         
         for rela in feature.property.relations {
             if rela.reltags.ref != relation.reltags.ref {
@@ -101,19 +106,29 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         if feature.property.wheelchair != "" {
             detailMarker.accessibilityHint = feature.property.wheelchair
+            print(relation.reltags.route)
         }
+        
     }
-    
-   
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         infoWindow = Bundle.main.loadNibNamed("CustomInfoWindow", owner: self, options: nil)?.first as! CustomInfoWindow
         
         infoWindow.layer.borderWidth = 2
         infoWindow.layer.cornerRadius = 13
+        infoWindow.layer.borderColor = UIColor.red.cgColor
+        
+        infoWindow.stationName.text = selectedFeatureVar!.property.name
+        infoWindow.code.text = marker.accessibilityLabel
+        infoWindow.otherLines.text = marker.snippet
+        infoWindow.selectedLine.text = selectedRelaitionVar!.reltags.ref
+        infoWindow.imageView.image = UIImage(named: selectedRelaitionVar!.reltags.route)        
+        
+        func customInfoWindowData() {
+            
+        }
         
         return infoWindow
-
     }
 }
 
