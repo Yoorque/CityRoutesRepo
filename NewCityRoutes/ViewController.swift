@@ -7,19 +7,37 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet var busButton: UIView!
+    @IBOutlet var trolleybusButton: UIView!
+    @IBOutlet var tramButton: UIView!
+    @IBOutlet var viewForTransportButtons: ViewForTransportButtons!
+    @IBOutlet var myMapView: CreateMapView!
+    
+    let mapCreation = CreateMapView()
+    
+    var json = Json()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        mapCreation.createMap(view: myMapView)
+        json.readJson()
+        
+        for view in viewForTransportButtons.subviews {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
+            view.addGestureRecognizer(tapGesture)
+        }
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func tap(sender: UITapGestureRecognizer) {
+        if let view = sender.view {
+            viewForTransportButtons.selectedTransport(view: self ,sender: view.accessibilityIdentifier!)
+        }
     }
-
-
+    
 }
 
