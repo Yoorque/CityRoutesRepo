@@ -16,6 +16,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var mapView: GMSMapView!
     var detailMarker: GMSMarker!
     var linije = ""
+    var infoWindow = CustomInfoWindow()
+    
     
     func createMap(view: UIView) {
         let location = CLLocationCoordinate2DMake(44.787197, 20.457273)
@@ -27,19 +29,22 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         view.addSubview(mapView)
     }
     
-    func drawTransportLines(view: UIViewController, route: Relations) {
+    func drawTransportLines(route: Relations) {
         mapView.clear()
+        
         for feature in featureArray {
             for relation in feature.property.relations {
-                if relation == route {
-                    for coord in feature.geometry.coordinates {
-                        if relation.reltags.route == route.reltags.route {
+                // print(relation.reltags.route, route.reltags.route)
+                if relation.reltags.route == route.reltags.route {
+                     if relation.rel == route.rel {
                             if feature.property.highway == "bus_stop" || feature.property.railway == "tram_stop" {
-                                iscrtavanjeCoordinata(view: view, coord: coord, feature: feature, relation: route)
+                                for coord in feature.geometry.coordinates {
+                                
+                                iscrtavanjeCoordinata(coord: coord, feature: feature, relation: route)
                             }
                         }
                     }
-                    
+                }
                     
                     if relation.rel == route.rel {
                         let path = GMSMutablePath()
@@ -58,12 +63,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                         }
                     }
                 }
+            linije = ""
             }
         }
-    }
     
-    func iscrtavanjeCoordinata(view: UIViewController ,coord: Coordinates, feature: Feature, relation: Relations) {
-        
+    
+    func iscrtavanjeCoordinata(coord: Coordinates, feature: Feature, relation: Relations) {
         let coords = CLLocationCoordinate2DMake(coord.lat, coord.lon)
         let camera = GMSCameraPosition(target: coords, zoom: 13, bearing: 0, viewingAngle: 0)
         mapView.camera = camera
@@ -72,16 +77,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         detailMarker.map = mapView
         detailMarker.title = feature.property.name
         
-        print("Linije \(linije)")
-        
         for rela in feature.property.relations {
             if rela.reltags.ref != relation.reltags.ref {
-                
-                linije = linije + " " + relation.reltags.ref
+                linije = linije + " " + rela.reltags.ref
             }
         }
         
-       
         detailMarker.snippet = linije
         
         if feature.property.phone != "" {
@@ -101,6 +102,18 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         if feature.property.wheelchair != "" {
             detailMarker.accessibilityHint = feature.property.wheelchair
         }
+    }
+    
+   
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        infoWindow = Bundle.main.loadNibNamed("CustomInfoWindow", owner: self, options: nil)?.first as! CustomInfoWindow
+        
+        infoWindow.layer.borderWidth = 2
+        infoWindow.layer.cornerRadius = 13
+        
+        return infoWindow
+
     }
 }
 

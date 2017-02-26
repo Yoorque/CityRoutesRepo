@@ -14,6 +14,7 @@ struct Json {
     var geom: Geometry?
     var relationArray = [Relations]()
     var coordArray = [Coordinates]()
+    
     static var selectedTransportArray = [Relations]()
     static var routesArray = [Routes]()
     static var routesSet: Set<Routes> = []
@@ -80,16 +81,15 @@ struct Json {
                             
                             geom = Geometry(type: geoType, coordinates: coordArray)
                             coordArray = []
-                        
+                        }
                         property = Property(id: propertyId, highway: highway, railway: railway, name: name, nameSrLatn: nameSrLatn, relations: relationArray, covered: covered, phone: phone, codeRef: codeRef, shelter: shelter, wheelchair: wheelchair)
                         let feature = Feature(id: featureId, property: property!, geometry: geom!)
                         
                         featureArray.append(feature)
                         relationArray = []
-                        }
-                    
-                
+                        
                     }
+                    print(featureArray.count)
                 } catch {
                     print("Bad json")
                 }

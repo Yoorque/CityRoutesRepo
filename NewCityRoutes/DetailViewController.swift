@@ -36,6 +36,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        detailMapView.drawTransportLines(view: self, route: lineRoutes[indexPath.row])
+        detailMapView.drawTransportLines(route: lineRoutes[indexPath.row])
     }
 }
