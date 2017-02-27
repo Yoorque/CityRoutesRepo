@@ -32,10 +32,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = lineRoutes[indexPath.row].reltags.relName
+        cell.imageView?.image = UIImage(named: lineRoutes[indexPath.row].reltags.route)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         detailMapView.drawTransportLines(route: lineRoutes[indexPath.row])
+        let selectedRow = tableView.cellForRow(at: indexPath)
+       selectedRow?.contentView.backgroundColor = .green
     }
 }

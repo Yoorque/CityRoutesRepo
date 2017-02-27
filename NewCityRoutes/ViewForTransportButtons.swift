@@ -25,13 +25,10 @@ class ViewForTransportButtons: UIView {
         if let transport = transports[sender] {
         switch transport {
         case .Bus(let value):
-            print("\(value)")
             instantiateView(view: view, string: value)
         case .Tram(let value):
-            print(value)
             instantiateView(view: view, string: value)
         case .Trolleybus(let value):
-            print(value)
             instantiateView(view: view, string: value)
             }
         }

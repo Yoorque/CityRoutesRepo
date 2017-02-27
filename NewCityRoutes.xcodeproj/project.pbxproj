@@ -158,6 +158,7 @@
 				TargetAttributes = {
 					1138FE531E62026A00D0C9C9 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = UKQDW363ZZ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -380,9 +381,9 @@
 			baseConfigurationReference = 6183BCE7981F7301BFE102AE /* Pods-NewCityRoutes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = UKQDW363ZZ;
 				INFOPLIST_FILE = NewCityRoutes/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dusanjuranovic.NewCityRoutes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -395,9 +396,9 @@
 			baseConfigurationReference = D1CA1C9F7552032758CBFCC8 /* Pods-NewCityRoutes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = UKQDW363ZZ;
 				INFOPLIST_FILE = NewCityRoutes/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dusanjuranovic.NewCityRoutes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
