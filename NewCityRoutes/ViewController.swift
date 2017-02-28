@@ -11,6 +11,7 @@ import GoogleMaps
 
 class ViewController: UIViewController {
     
+    @IBOutlet var recentTableView: UITableView!
     @IBOutlet var busButton: UIView!
     @IBOutlet var trolleybusButton: UIView!
     @IBOutlet var tramButton: UIView!
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
 
     func tap(sender: UITapGestureRecognizer) {
         if let view = sender.view {
+            //Izvlaci identifier string iz odabranog dugmeta na pocetnom view i prosledjuje u funkciju
             viewForTransportButtons.selectedTransport(view: self ,sender: view.accessibilityIdentifier!)
         }
     }

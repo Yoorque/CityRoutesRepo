@@ -7,10 +7,11 @@
 //
 
 import UIKit
-
+@IBDesignable
 class CustomInfoWindow: UIView {
-
+    @IBInspectable
     @IBOutlet var imageView: UIImageView!
+    @IBInspectable
     @IBOutlet var selectedLine: UILabel!
     @IBOutlet var otherLines: UILabel!
     @IBOutlet var stationName: UILabel!

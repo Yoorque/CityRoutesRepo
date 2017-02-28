@@ -9,7 +9,6 @@
 import UIKit
 import GoogleMaps
 
-
 class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
@@ -17,7 +16,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var detailMarker: GMSMarker!
     var linije = ""
     var infoWindow = CustomInfoWindow()
-    
+    var selectedFeature = [Feature]()
+    var selectedRelation = [Relations]()
+    var i = 0
     
     func createMap(view: UIView) {
         let location = CLLocationCoordinate2DMake(44.787197, 20.457273)
@@ -29,6 +30,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         view.addSubview(mapView)
     }
     
+    //Izvlaci i filtrira odabranu vrstu prevoza i poziva se iz DetailViewController-a
     func drawTransportLines(route: Relations) {
         mapView.clear()
         
@@ -36,49 +38,51 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             for relation in feature.property.relations {
                 // print(relation.reltags.route, route.reltags.route)
                 if relation.reltags.route == route.reltags.route {
-                     if relation.rel == route.rel {
-                            if feature.property.highway == "bus_stop" || feature.property.railway == "tram_stop" {
-                                for coord in feature.geometry.coordinates {
+                    if relation.rel == route.rel {
+                        if feature.property.highway == "bus_stop" || feature.property.railway == "tram_stop" {
+                            for coord in feature.geometry.coordinates {
                                 
                                 iscrtavanjeCoordinata(coord: coord, feature: feature, relation: route)
-                                    
-                            }
-                        }
-                    }
-                }
-                    
-                    if relation.rel == route.rel {
-                        let path = GMSMutablePath()
-                        if feature.geometry.type == "LineString" {
-                            for coord in feature.geometry.coordinates {
-                                let lat = coord.lat
-                                let lon = coord.lon
                                 
-                                let coords = CLLocationCoordinate2DMake(lat, lon)
-                                path.add(coords)
-                                let polyline = GMSPolyline(path: path)
-                                polyline.strokeColor = .red
-                                polyline.strokeWidth = 2
-                                polyline.map = mapView
                             }
                         }
                     }
                 }
-            linije = ""
+                
+                if relation.rel == route.rel {
+                    let path = GMSMutablePath()
+                    if feature.geometry.type == "LineString" {
+                        for coord in feature.geometry.coordinates {
+                            let lat = coord.lat
+                            let lon = coord.lon
+                            
+                            let coords = CLLocationCoordinate2DMake(lat, lon)
+                            path.add(coords)
+                            let polyline = GMSPolyline(path: path)
+                            polyline.strokeColor = .red
+                            polyline.strokeWidth = 2
+                            polyline.map = mapView
+                        }
+                    }
+                }
             }
+            linije = ""
         }
-    
+    }
+    // Iscrtava rutu i markere u zavisnosti od odabrane u drawTransportLines() odakle se i poziva
     
     func iscrtavanjeCoordinata(coord: Coordinates, feature: Feature, relation: Relations) {
-        
+        selectedFeature.append(feature)
+        selectedRelation.append(relation)
         let coords = CLLocationCoordinate2DMake(coord.lat, coord.lon)
         let camera = GMSCameraPosition(target: coords, zoom: 13, bearing: 0, viewingAngle: 0)
         mapView.camera = camera
         detailMarker = GMSMarker(position:coords)
+        detailMarker.accessibilityLabel = "\(i)"
+        i += 1
         detailMarker.icon = UIImage(named: "redCircle")
         detailMarker.map = mapView
         detailMarker.title = feature.property.name
-        detailMarker.accessibilityLanguage = relation.reltags.ref
         
         for rela in feature.property.relations {
             if rela.reltags.ref != relation.reltags.ref {
@@ -87,45 +91,41 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
         
         detailMarker.snippet = linije
-        
-        if feature.property.phone != "" {
-            detailMarker.accessibilityLabel = feature.property.phone
-        } else if feature.property.codeRef != "" {
-            detailMarker.accessibilityLabel = "*011*\(feature.property.codeRef)#"
-        } else {
-            detailMarker.accessibilityLabel = "no code"
-        }
-        
-        if feature.property.covered != "" {
-            detailMarker.accessibilityValue = feature.property.covered
-        } else if feature.property.shelter != "" {
-            detailMarker.accessibilityValue = feature.property.shelter
-        } else {
-            detailMarker.accessibilityValue = "no"
-        }
-        
-        if feature.property.wheelchair != "" {
-            detailMarker.accessibilityHint = feature.property.wheelchair
-        } else {
-            detailMarker.accessibilityHint = "no"
-        }
-        
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         infoWindow = Bundle.main.loadNibNamed("CustomInfoWindow", owner: self, options: nil)?.first as! CustomInfoWindow
-    
+        let index = Int(marker.accessibilityLabel!)!
         infoWindow.layer.borderWidth = 2
         infoWindow.layer.cornerRadius = 13
         infoWindow.layer.borderColor = UIColor.red.cgColor
         
+        if selectedFeature[index].property.covered != "" {
+            infoWindow.coveredImage.image = UIImage(named: selectedFeature[index].property.covered)
+        } else if selectedFeature[index].property.shelter != ""{
+            infoWindow.coveredImage.image = UIImage(named: selectedFeature[index].property.shelter)
+        } else {
+            infoWindow.coveredImage.image = UIImage(named: "no")
+        }
+        
+        if selectedFeature[index].property.phone != "" {
+            infoWindow.code.text = selectedFeature[index].property.phone
+        } else if selectedFeature[index].property.codeRef != ""{
+            infoWindow.code.text = "*011*\(selectedFeature[index].property.codeRef)#"
+        } else {
+            infoWindow.code.text = "no code"
+        }
+        
+        if selectedFeature[index].property.wheelchair != "" {
+            infoWindow.wheelchairImage.image = UIImage(named: selectedFeature[index].property.wheelchair)
+        } else {
+            infoWindow.wheelchairImage.image = UIImage(named: "no")
+        }
+        
         infoWindow.stationName.text = marker.title
         infoWindow.otherLines.text = marker.snippet
-        infoWindow.code.text = marker.accessibilityLabel
-        infoWindow.selectedLine.text = marker.accessibilityLanguage
-        //infoWindow.imageView.image = UIImage(named: <#T##String#>)
-        infoWindow.wheelchairImage.image = UIImage(named: marker.accessibilityHint!)
-        infoWindow.coveredImage.image = UIImage(named: marker.accessibilityValue!)
+        infoWindow.selectedLine.text = selectedRelation[index].reltags.ref
+        infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
         
         return infoWindow
     }
