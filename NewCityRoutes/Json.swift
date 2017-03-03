@@ -34,6 +34,7 @@ struct Json {
                         
                         let propertyId = properties["@id"] as! String
                         let highway = properties["highway"] as? String ?? ""
+                        let amenity = properties["amenity"] as? String ?? ""
                         let railway = properties["railway"] as? String ?? ""
                         let name = properties["name"] as? String ?? ""
                         let nameSrLatn = properties["name:sr-Latn"] as? String ?? ""
@@ -82,14 +83,12 @@ struct Json {
                             geom = Geometry(type: geoType, coordinates: coordArray)
                             coordArray = []
                         }
-                        property = Property(id: propertyId, highway: highway, railway: railway, name: name, nameSrLatn: nameSrLatn, relations: relationArray, covered: covered, phone: phone, codeRef: codeRef, shelter: shelter, wheelchair: wheelchair)
+                        property = Property(id: propertyId, highway: highway, railway: railway, amenity: amenity, name: name, nameSrLatn: nameSrLatn, relations: relationArray, covered: covered, phone: phone, codeRef: codeRef, shelter: shelter, wheelchair: wheelchair)
                         let feature = Feature(id: featureId, property: property!, geometry: geom!)
                         
                         featureArray.append(feature)
                         relationArray = []
-                        
                     }
-                    print(featureArray.count)
                 } catch {
                     print("Bad json")
                 }
@@ -124,14 +123,22 @@ struct Json {
         }
         
         for i in 0..<selectedTransportArray.count {
-            for j in i+1..<selectedTransportArray.count {
+            for j in 0..<selectedTransportArray.count {
+                if selectedTransportArray[i].rel != selectedTransportArray[j].rel {
                 if selectedTransportArray[i].reltags.lineRef == selectedTransportArray[j].reltags.lineRef {
                     let routes = Routes(ref: selectedTransportArray[i].reltags.ref, route: selectedTransportArray[i].reltags.route, routes: [selectedTransportArray[i], selectedTransportArray[j]], lineRef:selectedTransportArray[i].reltags.lineRef)
                     routesSet.insert(routes)
                 }
-            }
+                } else {
+                    if selectedTransportArray[i].reltags.lineRef == selectedTransportArray[j].reltags.lineRef {
+                        if selectedTransportArray[i].reltags.from == selectedTransportArray[j].reltags.to {
+                        let routes = Routes(ref: selectedTransportArray[i].reltags.ref, route: selectedTransportArray[i].reltags.route, routes: [selectedTransportArray[i], selectedTransportArray[j]], lineRef:selectedTransportArray[i].reltags.lineRef)
+                        routesSet.insert(routes)
+                    }
+                    }
+                }
         }
-        
+    }
         for s in routesSet {
             routesArray.append(s)
         }

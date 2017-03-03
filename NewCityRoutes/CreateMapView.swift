@@ -11,7 +11,6 @@ import GoogleMaps
 
 class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
-    let locationManager = CLLocationManager()
     var mapView: GMSMapView!
     var detailMarker: GMSMarker!
     var linije = ""
@@ -21,11 +20,17 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var i = 0
     
     func createMap(view: UIView) {
+        let locationManager = CLLocationManager()
         let location = CLLocationCoordinate2DMake(44.787197, 20.457273)
         let camera = GMSCameraPosition.camera(withTarget: location, zoom: 10)
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+        mapView.settings.compassButton = true
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
         view.addSubview(mapView)
     }
@@ -39,7 +44,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 // print(relation.reltags.route, route.reltags.route)
                 if relation.reltags.route == route.reltags.route {
                     if relation.rel == route.rel {
-                        if feature.property.highway == "bus_stop" || feature.property.railway == "tram_stop" {
+                        if feature.property.highway == "bus_stop" || feature.property.railway == "tram_stop" || feature.property.amenity == "bus_station"{
                             for coord in feature.geometry.coordinates {
                                 
                                 iscrtavanjeCoordinata(coord: coord, feature: feature, relation: route)
@@ -74,13 +79,16 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func iscrtavanjeCoordinata(coord: Coordinates, feature: Feature, relation: Relations) {
         selectedFeature.append(feature)
         selectedRelation.append(relation)
+        
         let coords = CLLocationCoordinate2DMake(coord.lat, coord.lon)
         let camera = GMSCameraPosition(target: coords, zoom: 13, bearing: 0, viewingAngle: 0)
+        
         mapView.camera = camera
         detailMarker = GMSMarker(position:coords)
         detailMarker.accessibilityLabel = "\(i)"
         i += 1
         detailMarker.icon = UIImage(named: "redCircle")
+        detailMarker.appearAnimation = kGMSMarkerAnimationPop
         detailMarker.map = mapView
         detailMarker.title = feature.property.name
         
@@ -96,6 +104,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         infoWindow = Bundle.main.loadNibNamed("CustomInfoWindow", owner: self, options: nil)?.first as! CustomInfoWindow
         let index = Int(marker.accessibilityLabel!)!
+        
         infoWindow.layer.borderWidth = 2
         infoWindow.layer.cornerRadius = 13
         infoWindow.layer.borderColor = UIColor.red.cgColor
@@ -128,6 +137,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
         
         return infoWindow
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        if let myLocation = mapView.myLocation?.coordinate {
+        let camera = GMSCameraPosition.camera(withTarget: myLocation, zoom: 15)
+        mapView.camera = camera
+        }
+        return true
     }
 }
 

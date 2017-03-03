@@ -42,6 +42,7 @@ struct Property: Hashable {
     var id: String
     var highway: String
     var railway: String
+    var amenity: String
     var name: String
     var nameSrLatn: String
     var relations: [Relations]
