@@ -36,7 +36,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     //Izvlaci i filtrira odabranu vrstu prevoza i poziva se iz DetailViewController-a
-    func drawTransportLines(route: Relations) {
+    func drawLineMarkers(route: Relations) {
         mapView.clear()
         
         for feature in featureArray {
@@ -54,6 +54,15 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                     }
                 }
                 
+            }
+        }
+    }
+    
+    func drawLinePolylines(route: Relations) {
+        
+        
+        for feature in featureArray {
+            for relation in feature.property.relations {
                 if relation.rel == route.rel {
                     let path = GMSMutablePath()
                     if feature.geometry.type == "LineString" {
@@ -71,12 +80,15 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                     }
                 }
             }
-            linije = ""
+            
         }
+        
+        
     }
     // Iscrtava rutu i markere u zavisnosti od odabrane u drawTransportLines() odakle se i poziva
     
     func iscrtavanjeCoordinata(coord: Coordinates, feature: Feature, relation: Relations) {
+        linije = ""
         selectedFeature.append(feature)
         selectedRelation.append(relation)
         
@@ -141,8 +153,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         if let myLocation = mapView.myLocation?.coordinate {
-        let camera = GMSCameraPosition.camera(withTarget: myLocation, zoom: 15)
-        mapView.camera = camera
+            let camera = GMSCameraPosition.camera(withTarget: myLocation, zoom: 15)
+            mapView.camera = camera
         }
         return true
     }

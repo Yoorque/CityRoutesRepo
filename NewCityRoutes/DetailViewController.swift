@@ -37,7 +37,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        detailMapView.drawTransportLines(route: lineRoutes[indexPath.row])
+        detailMapView.drawLineMarkers(route: lineRoutes[indexPath.row])
+        detailMapView.drawLinePolylines(route: lineRoutes[indexPath.row])
         let selectedRow = tableView.cellForRow(at: indexPath)
        selectedRow?.contentView.backgroundColor = .green
     }

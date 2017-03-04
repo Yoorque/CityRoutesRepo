@@ -59,8 +59,8 @@ struct Json {
                             let lineRef = reltags["lineRef"] as? String ?? ""
                             if lineRef != "" {
                                 let lineNumberRef = Int(lineRef)
-                            let relData = Relations(role: role, rel: rel, reltags: Reltags(from: from, relName: relName, ref: ref, route: route, to: to, type: type, lineRef: lineNumberRef!))
-                            relationArray.append(relData)
+                                let relData = Relations(role: role, rel: rel, reltags: Reltags(from: from, relName: relName, ref: ref, route: route, to: to, type: type, lineRef: lineNumberRef!))
+                                relationArray.append(relData)
                             }
                             let geometry = feature["geometry"] as? [String:Any] ?? [:]
                             let geoType = geometry["type"] as! String
@@ -125,36 +125,21 @@ struct Json {
         for i in 0..<selectedTransportArray.count {
             for j in 0..<selectedTransportArray.count {
                 if selectedTransportArray[i].rel != selectedTransportArray[j].rel {
-                if selectedTransportArray[i].reltags.lineRef == selectedTransportArray[j].reltags.lineRef {
-                    
-                    let routes = Routes(ref: selectedTransportArray[i].reltags.ref, route: selectedTransportArray[i].reltags.route, routes: [selectedTransportArray[i], selectedTransportArray[j]], lineRef:selectedTransportArray[i].reltags.lineRef)
-                    routesSet.insert(routes)
+                    if selectedTransportArray[i].reltags.lineRef == selectedTransportArray[j].reltags.lineRef {
+                        
+                        let routes = Routes(ref: selectedTransportArray[i].reltags.ref, route: selectedTransportArray[i].reltags.route, routes: [selectedTransportArray[i], selectedTransportArray[j]], lineRef:selectedTransportArray[i].reltags.lineRef)
+                        routesSet.insert(routes)
                     }
                 } else {
                     if selectedTransportArray[i].reltags.lineRef == selectedTransportArray[j].reltags.lineRef {
                         if selectedTransportArray[i].reltags.from == selectedTransportArray[j].reltags.to {
-                        let routes = Routes(ref: selectedTransportArray[i].reltags.ref, route: selectedTransportArray[i].reltags.route, routes: [selectedTransportArray[i], selectedTransportArray[j]], lineRef:selectedTransportArray[i].reltags.lineRef)
-                        routesSet.insert(routes)
-                    }
+                            let routes = Routes(ref: selectedTransportArray[i].reltags.ref, route: selectedTransportArray[i].reltags.route, routes: [selectedTransportArray[i], selectedTransportArray[j]], lineRef:selectedTransportArray[i].reltags.lineRef)
+                            routesSet.insert(routes)
+                        }
                     }
                 }
+            }
         }
-    }
-//        for s in routesSet {
-//            routesArray.append(s)
-//        }
-//        
-//        //Sortiranje niza po lineRef
-//        
-//        for i in 0..<routesArray.count {
-//            for j in 0..<routesArray.count {
-//                if routesArray[j].lineRef > routesArray[i].lineRef {
-//                    let zamena = routesArray[j]
-//                    routesArray[j] = routesArray[i]
-//                    routesArray[i] = zamena
-//                }
-//            }
-//        }
         
         return routesSet.sorted(by: {$0.lineRef < $1.lineRef})
     }
