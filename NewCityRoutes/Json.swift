@@ -140,22 +140,22 @@ struct Json {
                 }
         }
     }
-        for s in routesSet {
-            routesArray.append(s)
-        }
+//        for s in routesSet {
+//            routesArray.append(s)
+//        }
+//        
+//        //Sortiranje niza po lineRef
+//        
+//        for i in 0..<routesArray.count {
+//            for j in 0..<routesArray.count {
+//                if routesArray[j].lineRef > routesArray[i].lineRef {
+//                    let zamena = routesArray[j]
+//                    routesArray[j] = routesArray[i]
+//                    routesArray[i] = zamena
+//                }
+//            }
+//        }
         
-        //Sortiranje niza po lineRef
-        
-        for i in 0..<routesArray.count {
-            for j in 0..<routesArray.count {
-                if routesArray[j].lineRef > routesArray[i].lineRef {
-                    let zamena = routesArray[j]
-                    routesArray[j] = routesArray[i]
-                    routesArray[i] = zamena
-                }
-            }
-        }
-        
-        return routesArray
+        return routesSet.sorted(by: {$0.lineRef < $1.lineRef})
     }
 }
