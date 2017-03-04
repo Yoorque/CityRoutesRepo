@@ -126,9 +126,10 @@ struct Json {
             for j in 0..<selectedTransportArray.count {
                 if selectedTransportArray[i].rel != selectedTransportArray[j].rel {
                 if selectedTransportArray[i].reltags.lineRef == selectedTransportArray[j].reltags.lineRef {
+                    
                     let routes = Routes(ref: selectedTransportArray[i].reltags.ref, route: selectedTransportArray[i].reltags.route, routes: [selectedTransportArray[i], selectedTransportArray[j]], lineRef:selectedTransportArray[i].reltags.lineRef)
                     routesSet.insert(routes)
-                }
+                    }
                 } else {
                     if selectedTransportArray[i].reltags.lineRef == selectedTransportArray[j].reltags.lineRef {
                         if selectedTransportArray[i].reltags.from == selectedTransportArray[j].reltags.to {
