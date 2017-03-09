@@ -11,16 +11,14 @@ import UIKit
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var lineRoutes = [Relations]()
     
-    @IBOutlet var detailMapView: CreateMapView!
+    @IBOutlet var detailMapView: CreateMapView! {
+        didSet {
+            detailMapView.createMap(view: detailMapView, location: detailMapView.currentLocation)
+        }
+    }
     @IBOutlet var tableView: UITableView!
 
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        detailMapView.createMap(view: detailMapView)
-        
-    }
+
 @IBAction func backButton(_ sender: UIButton) {
     dismiss(animated: true, completion: nil)
     }

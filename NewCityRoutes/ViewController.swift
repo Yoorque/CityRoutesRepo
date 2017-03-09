@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapCreation.createMap(view: myMapView)
+        mapCreation.createMap(view: myMapView, location: mapCreation.currentLocation)
         json.readJson()
         
         for view in viewForTransportButtons.subviews {
@@ -32,6 +32,12 @@ class ViewController: UIViewController {
             view.addGestureRecognizer(tapGesture)
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mapCreation.createMap(view: myMapView, location: mapCreation.currentLocation)
+        mapCreation.markStation()
     }
 
     func tap(sender: UITapGestureRecognizer) {

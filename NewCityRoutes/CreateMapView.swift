@@ -19,9 +19,16 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var selectedRelation = [Relations]()
     var i = 0
     
-    func createMap(view: UIView) {
-        let locationManager = CLLocationManager()
-        let location = CLLocationCoordinate2DMake(44.787197, 20.457273)
+    let locationManager = CLLocationManager()
+    var nearestLocation = CalculateNearestStation()
+    
+    var currentLocation: CLLocationCoordinate2D? {
+        return locationManager.location?.coordinate
+    }
+    
+    func createMap(view: UIView, location: CLLocationCoordinate2D?) {
+
+        let location = location ?? CLLocationCoordinate2DMake(44.787197, 20.457273)
         let camera = GMSCameraPosition.camera(withTarget: location, zoom: 13)
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
@@ -83,15 +90,15 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     // Iscrtava rutu i markere u zavisnosti od odabrane u drawTransportLines() odakle se i poziva
     
-    func setCoords(coord: Coordinates, feature: Feature, relation: Relations) {
+    private func setCoords(coord: Coordinates, feature: Feature, relation: Relations) {
         linije = ""
         selectedFeature.append(feature)
         selectedRelation.append(relation)
         
         let coords = CLLocationCoordinate2DMake(coord.lat, coord.lon)
         
-//        let camera = GMSCameraPosition(target: coords, zoom: 13, bearing: 0, viewingAngle: 0)
-//        mapView.camera = camera
+        let camera = GMSCameraPosition(target: coords, zoom: 13, bearing: 0, viewingAngle: 0)
+        mapView.camera = camera
         
         detailMarker = GMSMarker(position:coords)
         detailMarker.accessibilityLabel = "\(i)"
@@ -109,6 +116,23 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         detailMarker.snippet = linije
     }
+    
+    // MARK: Calculate nearest station from user location
+    
+    func markStation() {
+        let locations = nearestLocation.calculateNearestStation(from: currentLocation)
+        i = 0
+        for location in locations {
+            let position = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            detailMarker = GMSMarker(position: position)
+            detailMarker.accessibilityLabel = "\(i)"
+            i += 1
+            detailMarker.icon = UIImage(named: "redCircle")
+            detailMarker.appearAnimation = kGMSMarkerAnimationPop
+            detailMarker.map = mapView
+        }
+    }
+    
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         infoWindow = Bundle.main.loadNibNamed("CustomInfoWindow", owner: self, options: nil)?.first as! CustomInfoWindow
