@@ -10,7 +10,6 @@ import UIKit
 import GoogleMaps
 
 class ViewController: UIViewController {
-    
 
     @IBOutlet var busButton: UIView!
     @IBOutlet var trolleybusButton: UIView!
@@ -28,6 +27,7 @@ class ViewController: UIViewController {
         json.readJson()
         
         for view in viewForTransportButtons.subviews {
+            viewForTransportButtons.setShadow(view: view)
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
             view.addGestureRecognizer(tapGesture)
         }
@@ -40,8 +40,14 @@ class ViewController: UIViewController {
             
             UIView.animate(withDuration: 0.2, animations: {_ in
                 view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                view.layer.shadowOffset = CGSize(width: -10, height: 10)
+                //view.clipsToBounds = true
+                
             }, completion: {_ in
                 view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                view.layer.shadowOffset = CGSize(width: -5, height: 5)
+                //view.clipsToBounds = false
+                
             self.viewForTransportButtons.selectedTransport(view: self ,sender: view.accessibilityIdentifier!)
             })
         }

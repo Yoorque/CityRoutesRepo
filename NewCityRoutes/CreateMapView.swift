@@ -22,7 +22,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func createMap(view: UIView) {
         let locationManager = CLLocationManager()
         let location = CLLocationCoordinate2DMake(44.787197, 20.457273)
-        let camera = GMSCameraPosition.camera(withTarget: location, zoom: 10)
+        let camera = GMSCameraPosition.camera(withTarget: location, zoom: 13)
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -33,6 +33,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
         view.addSubview(mapView)
+        
     }
     
     //Izvlaci i filtrira odabranu vrstu prevoza i poziva se iz DetailViewController-a
@@ -47,19 +48,17 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                         if feature.property.highway == "bus_stop" || feature.property.railway == "tram_stop" || feature.property.amenity == "bus_station"{
                             for coord in feature.geometry.coordinates {
                                 
-                                iscrtavanjeCoordinata(coord: coord, feature: feature, relation: route)
+                                setCoords(coord: coord, feature: feature, relation: route)
                                 
                             }
                         }
                     }
                 }
-                
             }
         }
     }
     
     func drawLinePolylines(route: Relations) {
-        
         
         for feature in featureArray {
             for relation in feature.property.relations {
@@ -80,22 +79,20 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                     }
                 }
             }
-            
         }
-        
-        
     }
     // Iscrtava rutu i markere u zavisnosti od odabrane u drawTransportLines() odakle se i poziva
     
-    func iscrtavanjeCoordinata(coord: Coordinates, feature: Feature, relation: Relations) {
+    func setCoords(coord: Coordinates, feature: Feature, relation: Relations) {
         linije = ""
         selectedFeature.append(feature)
         selectedRelation.append(relation)
         
         let coords = CLLocationCoordinate2DMake(coord.lat, coord.lon)
-        let camera = GMSCameraPosition(target: coords, zoom: 13, bearing: 0, viewingAngle: 0)
         
-        mapView.camera = camera
+//        let camera = GMSCameraPosition(target: coords, zoom: 13, bearing: 0, viewingAngle: 0)
+//        mapView.camera = camera
+        
         detailMarker = GMSMarker(position:coords)
         detailMarker.accessibilityLabel = "\(i)"
         i += 1

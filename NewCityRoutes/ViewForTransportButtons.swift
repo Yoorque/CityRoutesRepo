@@ -34,6 +34,15 @@ class ViewForTransportButtons: UIView {
         }
     }
     
+    func setShadow(view: UIView) {
+        view.layer.cornerRadius = view.frame.width / 2
+        view.layer.shadowOpacity = 1
+        view.layer.masksToBounds = false
+        view.clipsToBounds = false
+        view.layer.shadowOffset = CGSize(width: -5, height: 5)
+        view.layer.shadowColor = UIColor.darkGray.cgColor
+    }
+    
     func instantiateView(view: UIViewController, string: String) {
         let array = Json.sortedTransport(route: string)
         
