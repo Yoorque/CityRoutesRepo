@@ -97,7 +97,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         detailMarker.accessibilityLabel = "\(i)"
         i += 1
         detailMarker.icon = UIImage(named: "redCircle")
-        detailMarker.appearAnimation = kGMSMarkerAnimationPop
+        detailMarker.appearAnimation = GMSMarkerAnimation.pop
         detailMarker.map = mapView
         detailMarker.title = feature.property.name
         

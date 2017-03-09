@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,20 +22,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="belgrade" translatesAutoresizingMaskIntoConstraints="NO" id="fAo-Fs-vew">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="belgrade" translatesAutoresizingMaskIntoConstraints="NO" id="fAo-Fs-vew">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.069518603384494781" green="0.22276926040649414" blue="0.61990004777908325" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Belgrade City Routes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gy-9k-EMh">
-                                <rect key="frame" x="52" y="28" width="270" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Belgrade City Routes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gy-9k-EMh">
+                                <rect key="frame" x="52" y="28" width="270" height="27"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0gy-9k-EMh" firstAttribute="centerX" secondItem="fAo-Fs-vew" secondAttribute="centerX" id="0O7-EQ-vWm"/>
+                            <constraint firstItem="fAo-Fs-vew" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="3Nc-WI-eiH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0gy-9k-EMh" secondAttribute="trailing" constant="37" id="CMg-jn-0V2"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="fAo-Fs-vew" secondAttribute="bottom" id="Jgj-7p-973"/>
+                            <constraint firstItem="0gy-9k-EMh" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="8" id="Sco-8q-MOL"/>
+                            <constraint firstAttribute="trailing" secondItem="fAo-Fs-vew" secondAttribute="trailing" id="dDb-Y1-KAK"/>
+                            <constraint firstItem="fAo-Fs-vew" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="piP-ju-fWW"/>
+                            <constraint firstItem="0gy-9k-EMh" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="36" id="wwA-KK-u2H"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
