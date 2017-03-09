@@ -10,10 +10,10 @@ import Foundation
 
 struct Json {
     
-    var property: Property?
-    var geom: Geometry?
-    var relationArray = [Relations]()
-    var coordArray = [Coordinates]()
+    private var property: Property?
+    private var geom: Geometry?
+    private var relationArray = [Relations]()
+    private var coordArray = [Coordinates]()
     
     static var selectedTransportArray = [Relations]()
     static var routesArray = [Routes]()

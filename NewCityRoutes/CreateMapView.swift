@@ -122,6 +122,16 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func markStation() {
         let locations = nearestLocation.calculateNearestStation(from: currentLocation)
         i = 0
+        linije = ""
+        selectedFeature = nearestLocation.featuresForNearestStation
+      
+        for feature in selectedFeature {
+            for relation in feature.property.relations {
+                selectedRelation.append(relation)
+                linije = linije + " " + relation.reltags.ref
+            }
+ //           detailMarker.title = feature.property.name
+        }
         for location in locations {
             let position = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             detailMarker = GMSMarker(position: position)
@@ -131,6 +141,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             detailMarker.appearAnimation = kGMSMarkerAnimationPop
             detailMarker.map = mapView
         }
+        
+        detailMarker.snippet = linije
     }
     
     

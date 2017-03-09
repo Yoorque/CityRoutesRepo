@@ -12,9 +12,11 @@ import CoreLocation
 struct CalculateNearestStation {
     
     private var radius = 300.0
+    var featuresForNearestStation = [Feature]()
     
     mutating func calculateNearestStation(from userLocation: CLLocationCoordinate2D?) -> [CLLocation] {
         var locations = [CLLocation]()
+        featuresForNearestStation.removeAll()
         
         if let latitude = userLocation?.latitude, let longitude = userLocation?.longitude {
             let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -27,11 +29,13 @@ struct CalculateNearestStation {
                         let distance: CLLocationDistance = coords.distance(from: location)
                         if distance <= radius {
                             locations.append(coords)
+                            featuresForNearestStation.append(feature)
                         }
                     }
                 }
             }
         }
+        print("Feature for nearest station: \(featuresForNearestStation.count)")
         return locations
     }
 }
