@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11108FC71E71CF90008BE488 /* CustomDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11108FC61E71CF90008BE488 /* CustomDetailCell.swift */; };
 		1138FE581E62026A00D0C9C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE571E62026A00D0C9C9 /* AppDelegate.swift */; };
 		1138FE5A1E62026A00D0C9C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE591E62026A00D0C9C9 /* ViewController.swift */; };
 		1138FE5D1E62026A00D0C9C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1138FE5B1E62026A00D0C9C9 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11108FC61E71CF90008BE488 /* CustomDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDetailCell.swift; sourceTree = "<group>"; };
 		1138FE541E62026A00D0C9C9 /* NewCityRoutes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewCityRoutes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1138FE571E62026A00D0C9C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1138FE591E62026A00D0C9C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				1138FE5B1E62026A00D0C9C9 /* Main.storyboard */,
+				11108FC61E71CF90008BE488 /* CustomDetailCell.swift */,
 				1138FE591E62026A00D0C9C9 /* ViewController.swift */,
 				EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */,
 				1138FE731E62DAA900D0C9C9 /* FirstTableViewViewController.swift */,
@@ -258,6 +261,7 @@
 				1138FE811E637D3E00D0C9C9 /* CustomInfoWindow.swift in Sources */,
 				1138FE6A1E62028C00D0C9C9 /* CreateMapView.swift in Sources */,
 				1138FE741E62DAA900D0C9C9 /* FirstTableViewViewController.swift in Sources */,
+				11108FC71E71CF90008BE488 /* CustomDetailCell.swift in Sources */,
 				1138FE761E6301ED00D0C9C9 /* DataModel.swift in Sources */,
 				EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */,
 				1138FE7C1E6324A300D0C9C9 /* DetailViewController.swift in Sources */,
