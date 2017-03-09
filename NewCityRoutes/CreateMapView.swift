@@ -123,6 +123,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         let locations = nearestLocation.calculateNearestStation(from: currentLocation)
         i = 0
         linije = ""
+        selectedRelation.removeAll()
+        selectedFeature.removeAll()
+        
         selectedFeature = nearestLocation.featuresForNearestStation
       
         for feature in selectedFeature {
