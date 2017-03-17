@@ -17,7 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE")
+        
         return true
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        if shortcutItem.type == "searches" {
+        print("Shortcut searches tapped")
+        } else {
+            print("Shortcut share tapped")
+        }
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

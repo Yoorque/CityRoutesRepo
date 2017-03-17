@@ -1,5 +1,5 @@
 //
-//  FirstTableViewViewController.swift
+//  FirstTableViewController.swift
 //  NewCityRoutes
 //
 //  Created by Dusan Juranovic on 2/26/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstTableViewViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBAction func backButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -29,9 +29,12 @@ class FirstTableViewViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = selectedTransport[indexPath.row].ref
-        cell.imageView?.image = UIImage(named: selectedTransport[indexPath.row].route)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FirstTableViewCell
+        
+        cell.cellImageView.image = UIImage(named: selectedTransport[indexPath.row].route)
+        cell.refNumber.text = selectedTransport[indexPath.row].ref
+        cell.titleLabel.text = selectedTransport[indexPath.row].routes[0].reltags.from + "-" + selectedTransport[indexPath.row].routes[0].reltags.to
+        
         return cell
     }
     

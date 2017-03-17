@@ -10,14 +10,18 @@ import UIKit
 import GoogleMaps
 
 class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
-    
+    enum MapViewSource: Int {
+        case Main = 1
+        case Detail = 2
+    }
     var mapView: GMSMapView!
     var detailMarker: GMSMarker!
     var linije = ""
-    var infoWindow = CustomInfoWindow()
+    
     var selectedFeature = [Feature]()
     var selectedRelation = [Relations]()
     var i = 0
+    
     
     let locationManager = CLLocationManager()
     var nearestLocation = CalculateNearestStation()
@@ -110,11 +114,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         for rela in feature.property.relations {
             if rela.reltags.ref != relation.reltags.ref {
+
                 linije = linije + " " + rela.reltags.ref
+                
             }
         }
         
         detailMarker.snippet = linije
+        
     }
     
     // MARK: Calculate nearest station from user location
@@ -143,14 +150,27 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             detailMarker.icon = UIImage(named: "redCircle")
             detailMarker.appearAnimation = GMSMarkerAnimation.pop
             detailMarker.map = mapView
+            
+            detailMarker.snippet = linije
         }
-        
-        detailMarker.snippet = linije
     }
     
+    func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
+        let infoWindow = Bundle.main.loadNibNamed("MainInfoWindow", owner: self, options: nil)?.first as! MainInfoWindow
+        
+        //let index = Int(marker.accessibilityLabel!)!
+        
+        infoWindow.layer.borderWidth = 2
+        infoWindow.layer.cornerRadius = 13
+        infoWindow.layer.borderColor = UIColor.red.cgColor
+        infoWindow.otherLinesLabel.text = linije
+        
+        return infoWindow
+    }
     
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        infoWindow = Bundle.main.loadNibNamed("CustomInfoWindow", owner: self, options: nil)?.first as! CustomInfoWindow
+    func detailScreenMarkerInfoWindow(marker: GMSMarker) -> UIView {
+        let infoWindow = Bundle.main.loadNibNamed("DetailInfoWindow", owner: self, options: nil)?.first as! DetailInfoWindow
+        
         let index = Int(marker.accessibilityLabel!)!
         
         infoWindow.layer.borderWidth = 2
@@ -179,12 +199,27 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             infoWindow.wheelchairImage.image = UIImage(named: "no")
         }
         
-        infoWindow.stationName.text = marker.title
+        infoWindow.stationName.text = selectedFeature[index].property.name
         infoWindow.otherLines.text = marker.snippet
         infoWindow.selectedLine.text = selectedRelation[index].reltags.ref
         infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
         
         return infoWindow
+    }
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        
+        switch mapView.superview!.tag {
+        case MapViewSource.Main.rawValue :
+            let mainInfoWindow = mainScreenMarkerInfoWindow(marker: marker)
+            return mainInfoWindow
+        case MapViewSource.Detail.rawValue:
+            let detailInfoWindow = detailScreenMarkerInfoWindow(marker: marker)
+            return detailInfoWindow
+        default:
+            print("none")
+            return UIView()
+        }
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {

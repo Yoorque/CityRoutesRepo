@@ -1,6 +1,6 @@
 //
 //  CustomInfoWindow.swift
-//  cityRoutes
+//  NewCityRoutes
 //
 //  Created by Dusan Juranovic on 2/16/17.
 //  Copyright © 2017 Marko Tribl. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomInfoWindow: UIView {
+class DetailInfoWindow: UIView {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var selectedLine: UILabel!
     @IBOutlet var otherLines: UILabel!

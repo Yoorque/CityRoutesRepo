@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         mapCreation.createMap(view: myMapView, location: mapCreation.currentLocation)
         mapCreation.markStation()
     }
-
+    
     func tap(sender: UITapGestureRecognizer) {
         if let view = sender.view {
             //Izvlaci identifier string iz odabranog dugmeta na pocetnom view i prosledjuje u funkciju
