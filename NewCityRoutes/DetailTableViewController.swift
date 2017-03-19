@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var lineRoutes = [Relations]()
     
@@ -36,7 +36,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomDetailCell
-        cell.direction.text = "\(lineRoutes[indexPath.row].reltags.from) - \(lineRoutes[indexPath.row].reltags.to)"
+        if language == "latin" {
+        cell.direction.text = "\(lineRoutes[indexPath.row].reltags.fromSrLatn) - \(lineRoutes[indexPath.row].reltags.toSrLatn)"
+        } else {
+            cell.direction.text = "\(lineRoutes[indexPath.row].reltags.from) - \(lineRoutes[indexPath.row].reltags.to)"
+        }
         cell.lineNumber.text = lineRoutes[indexPath.row].reltags.ref
         cell.customCellImageView.image = UIImage(named: lineRoutes[indexPath.row].reltags.route)
         
@@ -47,6 +51,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         detailMapView.drawLineMarkers(route: lineRoutes[indexPath.row])
         detailMapView.drawLinePolylines(route: lineRoutes[indexPath.row])
         let selectedRow = tableView.cellForRow(at: indexPath) as! CustomDetailCell
-       selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0.10, green: 0.80, blue: 0.10, alpha: 1)
+       selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0.10, blue: 0.80, alpha: 1)
     }
 }

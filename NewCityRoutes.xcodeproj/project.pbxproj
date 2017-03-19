@@ -19,7 +19,7 @@
 		1138FE761E6301ED00D0C9C9 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE751E6301ED00D0C9C9 /* DataModel.swift */; };
 		1138FE781E63028500D0C9C9 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE771E63028500D0C9C9 /* Json.swift */; };
 		1138FE7A1E63032000D0C9C9 /* RoadMap.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1138FE791E63032000D0C9C9 /* RoadMap.txt */; };
-		1138FE7C1E6324A300D0C9C9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE7B1E6324A300D0C9C9 /* DetailViewController.swift */; };
+		1138FE7C1E6324A300D0C9C9 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE7B1E6324A300D0C9C9 /* DetailTableViewController.swift */; };
 		1138FE7F1E637D3100D0C9C9 /* DetailInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1138FE7E1E637D3100D0C9C9 /* DetailInfoWindow.xib */; };
 		1138FE811E637D3E00D0C9C9 /* DetailInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE801E637D3E00D0C9C9 /* DetailInfoWindow.swift */; };
 		11A6560A1E7C99A300185960 /* FirstTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A656091E7C99A300185960 /* FirstTableViewCell.swift */; };
@@ -44,7 +44,7 @@
 		1138FE751E6301ED00D0C9C9 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		1138FE771E63028500D0C9C9 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
 		1138FE791E63032000D0C9C9 /* RoadMap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RoadMap.txt; sourceTree = "<group>"; };
-		1138FE7B1E6324A300D0C9C9 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		1138FE7B1E6324A300D0C9C9 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		1138FE7E1E637D3100D0C9C9 /* DetailInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailInfoWindow.xib; sourceTree = "<group>"; };
 		1138FE801E637D3E00D0C9C9 /* DetailInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailInfoWindow.swift; sourceTree = "<group>"; };
 		11A656091E7C99A300185960 /* FirstTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTableViewCell.swift; sourceTree = "<group>"; };
@@ -95,7 +95,7 @@
 				1138FE591E62026A00D0C9C9 /* ViewController.swift */,
 				EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */,
 				1138FE731E62DAA900D0C9C9 /* FirstTableViewController.swift */,
-				1138FE7B1E6324A300D0C9C9 /* DetailViewController.swift */,
+				1138FE7B1E6324A300D0C9C9 /* DetailTableViewController.swift */,
 				1138FE691E62028C00D0C9C9 /* CreateMapView.swift */,
 				1138FE6B1E620C2100D0C9C9 /* ViewForTransportButtons.swift */,
 				1138FE751E6301ED00D0C9C9 /* DataModel.swift */,
@@ -277,7 +277,7 @@
 				11108FC71E71CF90008BE488 /* CustomDetailCell.swift in Sources */,
 				1138FE761E6301ED00D0C9C9 /* DataModel.swift in Sources */,
 				EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */,
-				1138FE7C1E6324A300D0C9C9 /* DetailViewController.swift in Sources */,
+				1138FE7C1E6324A300D0C9C9 /* DetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

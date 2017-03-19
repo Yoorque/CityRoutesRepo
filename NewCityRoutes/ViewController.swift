@@ -10,6 +10,19 @@ import UIKit
 import GoogleMaps
 
 class ViewController: UIViewController {
+    @IBAction func latin(_ sender: UIButton) {
+        language = "latin"
+        let alert = UIAlertController(title: "Language", message: "Language is set to Serbian Latin", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+        
+    }
+    @IBAction func cyrillic(_ sender: UIButton) {
+        language = "cyrillic"
+        let alert = UIAlertController(title: "Language", message: "Language is set to Serbian Cyrillic", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 
     @IBOutlet var busButton: UIView!
     @IBOutlet var trolleybusButton: UIView!
@@ -27,11 +40,14 @@ class ViewController: UIViewController {
         json.readJson()
         
         for view in viewForTransportButtons.subviews {
+            if view is UIButton {
+                viewForTransportButtons.setShadow(view: view)
+            } else {
             viewForTransportButtons.setShadow(view: view)
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
             view.addGestureRecognizer(tapGesture)
         }
-        
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

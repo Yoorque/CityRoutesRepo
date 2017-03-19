@@ -51,15 +51,17 @@ struct Json {
                             let reltags = relation["reltags"] as? [String: Any] ?? [:]
                             
                             let from = reltags["from"] as? String ?? ""
+                            let fromSrLatn = reltags["from:sr-Latn"] as? String ?? ""
                             let relName = reltags["name"] as? String ?? ""
                             let ref = reltags["ref"] as? String ?? ""
                             let route = reltags["route"] as? String ?? ""
                             let to = reltags["to"] as? String ?? ""
+                            let toSrLatn = reltags["to:sr-Latn"] as? String ?? ""
                             let type = reltags["type"] as? String ?? ""
                             let lineRef = reltags["lineRef"] as? String ?? ""
                             if lineRef != "" {
                                 let lineNumberRef = Int(lineRef)
-                                let relData = Relations(role: role, rel: rel, reltags: Reltags(from: from, relName: relName, ref: ref, route: route, to: to, type: type, lineRef: lineNumberRef!))
+                                let relData = Relations(role: role, rel: rel, reltags: Reltags(from: from, fromSrLatn: fromSrLatn, relName: relName, ref: ref, route: route, to: to, toSrLatn: toSrLatn ,type: type, lineRef: lineNumberRef!))
                                 relationArray.append(relData)
                             }
                             let geometry = feature["geometry"] as? [String:Any] ?? [:]

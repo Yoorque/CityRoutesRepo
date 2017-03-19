@@ -23,7 +23,7 @@ import Foundation
 
 
 
-
+var language = "latin"
 var featureArray = [Feature]()
 
 
@@ -67,10 +67,12 @@ struct Relations: Hashable {
 //3
 struct Reltags {
     var from: String
+    var fromSrLatn: String
     var relName: String
     var ref: String
     var route: String
     var to: String
+    var toSrLatn: String
     var type: String
     var lineRef: Int
 }

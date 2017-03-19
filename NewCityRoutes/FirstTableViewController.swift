@@ -33,14 +33,17 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         cell.cellImageView.image = UIImage(named: selectedTransport[indexPath.row].route)
         cell.refNumber.text = selectedTransport[indexPath.row].ref
-        cell.titleLabel.text = selectedTransport[indexPath.row].routes[0].reltags.from + "-" + selectedTransport[indexPath.row].routes[0].reltags.to
-        
+        if language == "latin" {
+        cell.titleLabel.text = selectedTransport[indexPath.row].routes[0].reltags.fromSrLatn + "-" + selectedTransport[indexPath.row].routes[0].reltags.toSrLatn
+        } else {
+            cell.titleLabel.text = selectedTransport[indexPath.row].routes[0].reltags.from + "-" + selectedTransport[indexPath.row].routes[0].reltags.to
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        tableView.deselectRow(at: indexPath, animated: true)
-        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
+        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailTableViewController
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = self.selectedTransport[indexPath.row].routes
         

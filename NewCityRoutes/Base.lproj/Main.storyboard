@@ -103,6 +103,26 @@
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a50-G5-qDd">
+                                        <rect key="frame" x="110" y="86" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Cyrillic">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cyrillic:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w9X-in-NzW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAB-2O-rFG">
+                                        <rect key="frame" x="214" y="86" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Latin">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="latin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rDc-A7-aKf"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -208,10 +228,10 @@
             </objects>
             <point key="canvasLocation" x="664.79999999999995" y="124.58770614692655"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Detail Table View Controller-->
         <scene sceneID="vOR-O2-Run">
             <objects>
-                <viewController storyboardIdentifier="DetailVC" id="sOS-oI-J1R" customClass="DetailViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailVC" id="sOS-oI-J1R" customClass="DetailTableViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R1j-EJ-AJf"/>
                         <viewControllerLayoutGuide type="bottom" id="d0g-ga-VTE"/>

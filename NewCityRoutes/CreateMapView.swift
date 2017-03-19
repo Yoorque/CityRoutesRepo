@@ -110,14 +110,13 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         detailMarker.icon = UIImage(named: "redCircle")
         detailMarker.appearAnimation = GMSMarkerAnimation.pop
         detailMarker.map = mapView
-        detailMarker.title = feature.property.name
-        
+                
         for rela in feature.property.relations {
-            if rela.reltags.ref != relation.reltags.ref {
+             if rela.reltags.ref != relation.reltags.ref {
 
                 linije = linije + " " + rela.reltags.ref
                 
-            }
+              }
         }
         
         detailMarker.snippet = linije
@@ -164,6 +163,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.layer.cornerRadius = 13
         infoWindow.layer.borderColor = UIColor.red.cgColor
         infoWindow.otherLinesLabel.text = linije
+        //print(linije)
+        //infoWindow.otherLinesLabel.sizeToFit()
+        //infoWindow.sizeThatFits(infoWindow.otherLinesLabel.frame.size)
+        //infoWindow.frame.size.width = infoWindow.otherLinesLabel.frame.size.width
         
         return infoWindow
     }
@@ -198,8 +201,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         } else {
             infoWindow.wheelchairImage.image = UIImage(named: "no")
         }
-        
-        infoWindow.stationName.text = selectedFeature[index].property.name
+        if language == "latin" {
+        infoWindow.stationName.text = selectedFeature[index].property.nameSrLatn
+        } else {
+            infoWindow.stationName.text = selectedFeature[index].property.name
+        }
         infoWindow.otherLines.text = marker.snippet
         infoWindow.selectedLine.text = selectedRelation[index].reltags.ref
         infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
