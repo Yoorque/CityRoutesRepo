@@ -8,22 +8,10 @@
 
 import UIKit
 import GoogleMaps
+var justOnce = true
 
 class ViewController: UIViewController {
-    @IBAction func latin(_ sender: UIButton) {
-        language = "latin"
-        let alert = UIAlertController(title: "Language", message: "Language is set to Serbian Latin", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-        
-    }
-    @IBAction func cyrillic(_ sender: UIButton) {
-        language = "cyrillic"
-        let alert = UIAlertController(title: "Language", message: "Language is set to Serbian Cyrillic", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-
+   
     @IBOutlet var busButton: UIView!
     @IBOutlet var trolleybusButton: UIView!
     @IBOutlet var tramButton: UIView!
@@ -36,6 +24,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerSettingsBundle()
+        
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(defaultsChanged), name: UserDefaults.didChangeNotification , object: nil)
+        
         mapCreation.createMap(view: myMapView, location: mapCreation.currentLocation)
         json.readJson()
         
@@ -49,11 +43,32 @@ class ViewController: UIViewController {
         }
         }
     }
-    
+    func defaultsChanged() {
+        updateDisplayFromDefaults()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mapCreation.createMap(view: myMapView, location: mapCreation.currentLocation)
         mapCreation.markStation()
+        updateDisplayFromDefaults()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        let defaults = UserDefaults.standard
+        
+        if (defaults.value(forKey: "launchedBefore")) == nil{
+            let alert = UIAlertController(title: "Choose your preferred language", message: "You can modify your selection later, in Settings", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cyrillic", style: .default, handler: {_ in
+                defaults.set("cyrillic", forKey: "language")
+            }))
+            alert.addAction(UIAlertAction(title: "Latin", style: .default, handler: {_ in
+                defaults.set("latin", forKey: "language")
+            }))
+            
+            present(alert, animated: true, completion: nil)
+            defaults.set(true, forKey: "launchedBefore")
+        }
     }
     
     func tap(sender: UITapGestureRecognizer) {
@@ -75,5 +90,15 @@ class ViewController: UIViewController {
         }
     }
     
+    func registerSettingsBundle() {
+        let appDefaults = [String: Any]()
+        UserDefaults.standard.register(defaults: appDefaults)
+    }
+    func updateDisplayFromDefaults() {
+        let defaults = UserDefaults.standard
+        if let languageNotNil = defaults.value(forKey: "language") as? String {
+            language = languageNotNil
+        }
+    }
 }
 

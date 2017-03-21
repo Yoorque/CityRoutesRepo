@@ -25,6 +25,7 @@
 		11A6560A1E7C99A300185960 /* FirstTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A656091E7C99A300185960 /* FirstTableViewCell.swift */; };
 		11B884211E7C8045006BB69D /* MainInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B884201E7C8045006BB69D /* MainInfoWindow.swift */; };
 		11B884231E7C80C1006BB69D /* MainInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B884221E7C80C1006BB69D /* MainInfoWindow.xib */; };
+		11F321011E7FFF9000202FF6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F321001E7FFF9000202FF6 /* Settings.bundle */; };
 		A2F7AEB315006E32C3B88257 /* Pods_NewCityRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */; };
 		EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		11A656091E7C99A300185960 /* FirstTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTableViewCell.swift; sourceTree = "<group>"; };
 		11B884201E7C8045006BB69D /* MainInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainInfoWindow.swift; sourceTree = "<group>"; };
 		11B884221E7C80C1006BB69D /* MainInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainInfoWindow.xib; sourceTree = "<group>"; };
+		11F321001E7FFF9000202FF6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6183BCE7981F7301BFE102AE /* Pods-NewCityRoutes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.debug.xcconfig"; sourceTree = "<group>"; };
 		790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewCityRoutes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1CA1C9F7552032758CBFCC8 /* Pods-NewCityRoutes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				11108FC61E71CF90008BE488 /* CustomDetailCell.swift */,
 				11A656091E7C99A300185960 /* FirstTableViewCell.swift */,
 				1138FE591E62026A00D0C9C9 /* ViewController.swift */,
+				11F321001E7FFF9000202FF6 /* Settings.bundle */,
 				EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */,
 				1138FE731E62DAA900D0C9C9 /* FirstTableViewController.swift */,
 				1138FE7B1E6324A300D0C9C9 /* DetailTableViewController.swift */,
@@ -207,6 +210,7 @@
 				1138FE5F1E62026A00D0C9C9 /* Assets.xcassets in Resources */,
 				11B884231E7C80C1006BB69D /* MainInfoWindow.xib in Resources */,
 				1138FE5D1E62026A00D0C9C9 /* Main.storyboard in Resources */,
+				11F321011E7FFF9000202FF6 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
