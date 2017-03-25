@@ -14,7 +14,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet var detailMapView: CreateMapView! {
         didSet {
-            detailMapView.createMap(view: detailMapView, location: detailMapView.currentLocation)
+            detailMapView.createMap(view: detailMapView)
         }
     }
     @IBOutlet var tableView: UITableView!

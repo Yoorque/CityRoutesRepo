@@ -21,7 +21,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var selectedFeature = [Feature]()
     var selectedRelation = [Relations]()
     var i = 0
-    
+    var zoomLevelLabel = UILabel()
     
     let locationManager = CLLocationManager()
     var nearestLocation = CalculateNearestStation()
@@ -30,10 +30,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         return locationManager.location?.coordinate
     }
     
-    func createMap(view: UIView, location: CLLocationCoordinate2D?) {
+    func createMap(view: UIView) {
 
-        let location = location ?? CLLocationCoordinate2DMake(44.787197, 20.457273)
-        let camera = GMSCameraPosition.camera(withTarget: location, zoom: 13)
+        let location = locationManager.location?.coordinate
+        let camera = GMSCameraPosition.camera(withTarget: location!, zoom: 13)
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -44,7 +44,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
         view.addSubview(mapView)
-        
+        zoomLevelLabel.frame = CGRect(x: mapView.frame.size.width / 2 - 50, y: mapView.frame.maxY - 30, width: 100, height: 30)
+        zoomLevelLabel.textAlignment = .center
+        zoomLevelLabel.textColor = .red
+        zoomLevelLabel.adjustsFontSizeToFitWidth = true
+        view.addSubview(zoomLevelLabel)
     }
     
     //Izvlaci i filtrira odabranu vrstu prevoza i poziva se iz DetailViewController-a
@@ -126,49 +130,60 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     // MARK: Calculate nearest station from user location
     
     func markStation() {
-        let locations = nearestLocation.calculateNearestStation(from: currentLocation)
-        i = 0
+        mapView.clear()
+        nearestLocation.calculateNearestStation(from: mapView.camera.target)
+        
         linije = ""
         selectedRelation.removeAll()
         selectedFeature.removeAll()
         
         selectedFeature = nearestLocation.featuresForNearestStation
-      
+        
         for feature in selectedFeature {
             for relation in feature.property.relations {
                 selectedRelation.append(relation)
                 linije = linije + " " + relation.reltags.ref
             }
- //           detailMarker.title = feature.property.name
-        }
-        for location in locations {
-            let position = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let lat = feature.geometry.coordinates[0].lat
+            let lon = feature.geometry.coordinates[0].lon
+            let position = CLLocationCoordinate2DMake(lat, lon)
+            
             detailMarker = GMSMarker(position: position)
-            detailMarker.accessibilityLabel = "\(i)"
-            i += 1
             detailMarker.icon = UIImage(named: "redCircle")
             detailMarker.appearAnimation = GMSMarkerAnimation.pop
             detailMarker.map = mapView
             
             detailMarker.snippet = linije
         }
+        linije = ""
+    }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        if mapView.superview!.tag == MapViewSource.Main.rawValue {
+            if position.zoom >= 15 {
+                zoomLevelLabel.text = ""
+                markStation()
+            } else {
+                mapView.clear()
+                zoomLevelLabel.text = "Zoom-in to see stations"
+            }
+        }
     }
     
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
         let infoWindow = Bundle.main.loadNibNamed("MainInfoWindow", owner: self, options: nil)?.first as! MainInfoWindow
         
-        //let index = Int(marker.accessibilityLabel!)!
-        
         infoWindow.layer.borderWidth = 2
         infoWindow.layer.cornerRadius = 13
         infoWindow.layer.borderColor = UIColor.red.cgColor
-        infoWindow.otherLinesLabel.text = linije
-        //print(linije)
-        //infoWindow.otherLinesLabel.sizeToFit()
-        //infoWindow.sizeThatFits(infoWindow.otherLinesLabel.frame.size)
-        //infoWindow.frame.size.width = infoWindow.otherLinesLabel.frame.size.width
+        infoWindow.otherLinesLabel.text = marker.snippet
         
         return infoWindow
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        mapView.selectedMarker = marker
+        return true
     }
     
     func detailScreenMarkerInfoWindow(marker: GMSMarker) -> UIView {

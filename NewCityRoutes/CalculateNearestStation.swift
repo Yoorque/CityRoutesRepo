@@ -14,7 +14,7 @@ struct CalculateNearestStation {
     private var radius = 300.0
     var featuresForNearestStation = [Feature]()
     
-    mutating func calculateNearestStation(from userLocation: CLLocationCoordinate2D?) -> [CLLocation] {
+    mutating func calculateNearestStation(from userLocation: CLLocationCoordinate2D?) {
         var locations = [CLLocation]()
         featuresForNearestStation.removeAll()
         
@@ -36,7 +36,7 @@ struct CalculateNearestStation {
             }
         }
         // print("Feature for nearest station: \(featuresForNearestStation.count)")
-        return locations
+        
     }
 }
 

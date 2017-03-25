@@ -12,6 +12,7 @@ var justOnce = true
 
 class ViewController: UIViewController {
    
+    @IBOutlet var crosshair: UIImageView!
     @IBOutlet var busButton: UIView!
     @IBOutlet var trolleybusButton: UIView!
     @IBOutlet var tramButton: UIView!
@@ -27,10 +28,9 @@ class ViewController: UIViewController {
         registerSettingsBundle()
         
         
-        
         NotificationCenter.default.addObserver(self, selector: #selector(defaultsChanged), name: UserDefaults.didChangeNotification , object: nil)
         
-        mapCreation.createMap(view: myMapView, location: mapCreation.currentLocation)
+        mapCreation.createMap(view: myMapView)
         json.readJson()
         
         for view in viewForTransportButtons.subviews {
@@ -40,15 +40,15 @@ class ViewController: UIViewController {
             viewForTransportButtons.setShadow(view: view)
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
             view.addGestureRecognizer(tapGesture)
+            }
         }
-        }
+        myMapView.bringSubview(toFront: crosshair)
     }
     func defaultsChanged() {
         updateDisplayFromDefaults()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mapCreation.createMap(view: myMapView, location: mapCreation.currentLocation)
         mapCreation.markStation()
         updateDisplayFromDefaults()
     }

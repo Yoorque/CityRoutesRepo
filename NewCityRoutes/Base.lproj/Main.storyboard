@@ -22,22 +22,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ePc-9L-Efw" customClass="CreateMapView" customModule="NewCityRoutes" customModuleProvider="target">
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePc-9L-Efw" customClass="CreateMapView" customModule="NewCityRoutes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="247"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.89030185390000005" green="1" blue="0.96158695400000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5UA-5H-HzT" customClass="ViewForTransportButtons" customModule="NewCityRoutes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="246" width="375" height="421"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZhK-39-jLL" customClass="ViewForTransportButtons" customModule="NewCityRoutes" customModuleProvider="target">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crosshair" translatesAutoresizingMaskIntoConstraints="NO" id="ybR-0F-uwC">
+                                        <rect key="frame" x="172" y="108" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="GE6-X5-aXK"/>
+                                            <constraint firstAttribute="height" constant="30" id="Ppi-5L-URe"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.89030185390000005" green="1" blue="0.96158695400000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ybR-0F-uwC" firstAttribute="centerX" secondItem="ePc-9L-Efw" secondAttribute="centerX" id="OyF-kJ-lhS"/>
+                                    <constraint firstItem="ybR-0F-uwC" firstAttribute="centerY" secondItem="ePc-9L-Efw" secondAttribute="centerY" id="Wtv-sk-rRZ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5UA-5H-HzT" customClass="ViewForTransportButtons" customModule="NewCityRoutes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="246" width="375" height="421"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZhK-39-jLL" customClass="ViewForTransportButtons" customModule="NewCityRoutes" customModuleProvider="target">
                                         <rect key="frame" x="62" y="8" width="70" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs6-Kn-MKX">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs6-Kn-MKX">
                                                 <rect key="frame" x="10" y="52" width="50" height="10"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <bool key="isElement" value="NO"/>
                                                 </accessibility>
@@ -45,23 +54,30 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bus" translatesAutoresizingMaskIntoConstraints="NO" id="oG5-gP-A5O">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bus" translatesAutoresizingMaskIntoConstraints="NO" id="oG5-gP-A5O">
                                                 <rect key="frame" x="20" y="20" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="bus">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
+                                        <constraints>
+                                            <constraint firstItem="oG5-gP-A5O" firstAttribute="centerY" secondItem="ZhK-39-jLL" secondAttribute="centerY" id="9f0-ZM-tx1"/>
+                                            <constraint firstItem="Xs6-Kn-MKX" firstAttribute="top" secondItem="oG5-gP-A5O" secondAttribute="bottom" constant="2" id="Gtd-6C-1hZ"/>
+                                            <constraint firstItem="oG5-gP-A5O" firstAttribute="top" secondItem="ZhK-39-jLL" secondAttribute="top" constant="20" id="NIT-0T-6sE"/>
+                                            <constraint firstItem="oG5-gP-A5O" firstAttribute="leading" secondItem="ZhK-39-jLL" secondAttribute="leading" constant="20" id="f8F-yT-ePq"/>
+                                            <constraint firstItem="oG5-gP-A5O" firstAttribute="centerX" secondItem="Xs6-Kn-MKX" secondAttribute="centerX" id="gPj-mk-oxg"/>
+                                            <constraint firstItem="Xs6-Kn-MKX" firstAttribute="leading" secondItem="ZhK-39-jLL" secondAttribute="leading" constant="10" id="gjN-u5-W3A"/>
+                                            <constraint firstItem="oG5-gP-A5O" firstAttribute="centerX" secondItem="ZhK-39-jLL" secondAttribute="centerX" id="jWE-1C-XmF"/>
+                                            <constraint firstItem="Xs6-Kn-MKX" firstAttribute="bottom" secondItem="ZhK-39-jLL" secondAttribute="bottomMargin" id="vrK-Bm-Jsl"/>
+                                        </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="diI-OL-i6s" customClass="ViewForTransportButtons" customModule="NewCityRoutes" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diI-OL-i6s" customClass="ViewForTransportButtons" customModule="NewCityRoutes" customModuleProvider="target">
                                         <rect key="frame" x="152" y="8" width="70" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tram" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xv-gP-Aof">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tram" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xv-gP-Aof">
                                                 <rect key="frame" x="10" y="52" width="50" height="10"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <bool key="isElement" value="NO"/>
                                                 </accessibility>
@@ -69,23 +85,30 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tram" translatesAutoresizingMaskIntoConstraints="NO" id="Zly-3a-oT4">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tram" translatesAutoresizingMaskIntoConstraints="NO" id="Zly-3a-oT4">
                                                 <rect key="frame" x="20" y="20" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="tram">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
+                                        <constraints>
+                                            <constraint firstItem="Zly-3a-oT4" firstAttribute="centerY" secondItem="diI-OL-i6s" secondAttribute="centerY" id="2HV-m7-MAI"/>
+                                            <constraint firstItem="1xv-gP-Aof" firstAttribute="top" secondItem="Zly-3a-oT4" secondAttribute="bottom" constant="2" id="At7-nL-doN"/>
+                                            <constraint firstItem="Zly-3a-oT4" firstAttribute="top" secondItem="diI-OL-i6s" secondAttribute="top" constant="20" id="LdH-E8-yHP"/>
+                                            <constraint firstItem="1xv-gP-Aof" firstAttribute="leading" secondItem="diI-OL-i6s" secondAttribute="leading" constant="10" id="LiM-y4-mov"/>
+                                            <constraint firstItem="Zly-3a-oT4" firstAttribute="centerX" secondItem="1xv-gP-Aof" secondAttribute="centerX" id="O8B-GB-aZq"/>
+                                            <constraint firstItem="1xv-gP-Aof" firstAttribute="bottom" secondItem="diI-OL-i6s" secondAttribute="bottomMargin" id="eeq-GL-Pk8"/>
+                                            <constraint firstItem="Zly-3a-oT4" firstAttribute="leading" secondItem="diI-OL-i6s" secondAttribute="leading" constant="20" id="kGk-51-JVY"/>
+                                            <constraint firstItem="Zly-3a-oT4" firstAttribute="centerX" secondItem="diI-OL-i6s" secondAttribute="centerX" id="kI4-12-czb"/>
+                                        </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P23-Cf-87F" customClass="ViewForTransportButtons" customModule="NewCityRoutes" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P23-Cf-87F" customClass="ViewForTransportButtons" customModule="NewCityRoutes" customModuleProvider="target">
                                         <rect key="frame" x="242" y="8" width="70" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trolleybus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmY-FM-ZVK">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trolleybus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmY-FM-ZVK">
                                                 <rect key="frame" x="10" y="52" width="50" height="10"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <bool key="isElement" value="NO"/>
                                                 </accessibility>
@@ -93,24 +116,57 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="trolleybus" translatesAutoresizingMaskIntoConstraints="NO" id="RiF-L8-6pc">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trolleybus" translatesAutoresizingMaskIntoConstraints="NO" id="RiF-L8-6pc">
                                                 <rect key="frame" x="20" y="20" width="30" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="trolleybus">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
+                                        <constraints>
+                                            <constraint firstItem="RiF-L8-6pc" firstAttribute="centerY" secondItem="P23-Cf-87F" secondAttribute="centerY" id="FPd-yM-NRe"/>
+                                            <constraint firstItem="RiF-L8-6pc" firstAttribute="centerX" secondItem="RmY-FM-ZVK" secondAttribute="centerX" id="PHT-72-1v7"/>
+                                            <constraint firstItem="RiF-L8-6pc" firstAttribute="leading" secondItem="P23-Cf-87F" secondAttribute="leading" constant="20" id="UVT-45-jqF"/>
+                                            <constraint firstItem="RmY-FM-ZVK" firstAttribute="bottom" secondItem="P23-Cf-87F" secondAttribute="bottomMargin" id="W8L-8q-4Sr"/>
+                                            <constraint firstItem="RmY-FM-ZVK" firstAttribute="top" secondItem="RiF-L8-6pc" secondAttribute="bottom" constant="2" id="Y9A-Dx-XeH"/>
+                                            <constraint firstItem="RiF-L8-6pc" firstAttribute="top" secondItem="P23-Cf-87F" secondAttribute="top" constant="20" id="d6E-0h-2ub"/>
+                                            <constraint firstItem="RiF-L8-6pc" firstAttribute="centerX" secondItem="P23-Cf-87F" secondAttribute="centerX" id="eqw-Vx-NtP"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ZhK-39-jLL" firstAttribute="leading" secondItem="5UA-5H-HzT" secondAttribute="leading" constant="62" id="1BN-QO-R6W"/>
+                                    <constraint firstItem="ZhK-39-jLL" firstAttribute="bottom" secondItem="diI-OL-i6s" secondAttribute="bottom" id="2e7-Ed-CAm"/>
+                                    <constraint firstItem="P23-Cf-87F" firstAttribute="leading" secondItem="diI-OL-i6s" secondAttribute="trailing" constant="20" id="3an-r3-lUd"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZhK-39-jLL" secondAttribute="bottom" constant="343" id="4Jl-kt-Cpb"/>
+                                    <constraint firstItem="diI-OL-i6s" firstAttribute="bottom" secondItem="P23-Cf-87F" secondAttribute="bottom" id="BjO-Dd-ffH"/>
+                                    <constraint firstItem="ZhK-39-jLL" firstAttribute="top" secondItem="diI-OL-i6s" secondAttribute="top" id="DSp-Yc-wfW"/>
+                                    <constraint firstItem="diI-OL-i6s" firstAttribute="centerX" secondItem="5UA-5H-HzT" secondAttribute="centerX" id="Q1T-hS-ntr"/>
+                                    <constraint firstItem="ZhK-39-jLL" firstAttribute="top" secondItem="5UA-5H-HzT" secondAttribute="topMargin" id="Qxo-zq-Mfh"/>
+                                    <constraint firstItem="diI-OL-i6s" firstAttribute="top" secondItem="P23-Cf-87F" secondAttribute="top" id="VPj-a0-KVQ"/>
+                                    <constraint firstItem="diI-OL-i6s" firstAttribute="leading" secondItem="5UA-5H-HzT" secondAttribute="leading" constant="152" id="hY2-yQ-H1c"/>
+                                    <constraint firstItem="diI-OL-i6s" firstAttribute="leading" secondItem="ZhK-39-jLL" secondAttribute="trailing" constant="20" id="nzd-Lb-wud"/>
+                                    <constraint firstAttribute="trailing" secondItem="P23-Cf-87F" secondAttribute="trailing" constant="63" id="xHA-uP-8o2"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ePc-9L-Efw" secondAttribute="trailing" id="6LF-cI-DeL"/>
+                            <constraint firstItem="ePc-9L-Efw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JBm-g1-Yi0"/>
+                            <constraint firstItem="ePc-9L-Efw" firstAttribute="leading" secondItem="5UA-5H-HzT" secondAttribute="leading" id="UXx-z1-AnD"/>
+                            <constraint firstItem="5UA-5H-HzT" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="VjA-cl-NDg"/>
+                            <constraint firstItem="ePc-9L-Efw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="XHa-vM-H44"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ePc-9L-Efw" secondAttribute="bottom" constant="420" id="cRD-yh-FzV"/>
+                            <constraint firstItem="5UA-5H-HzT" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="226" id="cdk-D2-ERr"/>
+                            <constraint firstItem="ePc-9L-Efw" firstAttribute="trailing" secondItem="5UA-5H-HzT" secondAttribute="trailing" id="roE-W8-Mkt"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="busButton" destination="ZhK-39-jLL" id="ddg-3l-vB5"/>
+                        <outlet property="crosshair" destination="ybR-0F-uwC" id="03M-dQ-z7S"/>
                         <outlet property="myMapView" destination="ePc-9L-Efw" id="B8C-LN-eZU"/>
                         <outlet property="tramButton" destination="diI-OL-i6s" id="03E-13-zFS"/>
                         <outlet property="trolleybusButton" destination="P23-Cf-87F" id="WV6-VQ-dFu"/>
@@ -328,6 +384,7 @@
     </scenes>
     <resources>
         <image name="bus" width="25" height="25"/>
+        <image name="crosshair" width="200" height="200"/>
         <image name="tram" width="25" height="25"/>
         <image name="trolleybus" width="25" height="25"/>
     </resources>
