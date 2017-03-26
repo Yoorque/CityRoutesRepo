@@ -22,7 +22,7 @@ struct CalculateNearestStation {
             let location = CLLocation(latitude: latitude, longitude: longitude)
             
             for feature in featureArray {
-                if feature.property.highway == "bus_stop" || feature.property.highway == "tram_stop" {
+                if feature.property.highway == "bus_stop" || feature.property.railway == "tram_stop" {
                     for coord in feature.geometry.coordinates {
                         let coords: CLLocation = CLLocation(latitude: coord.lat, longitude: coord.lon)
                         // print("koordinate: \(coords)")

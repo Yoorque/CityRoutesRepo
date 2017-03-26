@@ -134,16 +134,15 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
         
         linije = ""
-        selectedRelation.removeAll()
         selectedFeature.removeAll()
         
         selectedFeature = nearestLocation.featuresForNearestStation
         
         for feature in selectedFeature {
             for relation in feature.property.relations {
-                selectedRelation.append(relation)
                 linije = linije + " " + relation.reltags.ref
             }
+            
             let lat = feature.geometry.coordinates[0].lat
             let lon = feature.geometry.coordinates[0].lon
             let position = CLLocationCoordinate2DMake(lat, lon)
@@ -153,9 +152,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             detailMarker.appearAnimation = GMSMarkerAnimation.pop
             detailMarker.map = mapView
             
-            detailMarker.snippet = linije
+            detailMarker.title = linije
+            linije = ""
         }
-        linije = ""
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
@@ -176,13 +175,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.layer.borderWidth = 2
         infoWindow.layer.cornerRadius = 13
         infoWindow.layer.borderColor = UIColor.red.cgColor
-        infoWindow.otherLinesLabel.text = marker.snippet
+        infoWindow.otherLinesLabel.text = marker.title
         
         return infoWindow
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.selectedMarker = marker
+        
         return true
     }
     

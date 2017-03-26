@@ -12,13 +12,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="4vc-te-7RV" customClass="MainInfoWindow" customModule="NewCityRoutes" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="216" height="33"/>
+            <rect key="frame" x="0.0" y="0.0" width="165" height="24"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="33" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Jp-CD-oZy">
-                    <rect key="frame" x="5" y="4" width="205" height="24"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="33" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jp-CD-oZy">
+                    <rect key="frame" x="4" y="3" width="157" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="0.1088287268" blue="0.076310160520000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -28,7 +28,7 @@
             <connections>
                 <outlet property="otherLinesLabel" destination="5Jp-CD-oZy" id="X7Y-vI-V6B"/>
             </connections>
-            <point key="canvasLocation" x="-159" y="-99.5"/>
+            <point key="canvasLocation" x="-185.5" y="-104"/>
         </view>
     </objects>
 </document>
