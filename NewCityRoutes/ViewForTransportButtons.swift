@@ -9,27 +9,27 @@
 import UIKit
 
 class ViewForTransportButtons: UIView {
-   
+    
     enum Transport {
         case Bus(String)
         case Tram(String)
         case Trolleybus(String)
     }
-
+    
     var transports = ["bus": Transport.Bus("bus"),
                       "tram": Transport.Tram("tram"),
                       "trolleybus": Transport.Trolleybus("trolleybus")
-                      ]
-        
+    ]
+    
     func selectedTransports(view: UIViewController, sender: String) {
         if let transport = transports[sender] {
-        switch transport {
-        case .Bus(let value):
-            instantiateView(view: view, string: value)
-        case .Tram(let value):
-            instantiateView(view: view, string: value)
-        case .Trolleybus(let value):
-            instantiateView(view: view, string: value)
+            switch transport {
+            case .Bus(let value):
+                instantiateView(view: view, string: value)
+            case .Tram(let value):
+                instantiateView(view: view, string: value)
+            case .Trolleybus(let value):
+                instantiateView(view: view, string: value)
             }
         }
     }

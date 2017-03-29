@@ -9,6 +9,7 @@
 import UIKit
 
 class CustomDetailCell: UITableViewCell {
+    
     @IBOutlet var customCellImageView: UIImageView!
     @IBOutlet var direction: UILabel!
     @IBOutlet var lineNumber: UILabel!    

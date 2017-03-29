@@ -18,12 +18,14 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     @IBOutlet var tableView: UITableView!
-
-
-@IBAction func backButton(_ sender: UIButton) {
-    dismiss(animated: true, completion: nil)
+    
+    
+    @IBAction func backButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
-
+    
+    //MARK: TableView Delegates
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if lineRoutes[0].rel == lineRoutes[1].rel {
             tableView.rowHeight = 88
@@ -32,12 +34,11 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
             return lineRoutes.count
         }
     }
-        
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomDetailCell
         if language == "latin" {
-        cell.direction.text = "\(lineRoutes[indexPath.row].reltags.fromSrLatn) - \(lineRoutes[indexPath.row].reltags.toSrLatn)"
+            cell.direction.text = "\(lineRoutes[indexPath.row].reltags.fromSrLatn) - \(lineRoutes[indexPath.row].reltags.toSrLatn)"
         } else {
             cell.direction.text = "\(lineRoutes[indexPath.row].reltags.from) - \(lineRoutes[indexPath.row].reltags.to)"
         }
@@ -46,11 +47,11 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         detailMapView.drawLineMarkers(route: lineRoutes[indexPath.row])
         detailMapView.drawLinePolylines(route: lineRoutes[indexPath.row])
         let selectedRow = tableView.cellForRow(at: indexPath) as! CustomDetailCell
-       selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0.10, blue: 0.80, alpha: 1)
+        selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0.10, blue: 0.80, alpha: 1)
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 class FirstTableViewCell: UITableViewCell {
+    
     @IBOutlet var cellImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var refNumber: UILabel!

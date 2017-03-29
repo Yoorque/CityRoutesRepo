@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     /// Saved shortcut item used as a result of an app launch, used later when app is activated.
     var launchedShortcutItem: UIApplicationShortcutItem?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE")

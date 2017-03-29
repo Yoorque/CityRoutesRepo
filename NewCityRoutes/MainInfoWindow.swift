@@ -12,5 +12,4 @@ class MainInfoWindow: UIView {
 
     @IBOutlet var otherLinesLabel: UILabel!
     @IBOutlet var code: UILabel! 
-
 }

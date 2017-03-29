@@ -10,18 +10,13 @@ import UIKit
 
 var recentSearches = [Routes]()
 class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBAction func backButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     @IBOutlet var tableView: UITableView!
     var selectedTransport = [Routes]()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
+    
     //MARK: TableView Delegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,7 +29,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.cellImageView.image = UIImage(named: selectedTransport[indexPath.row].route)
         cell.refNumber.text = selectedTransport[indexPath.row].ref
         if language == "latin" {
-        cell.titleLabel.text = selectedTransport[indexPath.row].routes[0].reltags.fromSrLatn + "-" + selectedTransport[indexPath.row].routes[0].reltags.toSrLatn
+            cell.titleLabel.text = selectedTransport[indexPath.row].routes[0].reltags.fromSrLatn + "-" + selectedTransport[indexPath.row].routes[0].reltags.toSrLatn
         } else {
             cell.titleLabel.text = selectedTransport[indexPath.row].routes[0].reltags.from + "-" + selectedTransport[indexPath.row].routes[0].reltags.to
         }
@@ -42,7 +37,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailTableViewController
         recentSearches.append(selectedTransport[indexPath.row])
         self.present(controller, animated: true, completion: nil)

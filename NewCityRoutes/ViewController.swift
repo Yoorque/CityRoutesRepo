@@ -11,45 +11,42 @@ import GoogleMaps
 var justOnce = true
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-   
-    @IBOutlet var tableView: UITableView!
     
+    @IBOutlet var tableView: UITableView!
     @IBOutlet var crosshair: UIImageView!
     @IBOutlet var busButton: UIView!
     @IBOutlet var trolleybusButton: UIView!
     @IBOutlet var tramButton: UIView!
     @IBOutlet var viewForTransportButtons: ViewForTransportButtons!
-    var firstVC = FirstTableViewController()
     @IBOutlet var myMapView: CreateMapView! {
         didSet {
             myMapView.createMap(view: myMapView)
         }
     }
-    
     var json = Json()
+    
+    //MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerSettingsBundle()
         
+        //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(defaultsChanged), name: UserDefaults.didChangeNotification , object: nil)
         
         json.readJson()
         
+        //Assigning tapGesture to buttons in viewForTransportButtons
         for view in viewForTransportButtons.subviews {
             if view is UIButton {
                 viewForTransportButtons.setShadow(view: view)
             } else {
-            viewForTransportButtons.setShadow(view: view)
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
-            view.addGestureRecognizer(tapGesture)
+                viewForTransportButtons.setShadow(view: view)
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
+                view.addGestureRecognizer(tapGesture)
             }
         }
         myMapView.bringSubview(toFront: crosshair)
-    }
-    
-    func defaultsChanged() {
-        updateDisplayFromDefaults()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,8 +71,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             present(alert, animated: true, completion: nil)
             defaults.set(true, forKey: "launchedBefore")
         }
-        
     }
+    
+    //MARK: Gesture Recognizer
     
     func tap(sender: UITapGestureRecognizer) {
         if let view = sender.view {
@@ -90,21 +88,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 view.layer.shadowOffset = CGSize(width: -5, height: 5)
                 //view.clipsToBounds = false
                 
-            self.viewForTransportButtons.selectedTransports(view: self ,sender: view.accessibilityIdentifier!)
+                self.viewForTransportButtons.selectedTransports(view: self ,sender: view.accessibilityIdentifier!)
             })
         }
+    }
+    
+    //MARK: UserDefaults helper methods
+    
+    func defaultsChanged() {
+        updateDisplayFromDefaults()
     }
     
     func registerSettingsBundle() {
         let appDefaults = [String: Any]()
         UserDefaults.standard.register(defaults: appDefaults)
     }
+    
     func updateDisplayFromDefaults() {
         let defaults = UserDefaults.standard
         if let languageNotNil = defaults.value(forKey: "language") as? String {
             language = languageNotNil
         }
     }
+    
     //MARK: TableView Delegates
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -123,9 +129,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.lineNumber.text = recentSearches[indexPath.row].ref
         
         if language == "latin" {
-        cell.direction.text = labelText
+            cell.direction.text = labelText
         } else {
-        cell.direction.text = labelText
+            cell.direction.text = labelText
         }
         return cell
     }
@@ -139,6 +145,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = recentSearches[indexPath.row].routes
     }
-
+    
 }
 

@@ -21,22 +21,16 @@ import Foundation
 
 //Deklaracije
 
-
-
 var language = "latin"
 var featureArray = [Feature]()
-
-
-var recentArray = [Recent]()
-
 var odabraniSmer: Int?
 
 struct Feature {
     var id: String
-    var property: Property 
+    var property: Property
     var geometry: Geometry
-    
 }
+
 //1
 struct Property: Hashable {
     var id: String
@@ -55,6 +49,7 @@ struct Property: Hashable {
         return relations.count
     }
 }
+
 //2
 struct Relations: Hashable {
     var role: String
@@ -64,6 +59,7 @@ struct Relations: Hashable {
         return rel
     }
 }
+
 //3
 struct Reltags {
     var from: String
@@ -76,11 +72,13 @@ struct Reltags {
     var type: String
     var lineRef: Int
 }
+
 //1
 struct Geometry {
     var type: String
     var coordinates: [Coordinates]
 }
+
 //2
 struct Coordinates {
     var lat: Double
@@ -95,17 +93,4 @@ struct Routes: Hashable {
     var hashValue: Int {
         return lineRef
     }
-}
-
-
-//Favorites
-
-struct Favorite {
-    
-}
-
-//Recent
-
-struct Recent {
-    
 }

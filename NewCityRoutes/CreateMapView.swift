@@ -30,8 +30,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         return locationManager.location?.coordinate
     }
     
+    //MARK: MapView Helper Methods
+    
     func createMap(view: UIView) {
-
+        
         let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
@@ -55,9 +57,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         zoomLevelLabel.autoresizingMask = .flexibleWidth
         view.addSubview(zoomLevelLabel)
     }
-
+    
     
     //Izvlaci i filtrira odabranu vrstu prevoza i poziva se iz DetailViewController-a
+    
     func drawLineMarkers(route: Relations) {
         mapView.clear()
         
@@ -102,6 +105,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             }
         }
     }
+    
     // Iscrtava rutu i markere u zavisnosti od odabrane u drawTransportLines() odakle se i poziva
     
     private func setCoords(coord: Coordinates, feature: Feature, relation: Relations) {
@@ -120,20 +124,17 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         detailMarker.icon = UIImage(named: "redCircle")
         detailMarker.appearAnimation = GMSMarkerAnimation.pop
         detailMarker.map = mapView
-                
+        
         for rela in feature.property.relations {
-             if rela.reltags.ref != relation.reltags.ref {
-
-                linije = linije + " " + rela.reltags.ref
+            if rela.reltags.ref != relation.reltags.ref {
                 
-              }
+                linije = linije + " " + rela.reltags.ref
+            }
         }
-        
         detailMarker.snippet = linije
-        
     }
     
-    // MARK: Calculate nearest station from user location
+    // Calculate nearest station from user location
     
     func markStation() {
         mapView.clear()
@@ -162,19 +163,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             detailMarker.snippet = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
             linije = ""
         }
-        
-    }
-    
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        if mapView.superview!.tag == MapViewSource.Main.rawValue {
-            if position.zoom >= 15 {
-                zoomLevelLabel.text = "Tap the marker Info Window to copy the USSD code"
-                markStation()
-            } else {
-                mapView.clear()
-                zoomLevelLabel.text = "Zoom-in to see stations"
-            }
-        }
     }
     
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
@@ -187,12 +175,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.code.text = marker.snippet
         
         return infoWindow
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        mapView.selectedMarker = marker
-        zoomLevelLabel.text = "Tap the marker Info Window to copy the USSD code"
-        return true
     }
     
     func detailScreenMarkerInfoWindow(marker: GMSMarker) -> UIView {
@@ -226,7 +208,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             infoWindow.wheelchairImage.image = UIImage(named: "no")
         }
         if language == "latin" {
-        infoWindow.stationName.text = selectedFeature[index].property.nameSrLatn
+            infoWindow.stationName.text = selectedFeature[index].property.nameSrLatn
         } else {
             infoWindow.stationName.text = selectedFeature[index].property.name
         }
@@ -237,11 +219,31 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         return infoWindow
     }
     
+    //MARK: MapView Delegates
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        if mapView.superview!.tag == MapViewSource.Main.rawValue {
+            if position.zoom >= 15 {
+                zoomLevelLabel.text = "Tap the marker Info Window to copy the USSD code"
+                markStation()
+            } else {
+                mapView.clear()
+                zoomLevelLabel.text = "Zoom-in to see stations"
+            }
+        }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        mapView.selectedMarker = marker
+        zoomLevelLabel.text = "Tap the marker Info Window to copy the USSD code"
+        return true
+    }
+    
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let index = Int(marker.accessibilityLabel!)
         let copy = UIPasteboard.general
         if mapView.superview?.tag == 1 {
-        copy.string = marker.snippet
+            copy.string = marker.snippet
         } else {
             copy.string = selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
         }
@@ -262,6 +264,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             return UIView()
         }
     }
+    
+    //MARK: Location button delegates
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         if let myLocation = mapView.myLocation?.coordinate {
