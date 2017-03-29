@@ -47,7 +47,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func createZoomLabel(view: UIView) {
-        zoomLevelLabel.frame = CGRect(x: view.frame.size.width / 2 - 50, y: view.frame.maxY - 30, width: 100, height: 20)
+        zoomLevelLabel.frame = CGRect(x: view.frame.size.width / 2 - 100, y: view.frame.maxY - 30, width: 200, height: 20)
         zoomLevelLabel.textAlignment = .center
         zoomLevelLabel.textColor = .red
         zoomLevelLabel.adjustsFontSizeToFitWidth = true
@@ -168,7 +168,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
-                zoomLevelLabel.text = ""
+                zoomLevelLabel.text = "Tap the marker Info Window to copy the USSD code"
                 markStation()
             } else {
                 mapView.clear()
@@ -235,6 +235,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
         
         return infoWindow
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        let copy = UIPasteboard.general
+        copy.string = marker.snippet
+        zoomLevelLabel.text = "Paste you code into phone dialer"
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
