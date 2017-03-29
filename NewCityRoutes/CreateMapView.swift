@@ -191,7 +191,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.selectedMarker = marker
-        
+        zoomLevelLabel.text = "Tap the marker Info Window to copy the USSD code"
         return true
     }
     
@@ -238,8 +238,13 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        let index = Int(marker.accessibilityLabel!)
         let copy = UIPasteboard.general
+        if mapView.superview?.tag == 1 {
         copy.string = marker.snippet
+        } else {
+            copy.string = selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
+        }
         zoomLevelLabel.text = "Paste you code into phone dialer"
     }
     
