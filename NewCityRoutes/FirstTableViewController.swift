@@ -8,6 +8,7 @@
 
 import UIKit
 
+var recentSearches = [Routes]()
 class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBAction func backButton(_ sender: UIButton) {
@@ -15,7 +16,6 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     @IBOutlet var tableView: UITableView!
     var selectedTransport = [Routes]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,6 +44,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        tableView.deselectRow(at: indexPath, animated: true)
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailTableViewController
+        recentSearches.append(selectedTransport[indexPath.row])
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = self.selectedTransport[indexPath.row].routes
         

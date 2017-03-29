@@ -10,16 +10,21 @@ import UIKit
 import GoogleMaps
 var justOnce = true
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
+    @IBOutlet var tableView: UITableView!
+    
     @IBOutlet var crosshair: UIImageView!
     @IBOutlet var busButton: UIView!
     @IBOutlet var trolleybusButton: UIView!
     @IBOutlet var tramButton: UIView!
     @IBOutlet var viewForTransportButtons: ViewForTransportButtons!
-    @IBOutlet var myMapView: CreateMapView!
-    
-    let mapCreation = CreateMapView()
+    var firstVC = FirstTableViewController()
+    @IBOutlet var myMapView: CreateMapView! {
+        didSet {
+            myMapView.createMap(view: myMapView)
+        }
+    }
     
     var json = Json()
     
@@ -27,10 +32,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         registerSettingsBundle()
         
-        
         NotificationCenter.default.addObserver(self, selector: #selector(defaultsChanged), name: UserDefaults.didChangeNotification , object: nil)
         
-        mapCreation.createMap(view: myMapView)
         json.readJson()
         
         for view in viewForTransportButtons.subviews {
@@ -44,19 +47,21 @@ class ViewController: UIViewController {
         }
         myMapView.bringSubview(toFront: crosshair)
     }
+    
     func defaultsChanged() {
         updateDisplayFromDefaults()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mapCreation.markStation()
         updateDisplayFromDefaults()
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        let defaults = UserDefaults.standard
         
+        let defaults = UserDefaults.standard
         if (defaults.value(forKey: "launchedBefore")) == nil{
             let alert = UIAlertController(title: "Choose your preferred language", message: "You can modify your selection later, in Settings", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cyrillic", style: .default, handler: {_ in
@@ -69,12 +74,12 @@ class ViewController: UIViewController {
             present(alert, animated: true, completion: nil)
             defaults.set(true, forKey: "launchedBefore")
         }
+        
     }
     
     func tap(sender: UITapGestureRecognizer) {
         if let view = sender.view {
             //Izvlaci identifier string iz odabranog dugmeta na pocetnom view i prosledjuje u funkciju
-            
             UIView.animate(withDuration: 0.2, animations: {_ in
                 view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
                 view.layer.shadowOffset = CGSize(width: -10, height: 10)
@@ -85,7 +90,7 @@ class ViewController: UIViewController {
                 view.layer.shadowOffset = CGSize(width: -5, height: 5)
                 //view.clipsToBounds = false
                 
-            self.viewForTransportButtons.selectedTransport(view: self ,sender: view.accessibilityIdentifier!)
+            self.viewForTransportButtons.selectedTransports(view: self ,sender: view.accessibilityIdentifier!)
             })
         }
     }
@@ -100,5 +105,40 @@ class ViewController: UIViewController {
             language = languageNotNil
         }
     }
+    //MARK: TableView Delegates
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(recentSearches.count)
+        return recentSearches.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomDetailCell
+        let labelText = "Both directions available"
+        cell.customCellImageView.image = UIImage(named: recentSearches[indexPath.row].route)
+        cell.lineNumber.text = recentSearches[indexPath.row].ref
+        
+        if language == "latin" {
+        cell.direction.text = labelText
+        } else {
+        cell.direction.text = labelText
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Recent Searches"
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailTableViewController
+        self.present(controller, animated: true, completion: nil)
+        controller.lineRoutes = recentSearches[indexPath.row].routes
+    }
+
 }
 

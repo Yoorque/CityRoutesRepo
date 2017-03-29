@@ -21,7 +21,7 @@ class ViewForTransportButtons: UIView {
                       "trolleybus": Transport.Trolleybus("trolleybus")
                       ]
         
-    func selectedTransport(view: UIViewController, sender: String) {
+    func selectedTransports(view: UIViewController, sender: String) {
         if let transport = transports[sender] {
         switch transport {
         case .Bus(let value):
@@ -47,7 +47,7 @@ class ViewForTransportButtons: UIView {
         let array = Json.sortedTransport(route: string)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "FirstTableView") as! FirstTableViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "FirstTableVC") as! FirstTableViewController
         view.present(controller, animated: true, completion: nil)
         
         controller.selectedTransport = array

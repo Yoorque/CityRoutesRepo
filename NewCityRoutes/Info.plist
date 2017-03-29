@@ -5,16 +5,12 @@
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
-			<key>UIApplicationShortcutItemType</key>
-			<string>share</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>bus</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Share $(PRODUCT_NAME)</string>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Previous searches</string>
+			<string>Recent search</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>searches</string>
+			<string>com.dusanjuranovic.NewCityRoutes.RecentSearch</string>
 		</dict>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>

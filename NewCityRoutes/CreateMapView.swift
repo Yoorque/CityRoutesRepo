@@ -17,7 +17,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var mapView: GMSMapView!
     var detailMarker: GMSMarker!
     var linije = ""
-    
+    var viewController = ViewController()
     var selectedFeature = [Feature]()
     var selectedRelation = [Relations]()
     var i = 0
@@ -32,8 +32,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func createMap(view: UIView) {
 
-        let location = locationManager.location?.coordinate
-        let camera = GMSCameraPosition.camera(withTarget: location!, zoom: 13)
+        let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -44,12 +43,19 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
         view.addSubview(mapView)
-        zoomLevelLabel.frame = CGRect(x: mapView.frame.size.width / 2 - 50, y: mapView.frame.maxY - 30, width: 100, height: 30)
+        createZoomLabel(view: view)
+    }
+    
+    func createZoomLabel(view: UIView) {
+        zoomLevelLabel.frame = CGRect(x: view.frame.size.width / 2 - 50, y: view.frame.maxY - 30, width: 100, height: 20)
         zoomLevelLabel.textAlignment = .center
         zoomLevelLabel.textColor = .red
         zoomLevelLabel.adjustsFontSizeToFitWidth = true
+        
+        zoomLevelLabel.autoresizingMask = .flexibleWidth
         view.addSubview(zoomLevelLabel)
     }
+
     
     //Izvlaci i filtrira odabranu vrstu prevoza i poziva se iz DetailViewController-a
     func drawLineMarkers(route: Relations) {
@@ -153,8 +159,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             detailMarker.map = mapView
             
             detailMarker.title = linije
+            detailMarker.snippet = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
             linije = ""
         }
+        
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
@@ -176,6 +184,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.layer.cornerRadius = 13
         infoWindow.layer.borderColor = UIColor.red.cgColor
         infoWindow.otherLinesLabel.text = marker.title
+        infoWindow.code.text = marker.snippet
         
         return infoWindow
     }
