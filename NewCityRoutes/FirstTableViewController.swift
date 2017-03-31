@@ -38,7 +38,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailTableViewController
+        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         recentSearches.append(selectedTransport[indexPath.row])
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = self.selectedTransport[indexPath.row].routes

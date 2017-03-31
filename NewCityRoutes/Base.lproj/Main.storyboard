@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Initial View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="FirstVC" id="BYZ-38-t0r" customClass="ViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InitialViewController" id="BYZ-38-t0r" customClass="InitialViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -157,7 +157,7 @@
                                 <rect key="frame" x="0.0" y="345" width="375" height="322"/>
                                 <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cFX-Or-uLR" customClass="CustomDetailCell" customModule="NewCityRoutes" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cFX-Or-uLR" customClass="DetailTableViewCell" customModule="NewCityRoutes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cFX-Or-uLR" id="Kx9-0o-UTQ">
@@ -246,7 +246,7 @@
         <!--First Table View Controller-->
         <scene sceneID="IaI-Xp-klJ">
             <objects>
-                <viewController storyboardIdentifier="FirstTableVC" id="5Uv-Ft-JWd" customClass="FirstTableViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstTableViewController" id="5Uv-Ft-JWd" customClass="FirstTableViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="r7D-6n-Y54"/>
                         <viewControllerLayoutGuide type="bottom" id="SPa-MX-fYk"/>
@@ -349,7 +349,7 @@
         <!--Detail Table View Controller-->
         <scene sceneID="vOR-O2-Run">
             <objects>
-                <viewController storyboardIdentifier="DetailVC" id="sOS-oI-J1R" customClass="DetailTableViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailTableViewController" id="sOS-oI-J1R" customClass="DetailTableViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R1j-EJ-AJf"/>
                         <viewControllerLayoutGuide type="bottom" id="d0g-ga-VTE"/>
@@ -380,7 +380,7 @@
                                 </constraints>
                                 <color key="separatorColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="fLE-VY-3JC" customClass="CustomDetailCell" customModule="NewCityRoutes" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="fLE-VY-3JC" customClass="DetailTableViewCell" customModule="NewCityRoutes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fLE-VY-3JC" id="Rcp-Kl-LcM">

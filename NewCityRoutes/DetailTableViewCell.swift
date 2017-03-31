@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomDetailCell: UITableViewCell {
+class DetailTableViewCell: UITableViewCell {
     
     @IBOutlet var customCellImageView: UIImageView!
     @IBOutlet var direction: UILabel!

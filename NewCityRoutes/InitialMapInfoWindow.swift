@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainInfoWindow: UIView {
+class InitialMapInfoWindow: UIView {
 
     @IBOutlet var otherLinesLabel: UILabel!
     @IBOutlet var code: UILabel! 

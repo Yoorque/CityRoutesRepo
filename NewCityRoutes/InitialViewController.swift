@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 var justOnce = true
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var crosshair: UIImageView!
@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         registerSettingsBundle()
         
         //Notification for language changes in Settings
-        NotificationCenter.default.addObserver(self, selector: #selector(defaultsChanged), name: UserDefaults.didChangeNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
         
         json.readJson()
         
@@ -51,7 +51,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateDisplayFromDefaults()
+        updateLanguageFromDefaults()
         tableView.reloadData()
     }
     
@@ -95,16 +95,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: UserDefaults helper methods
     
-    func defaultsChanged() {
-        updateDisplayFromDefaults()
-    }
-    
     func registerSettingsBundle() {
         let appDefaults = [String: Any]()
         UserDefaults.standard.register(defaults: appDefaults)
     }
     
-    func updateDisplayFromDefaults() {
+    func updateLanguageFromDefaults() {
         let defaults = UserDefaults.standard
         if let languageNotNil = defaults.value(forKey: "language") as? String {
             language = languageNotNil
@@ -118,12 +114,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(recentSearches.count)
         return recentSearches.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomDetailCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
+        
         let labelText = "Both directions available"
         cell.customCellImageView.image = UIImage(named: recentSearches[indexPath.row].route)
         cell.lineNumber.text = recentSearches[indexPath.row].ref
@@ -141,7 +137,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailTableViewController
+        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = recentSearches[indexPath.row].routes
     }

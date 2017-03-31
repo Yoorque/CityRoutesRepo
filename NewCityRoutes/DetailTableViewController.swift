@@ -36,7 +36,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomDetailCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
         if language == "latin" {
             cell.direction.text = "\(lineRoutes[indexPath.row].reltags.fromSrLatn) - \(lineRoutes[indexPath.row].reltags.toSrLatn)"
         } else {
@@ -51,7 +51,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         detailMapView.drawLineMarkers(route: lineRoutes[indexPath.row])
         detailMapView.drawLinePolylines(route: lineRoutes[indexPath.row])
-        let selectedRow = tableView.cellForRow(at: indexPath) as! CustomDetailCell
+        let selectedRow = tableView.cellForRow(at: indexPath) as! DetailTableViewCell
         selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0.10, blue: 0.80, alpha: 1)
     }
 }

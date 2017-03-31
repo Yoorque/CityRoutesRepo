@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailInfoWindow: UIView {
+class DetailMapInfoWindow: UIView {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var selectedLine: UILabel!
