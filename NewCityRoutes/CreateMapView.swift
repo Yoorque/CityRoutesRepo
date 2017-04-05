@@ -34,8 +34,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func createMap(view: UIView) {
         
-        let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
-        
+        //let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
+        let camera = GMSCameraPosition()
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isMyLocationEnabled = true
