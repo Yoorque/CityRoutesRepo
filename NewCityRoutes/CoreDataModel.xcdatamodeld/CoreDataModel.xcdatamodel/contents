@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="CoreDataRelation" representedClassName=".CoreDataRelation" syncable="YES" codeGenerationType="class">
-        <attribute name="directions" optional="YES" attributeType="Transformable" syncable="YES"/>
-    </entity>
-    <entity name="CoreDataRoutes" representedClassName=".CoreDataRoutes" syncable="YES" codeGenerationType="class">
-        <attribute name="lineNumber" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="relations" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="transportImage" optional="YES" attributeType="Transformable" customClassName="." syncable="YES"/>
-    </entity>
-    <elements>
-        <element name="CoreDataRoutes" positionX="-3213" positionY="-936" width="128" height="88"/>
-        <element name="CoreDataRelation" positionX="-3042" positionY="-936" width="128" height="58"/>
-    </elements>
+    <elements/>
 </model>

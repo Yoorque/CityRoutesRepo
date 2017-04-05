@@ -19,7 +19,6 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     @IBOutlet var tableView: UITableView!
     
-    
     @IBAction func backButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -51,6 +50,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         detailMapView.drawLineMarkers(route: lineRoutes[indexPath.row])
         detailMapView.drawLinePolylines(route: lineRoutes[indexPath.row])
+        detailMapView.createNotificationLabel(view: detailMapView)
         let selectedRow = tableView.cellForRow(at: indexPath) as! DetailTableViewCell
         selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0.10, blue: 0.80, alpha: 1)
     }

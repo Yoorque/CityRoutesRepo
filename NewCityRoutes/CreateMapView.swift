@@ -21,7 +21,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var selectedFeature = [Feature]()
     var selectedRelation = [Relations]()
     var i = 0
-    var zoomLevelLabel = UILabel()
+    var notificationLabel = UILabel()
     
     let locationManager = CLLocationManager()
     var nearestLocation = CalculateNearestStation()
@@ -33,8 +33,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     //MARK: MapView Helper Methods
     
     func createMap(view: UIView) {
+        // Testing on a device
+        //let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
         
-        let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
+        // Testing on a simulator
+        let camera = GMSCameraPosition.camera(withLatitude: 44, longitude: 21, zoom: 15)
+        
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -45,17 +49,17 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
         view.addSubview(mapView)
-        createZoomLabel(view: view)
+        createNotificationLabel(view: view)
     }
     
-    func createZoomLabel(view: UIView) {
-        zoomLevelLabel.frame = CGRect(x: view.frame.size.width / 2 - 100, y: view.frame.maxY - 30, width: 200, height: 20)
-        zoomLevelLabel.textAlignment = .center
-        zoomLevelLabel.textColor = .red
-        zoomLevelLabel.adjustsFontSizeToFitWidth = true
+    func createNotificationLabel(view: UIView) {
+        notificationLabel.frame = CGRect(x: view.frame.size.width / 2 - 100, y: view.frame.maxY - 30, width: 200, height: 20)
+        notificationLabel.textAlignment = .center
+        notificationLabel.textColor = .red
+        notificationLabel.adjustsFontSizeToFitWidth = true
         
-        zoomLevelLabel.autoresizingMask = .flexibleWidth
-        view.addSubview(zoomLevelLabel)
+        notificationLabel.autoresizingMask = .flexibleWidth
+        view.addSubview(notificationLabel)
     }
     
     
@@ -63,8 +67,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func drawLineMarkers(route: Relations) {
         mapView.clear()
-        zoomLevelLabel.text = "Tap the station marker to see details"
-        labelAnimate(string: zoomLevelLabel.text!)
+        notificationLabel.text = "Tap the station marker to see details"
+        labelAnimate(string: notificationLabel.text!)
         for feature in featureArray {
             for relation in feature.property.relations {
                 // print(relation.reltags.route, route.reltags.route)
@@ -137,11 +141,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     // Calculate nearest station from user location
     
-    func markStation() {
+    func markStation(forZoom zoom: Float) {
         mapView.clear()
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
         
         linije = ""
+        i = 0
         selectedFeature.removeAll()
         
         selectedFeature = nearestLocation.featuresForNearestStation
@@ -154,26 +159,35 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             let lat = feature.geometry.coordinates[0].lat
             let lon = feature.geometry.coordinates[0].lon
             let position = CLLocationCoordinate2DMake(lat, lon)
-            
             detailMarker = GMSMarker(position: position)
-            detailMarker.icon = UIImage(named: "redCircle")
+            
             detailMarker.appearAnimation = GMSMarkerAnimation.pop
             detailMarker.map = mapView
-            
+            detailMarker.accessibilityLabel = "\(i)"
+            i += 1
+            switch zoom {
+            case 15..<18:
+                detailMarker.icon = UIImage(named: "redCircle")
+            case 18...mapView.maxZoom:
+                let icon = feature.property.highway != "" ? feature.property.highway.components(separatedBy: "_").first! : feature.property.railway.components(separatedBy: "_").first!
+                detailMarker.icon = UIImage(named: icon)
+            default:
+                break
+            }
             detailMarker.title = linije
             detailMarker.snippet = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
             linije = ""
+            
         }
     }
     
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
+        let index = Int(marker.accessibilityLabel!)!
         
-        infoWindow.layer.borderWidth = 2
-        infoWindow.layer.cornerRadius = 13
-        infoWindow.layer.borderColor = UIColor.red.cgColor
         infoWindow.otherLinesLabel.text = marker.title
         infoWindow.code.text = marker.snippet
+        infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
         
         return infoWindow
     }
@@ -216,11 +230,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func labelAnimate(string: String) {
         UIView.animate(withDuration: 0.5, animations: {[weak self] in
-            self?.zoomLevelLabel.text = string
-            self?.zoomLevelLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self?.notificationLabel.text = string
+            self?.notificationLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
             }, completion: {_ in
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.zoomLevelLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    self.notificationLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
                 })
         })
     }
@@ -231,21 +245,21 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
-                zoomLevelLabel.text = "Tap the station marker to see station details"
-                labelAnimate(string: zoomLevelLabel.text!)
-                markStation()
+                notificationLabel.text = "Tap the station marker to see station details"
+                labelAnimate(string: notificationLabel.text!)
+                markStation(forZoom: position.zoom)
             } else {
                 mapView.clear()
-                zoomLevelLabel.text = "Zoom-in to see stations"
-                labelAnimate(string: zoomLevelLabel.text!)
+                notificationLabel.text = "Zoom-in to see stations"
+                labelAnimate(string: notificationLabel.text!)
             }
         }
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.selectedMarker = marker
-        zoomLevelLabel.text = "Tap the USSD code to copy to clipboard"
-        labelAnimate(string: zoomLevelLabel.text!)
+        notificationLabel.text = "Tap the USSD code to copy to clipboard"
+        labelAnimate(string: notificationLabel.text!)
         return true
     }
     
@@ -257,8 +271,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         } else {
             copy.string = selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
         }
-        zoomLevelLabel.text = "Paste the code into phone dialer"
-        labelAnimate(string: zoomLevelLabel.text!)
+        notificationLabel.text = "Paste the code into phone dialer"
+        labelAnimate(string: notificationLabel.text!)
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -277,8 +291,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
-        zoomLevelLabel.text = "Tap the station marker to see details"
-        labelAnimate(string: zoomLevelLabel.text!)
+        notificationLabel.text = "Tap the station marker to see details"
+        labelAnimate(string: notificationLabel.text!)
     }
     
     //MARK: Location button delegates

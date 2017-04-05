@@ -24,6 +24,7 @@ import Foundation
 var language = "latin"
 var featureArray = [Feature]()
 var odabraniSmer: Int?
+var recentSearches = [Routes]()
 
 struct Feature {
     var id: String
