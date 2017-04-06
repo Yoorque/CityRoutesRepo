@@ -144,7 +144,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func markStation(forZoom zoom: Float) {
         mapView.clear()
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
-        
+        var transportImageNames = Set<String>()
+        var finalIconImageName = ""
         linije = ""
         i = 0
         selectedFeature.removeAll()
@@ -154,6 +155,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         for feature in selectedFeature {
             for relation in feature.property.relations {
                 linije = linije + " " + relation.reltags.ref
+                transportImageNames.insert(relation.reltags.route)
             }
             
             let lat = feature.geometry.coordinates[0].lat
@@ -169,14 +171,20 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             case 15..<18:
                 detailMarker.icon = UIImage(named: "redCircle")
             case 18...mapView.maxZoom:
-                let icon = feature.property.highway != "" ? feature.property.highway.components(separatedBy: "_").first! : feature.property.railway.components(separatedBy: "_").first!
-                detailMarker.icon = UIImage(named: icon)
+                //let icon = feature.property.highway != "" ? feature.property.highway.components(separatedBy: "_").first! : feature.property.railway.components(separatedBy: "_").first!
+                for image in transportImageNames {
+                    finalIconImageName = finalIconImageName + image
+                }
+                
+                detailMarker.icon = UIImage(named: finalIconImageName)
             default:
                 break
             }
             detailMarker.title = linije
             detailMarker.snippet = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
             linije = ""
+            transportImageNames = []
+            finalIconImageName = ""
             
         }
     }
