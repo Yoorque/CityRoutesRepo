@@ -87,11 +87,11 @@ struct Coordinates {
 }
 
 struct Routes: Hashable {
-    var ref: String
-    var route: String
-    var routes: [Relations]
-    var lineRef: Int
+    var ref: String!
+    var route: String!
+    var routes: [Relations]!
+    var lineRef: Int!
     var hashValue: Int {
-        return lineRef
+        return lineRef!
     }
 }

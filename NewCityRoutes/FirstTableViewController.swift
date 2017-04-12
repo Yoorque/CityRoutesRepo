@@ -9,6 +9,7 @@
 import UIKit
 
 
+
 class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBAction func backButton(_ sender: UIButton) {
@@ -39,7 +40,10 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
-        recentSearches.insert(selectedTransport[indexPath.row], at: 0)
+        if !recentSearches.contains(selectedTransport[indexPath.row]) {
+            recentSearches.insert(selectedTransport[indexPath.row], at: 0)
+        }
+        
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = self.selectedTransport[indexPath.row].routes
         

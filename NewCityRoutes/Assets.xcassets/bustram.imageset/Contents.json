@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "trambus1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "bustram.png",
       "scale" : "2x"
     },
     {

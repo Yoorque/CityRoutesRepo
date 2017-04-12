@@ -79,17 +79,19 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tap(sender: UITapGestureRecognizer) {
         if let view = sender.view {
             //Izvlaci identifier string iz odabranog dugmeta na pocetnom view i prosledjuje u funkciju
-            UIView.animate(withDuration: 0.2, animations: {_ in
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {_ in
                 view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
                 view.layer.shadowOffset = CGSize(width: -10, height: 10)
                 //view.clipsToBounds = true
                 
             }, completion: {_ in
-                view.transform = CGAffineTransform(scaleX: 1, y: 1)
-                view.layer.shadowOffset = CGSize(width: -5, height: 5)
-                //view.clipsToBounds = false
-                
-                self.viewForTransportButtons.selectedTransports(view: self ,sender: view.accessibilityIdentifier!)
+                UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { _ in
+                    view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    view.layer.shadowOffset = CGSize(width: -5, height: 5)
+                    //view.clipsToBounds = false
+                    
+                    self.viewForTransportButtons.selectedTransports(view: self ,sender: view.accessibilityIdentifier!)
+                })
             })
         }
     }
@@ -103,8 +105,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func updateLanguageFromDefaults() {
         let defaults = UserDefaults.standard
-        if let languageNotNil = defaults.value(forKey: "language") as? String {
-            language = languageNotNil
+        if let languageFromDefaults = defaults.value(forKey: "language") as? String {
+            language = languageFromDefaults
         }
     }
     

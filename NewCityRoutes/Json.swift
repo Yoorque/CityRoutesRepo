@@ -21,7 +21,7 @@ struct Json {
     
     mutating func readJson() {
         
-        if let path = Bundle.main.path(forResource: "RoadMap", ofType: "txt") {
+        if let path = Bundle.main.path(forResource: "Lines", ofType: "geojson") {
             do {
                 let file = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
                 let jData = file.data(using: String.Encoding.utf8)

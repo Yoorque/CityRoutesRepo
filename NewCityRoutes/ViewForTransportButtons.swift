@@ -45,7 +45,6 @@ class ViewForTransportButtons: UIView {
     
     func instantiateView(view: UIViewController, string: String) {
         let array = Json.sortedTransport(route: string)
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "FirstTableViewController") as! FirstTableViewController
         view.present(controller, animated: true, completion: nil)

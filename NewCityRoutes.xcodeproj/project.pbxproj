@@ -18,15 +18,15 @@
 		1138FE741E62DAA900D0C9C9 /* FirstTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE731E62DAA900D0C9C9 /* FirstTableViewController.swift */; };
 		1138FE761E6301ED00D0C9C9 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE751E6301ED00D0C9C9 /* DataModel.swift */; };
 		1138FE781E63028500D0C9C9 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE771E63028500D0C9C9 /* Json.swift */; };
-		1138FE7A1E63032000D0C9C9 /* RoadMap.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1138FE791E63032000D0C9C9 /* RoadMap.txt */; };
 		1138FE7C1E6324A300D0C9C9 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE7B1E6324A300D0C9C9 /* DetailTableViewController.swift */; };
 		1138FE7F1E637D3100D0C9C9 /* DetailMapInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1138FE7E1E637D3100D0C9C9 /* DetailMapInfoWindow.xib */; };
 		1138FE811E637D3E00D0C9C9 /* DetailMapInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1138FE801E637D3E00D0C9C9 /* DetailMapInfoWindow.swift */; };
 		11A6560A1E7C99A300185960 /* FirstTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A656091E7C99A300185960 /* FirstTableViewCell.swift */; };
 		11B884211E7C8045006BB69D /* InitialMapInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B884201E7C8045006BB69D /* InitialMapInfoWindow.swift */; };
 		11B884231E7C80C1006BB69D /* InitialMapInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11B884221E7C80C1006BB69D /* InitialMapInfoWindow.xib */; };
+		11D6B0461E9BC94000EF0F91 /* Lines.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 11D6B0451E9BC94000EF0F91 /* Lines.geojson */; };
 		11EC30281E93DF1B00846736 /* Beograd.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 11EC30271E93DF1B00846736 /* Beograd.gpx */; };
-		11EC302E1E93E76000846736 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11EC302C1E93E76000846736 /* CoreDataModel.xcdatamodeld */; };
+		11EC302E1E93E76000846736 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11EC302C1E93E76000846736 /* Model.xcdatamodeld */; };
 		11F321011E7FFF9000202FF6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F321001E7FFF9000202FF6 /* Settings.bundle */; };
 		A2F7AEB315006E32C3B88257 /* Pods_NewCityRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */; };
 		EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */; };
@@ -46,15 +46,15 @@
 		1138FE731E62DAA900D0C9C9 /* FirstTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTableViewController.swift; sourceTree = "<group>"; };
 		1138FE751E6301ED00D0C9C9 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		1138FE771E63028500D0C9C9 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
-		1138FE791E63032000D0C9C9 /* RoadMap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RoadMap.txt; sourceTree = "<group>"; };
 		1138FE7B1E6324A300D0C9C9 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		1138FE7E1E637D3100D0C9C9 /* DetailMapInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailMapInfoWindow.xib; sourceTree = "<group>"; };
 		1138FE801E637D3E00D0C9C9 /* DetailMapInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMapInfoWindow.swift; sourceTree = "<group>"; };
 		11A656091E7C99A300185960 /* FirstTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTableViewCell.swift; sourceTree = "<group>"; };
 		11B884201E7C8045006BB69D /* InitialMapInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialMapInfoWindow.swift; sourceTree = "<group>"; };
 		11B884221E7C80C1006BB69D /* InitialMapInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitialMapInfoWindow.xib; sourceTree = "<group>"; };
+		11D6B0451E9BC94000EF0F91 /* Lines.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lines.geojson; sourceTree = "<group>"; };
 		11EC30271E93DF1B00846736 /* Beograd.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Beograd.gpx; sourceTree = "<group>"; };
-		11EC302D1E93E76000846736 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		11EC302D1E93E76000846736 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		11F321001E7FFF9000202FF6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6183BCE7981F7301BFE102AE /* Pods-NewCityRoutes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.debug.xcconfig"; sourceTree = "<group>"; };
 		790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewCityRoutes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,8 +111,8 @@
 			children = (
 				1138FE571E62026A00D0C9C9 /* AppDelegate.swift */,
 				1138FE771E63028500D0C9C9 /* Json.swift */,
+				11D6B0451E9BC94000EF0F91 /* Lines.geojson */,
 				11EC30271E93DF1B00846736 /* Beograd.gpx */,
-				1138FE791E63032000D0C9C9 /* RoadMap.txt */,
 				1138FE5E1E62026A00D0C9C9 /* Assets.xcassets */,
 				1138FE601E62026A00D0C9C9 /* LaunchScreen.storyboard */,
 				1138FE631E62026A00D0C9C9 /* Info.plist */,
@@ -161,7 +161,7 @@
 		11EC2FCE1E8EBA3B00846736 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				11EC302C1E93E76000846736 /* CoreDataModel.xcdatamodeld */,
+				11EC302C1E93E76000846736 /* Model.xcdatamodeld */,
 				EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */,
 				1138FE691E62028C00D0C9C9 /* CreateMapView.swift */,
 				1138FE6B1E620C2100D0C9C9 /* ViewForTransportButtons.swift */,
@@ -252,8 +252,8 @@
 			files = (
 				1138FE7F1E637D3100D0C9C9 /* DetailMapInfoWindow.xib in Resources */,
 				1138FE621E62026A00D0C9C9 /* LaunchScreen.storyboard in Resources */,
-				1138FE7A1E63032000D0C9C9 /* RoadMap.txt in Resources */,
 				1138FE5F1E62026A00D0C9C9 /* Assets.xcassets in Resources */,
+				11D6B0461E9BC94000EF0F91 /* Lines.geojson in Resources */,
 				11EC30281E93DF1B00846736 /* Beograd.gpx in Resources */,
 				11B884231E7C80C1006BB69D /* InitialMapInfoWindow.xib in Resources */,
 				1138FE5D1E62026A00D0C9C9 /* Main.storyboard in Resources */,
@@ -328,7 +328,7 @@
 				11108FC71E71CF90008BE488 /* DetailTableViewCell.swift in Sources */,
 				1138FE761E6301ED00D0C9C9 /* DataModel.swift in Sources */,
 				EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */,
-				11EC302E1E93E76000846736 /* CoreDataModel.xcdatamodeld in Sources */,
+				11EC302E1E93E76000846736 /* Model.xcdatamodeld in Sources */,
 				1138FE7C1E6324A300D0C9C9 /* DetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,13 +504,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		11EC302C1E93E76000846736 /* CoreDataModel.xcdatamodeld */ = {
+		11EC302C1E93E76000846736 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				11EC302D1E93E76000846736 /* CoreDataModel.xcdatamodel */,
+				11EC302D1E93E76000846736 /* Model.xcdatamodel */,
 			);
-			currentVersion = 11EC302D1E93E76000846736 /* CoreDataModel.xcdatamodel */;
-			path = CoreDataModel.xcdatamodeld;
+			currentVersion = 11EC302D1E93E76000846736 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

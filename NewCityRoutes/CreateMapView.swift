@@ -171,7 +171,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             case 15..<18:
                 detailMarker.icon = UIImage(named: "redCircle")
             case 18...mapView.maxZoom:
-                //let icon = feature.property.highway != "" ? feature.property.highway.components(separatedBy: "_").first! : feature.property.railway.components(separatedBy: "_").first!
                 for image in transportImageNames {
                     finalIconImageName = finalIconImageName + image
                 }
@@ -229,7 +228,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
         
-        infoWindow.otherLines.text = marker.snippet
+        infoWindow.otherLines.text = marker.snippet != "" ? marker.snippet : "none"
         infoWindow.selectedLine.text = selectedRelation[index].reltags.ref
         infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
         
