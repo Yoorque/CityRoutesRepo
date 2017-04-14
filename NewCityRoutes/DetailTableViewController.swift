@@ -37,11 +37,11 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
         if language == "latin" {
-            cell.direction.text = "\(lineRoutes[indexPath.row].reltags.fromSrLatn) - \(lineRoutes[indexPath.row].reltags.toSrLatn)"
+            cell.direction.text = "\(lineRoutes[indexPath.row].reltags.fromSrLatn!) - \(lineRoutes[indexPath.row].reltags.toSrLatn!)"
         } else {
-            cell.direction.text = "\(lineRoutes[indexPath.row].reltags.from) - \(lineRoutes[indexPath.row].reltags.to)"
+            cell.direction.text = "\(lineRoutes[indexPath.row].reltags.from!) - \(lineRoutes[indexPath.row].reltags.to!)"
         }
-        cell.lineNumber.text = lineRoutes[indexPath.row].reltags.ref
+        cell.lineNumber.text = lineRoutes[indexPath.row].reltags.reltagRef
         cell.customCellImageView.image = UIImage(named: lineRoutes[indexPath.row].reltags.route)
         
         return cell

@@ -30,7 +30,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         registerSettingsBundle()
-        
+        loadRecentSearches()
         //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
         
@@ -121,7 +121,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func removeExtraCells() {
-        if recentSearches.count > 3 {
+        while recentSearches.count > 3 {
             recentSearches.removeLast()
         }
     }

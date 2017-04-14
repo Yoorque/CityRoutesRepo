@@ -131,9 +131,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         detailMarker.map = mapView
         
         for rela in feature.property.relations {
-            if rela.reltags.ref != relation.reltags.ref {
+            if rela.reltags.reltagRef != relation.reltags.reltagRef {
                 
-                linije = linije + " " + rela.reltags.ref
+                linije = linije + " " + rela.reltags.reltagRef
             }
         }
         detailMarker.snippet = linije
@@ -154,7 +154,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         for feature in selectedFeature {
             for relation in feature.property.relations {
-                linije = linije + " " + relation.reltags.ref
+                linije = linije + " " + relation.reltags.reltagRef
                 transportImageNames.insert(relation.reltags.route)
             }
             
@@ -229,7 +229,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
         
         infoWindow.otherLines.text = marker.snippet != "" ? marker.snippet : "none"
-        infoWindow.selectedLine.text = selectedRelation[index].reltags.ref
+        infoWindow.selectedLine.text = selectedRelation[index].reltags.reltagRef
         infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
         
         return infoWindow

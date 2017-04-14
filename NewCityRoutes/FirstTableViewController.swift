@@ -13,6 +13,7 @@ import UIKit
 class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBAction func backButton(_ sender: UIButton) {
+        saveRecentSearches()
         dismiss(animated: true, completion: nil)
     }
     @IBOutlet var tableView: UITableView!
