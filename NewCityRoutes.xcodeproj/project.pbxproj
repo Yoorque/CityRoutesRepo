@@ -30,6 +30,9 @@
 		11F321011E7FFF9000202FF6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F321001E7FFF9000202FF6 /* Settings.bundle */; };
 		A2F7AEB315006E32C3B88257 /* Pods_NewCityRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */; };
 		EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */; };
+		EFF1454F1EA401BF0058B754 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF1454E1EA401BF0058B754 /* LoadingViewController.swift */; };
+		EFF145511EA402000058B754 /* CustomActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFF145501EA402000058B754 /* CustomActivityIndicator.xib */; };
+		EFF145531EA4034E0058B754 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF145521EA4034E0058B754 /* CustomActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +63,9 @@
 		790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewCityRoutes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1CA1C9F7552032758CBFCC8 /* Pods-NewCityRoutes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.release.xcconfig"; sourceTree = "<group>"; };
 		EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateNearestStation.swift; sourceTree = "<group>"; };
+		EFF1454E1EA401BF0058B754 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		EFF145501EA402000058B754 /* CustomActivityIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomActivityIndicator.xib; sourceTree = "<group>"; };
+		EFF145521EA4034E0058B754 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,7 @@
 		1138FE561E62026A00D0C9C9 /* NewCityRoutes */ = {
 			isa = PBXGroup;
 			children = (
+				EFF145541EA40AE60058B754 /* View */,
 				11EC2FCC1E8EB9B700846736 /* Storyboards */,
 				11EC2FCA1E8EB94A00846736 /* CustomCells */,
 				11EC2FCB1E8EB98E00846736 /* Controllers */,
@@ -132,6 +139,7 @@
 		11EC2FCB1E8EB98E00846736 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EFF1454E1EA401BF0058B754 /* LoadingViewController.swift */,
 				1138FE591E62026A00D0C9C9 /* InitialViewController.swift */,
 				1138FE731E62DAA900D0C9C9 /* FirstTableViewController.swift */,
 				1138FE7B1E6324A300D0C9C9 /* DetailTableViewController.swift */,
@@ -143,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				1138FE5B1E62026A00D0C9C9 /* Main.storyboard */,
+				EFF145501EA402000058B754 /* CustomActivityIndicator.xib */,
 				11B884221E7C80C1006BB69D /* InitialMapInfoWindow.xib */,
 				1138FE7E1E637D3100D0C9C9 /* DetailMapInfoWindow.xib */,
 			);
@@ -185,6 +194,14 @@
 				790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EFF145541EA40AE60058B754 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EFF145521EA4034E0058B754 /* CustomActivityIndicator.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +273,7 @@
 				11D6B0461E9BC94000EF0F91 /* Lines.geojson in Resources */,
 				11EC30281E93DF1B00846736 /* Beograd.gpx in Resources */,
 				11B884231E7C80C1006BB69D /* InitialMapInfoWindow.xib in Resources */,
+				EFF145511EA402000058B754 /* CustomActivityIndicator.xib in Resources */,
 				1138FE5D1E62026A00D0C9C9 /* Main.storyboard in Resources */,
 				11F321011E7FFF9000202FF6 /* Settings.bundle in Resources */,
 			);
@@ -318,6 +336,7 @@
 			files = (
 				1138FE781E63028500D0C9C9 /* Json.swift in Sources */,
 				1138FE5A1E62026A00D0C9C9 /* InitialViewController.swift in Sources */,
+				EFF1454F1EA401BF0058B754 /* LoadingViewController.swift in Sources */,
 				1138FE581E62026A00D0C9C9 /* AppDelegate.swift in Sources */,
 				1138FE6C1E620C2100D0C9C9 /* ViewForTransportButtons.swift in Sources */,
 				11B884211E7C8045006BB69D /* InitialMapInfoWindow.swift in Sources */,
@@ -328,6 +347,7 @@
 				11108FC71E71CF90008BE488 /* DetailTableViewCell.swift in Sources */,
 				1138FE761E6301ED00D0C9C9 /* DataModel.swift in Sources */,
 				EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */,
+				EFF145531EA4034E0058B754 /* CustomActivityIndicator.swift in Sources */,
 				11EC302E1E93E76000846736 /* Model.xcdatamodeld in Sources */,
 				1138FE7C1E6324A300D0C9C9 /* DetailTableViewController.swift in Sources */,
 			);

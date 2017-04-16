@@ -23,7 +23,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             myMapView.createMap(view: myMapView)
         }
     }
-    var json = Json()
+//    var json = Json()
     
     //MARK: Life cycle
     
@@ -34,7 +34,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
         
-        json.readJson()
+//        json.readJson()
         
         //Assigning tapGesture to buttons in viewForTransportButtons
         for view in viewForTransportButtons.subviews {
