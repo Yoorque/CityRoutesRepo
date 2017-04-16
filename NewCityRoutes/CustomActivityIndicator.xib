@@ -15,14 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-oZ-Vfb">
-                    <rect key="frame" x="0.0" y="3" width="80" height="74"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="rJL-oZ-Vfb">
+                    <rect key="frame" x="7" y="3" width="66" height="74"/>
                     <subviews>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ewF-Sw-g40">
-                            <rect key="frame" x="0.0" y="0.0" width="80" height="37"/>
+                            <rect key="frame" x="0.0" y="0.0" width="66" height="51.5"/>
                         </activityIndicatorView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FV-UI-bzG">
-                            <rect key="frame" x="0.0" y="37" width="80" height="37"/>
+                            <rect key="frame" x="0.0" y="51.5" width="66" height="22.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -32,10 +32,10 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="rJL-oZ-Vfb" secondAttribute="bottom" constant="3" id="30x-Vq-jCd"/>
-                <constraint firstItem="rJL-oZ-Vfb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3qu-hD-X4C"/>
-                <constraint firstItem="rJL-oZ-Vfb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="SW5-yM-xgt"/>
-                <constraint firstAttribute="trailing" secondItem="rJL-oZ-Vfb" secondAttribute="trailing" id="qGp-76-SC1"/>
+                <constraint firstItem="rJL-oZ-Vfb" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="3sT-VX-vdQ"/>
+                <constraint firstItem="rJL-oZ-Vfb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="7" id="vcQ-qv-ffb"/>
+                <constraint firstItem="rJL-oZ-Vfb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="wCi-DX-Had"/>
+                <constraint firstItem="rJL-oZ-Vfb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="yAB-8w-0Xf"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

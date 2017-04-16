@@ -10,17 +10,15 @@ import UIKit
 
 class LoadingViewController: UIViewController {
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView! {
+        didSet {
+            setupIndicator()
+        }
+    }
     
     let actIndicator = Bundle.main.loadNibNamed("CustomActivityIndicator", owner: self, options: nil)?.first as! CustomActivityIndicator
     
     var json = Json()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupIndicator()
-        
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -30,9 +28,9 @@ class LoadingViewController: UIViewController {
     }
     
     private func setupIndicator() {
-        let x = view.frame.size.width / 2 - actIndicator.frame.size.width / 2
-        let y = view.frame.size.height / 2 - actIndicator.frame.size.height / 2
-        actIndicator.frame.origin = CGPoint(x: x, y: y)
+        actIndicator.frame.size = CGSize(width: 80, height: 80)
+        actIndicator.center = imageView.center
+        actIndicator.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
         actIndicator.layer.borderColor = UIColor.white.cgColor
         actIndicator.layer.cornerRadius = 10
         actIndicator.layer.borderWidth = 0.3
