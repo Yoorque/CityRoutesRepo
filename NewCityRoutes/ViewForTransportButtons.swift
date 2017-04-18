@@ -57,6 +57,7 @@ class ViewForTransportButtons: UIView {
         }
         controller.selectedTransport = array
         controller.titleLabel.title = "List of \(typeOfRoute)"
+        
     }
     
     

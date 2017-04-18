@@ -50,7 +50,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="44j-eF-dL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-690.39999999999998" y="122.78860569715144"/>
+            <point key="canvasLocation" x="-47" y="123"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -84,15 +84,13 @@
                                     <constraint firstItem="ybR-0F-uwC" firstAttribute="centerX" secondItem="ePc-9L-Efw" secondAttribute="centerX" id="Ru9-qv-3fn"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="1" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zNS-rI-c4B">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="1" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zNS-rI-c4B">
                                 <rect key="frame" x="0.0" y="457" width="375" height="210"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="210" id="A9a-Jd-DlV"/>
                                 </constraints>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cFX-Or-uLR" customClass="DetailTableViewCell" customModule="NewCityRoutes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="59"/>
@@ -282,6 +280,7 @@
                             <constraint firstItem="h1t-S2-9Jo" firstAttribute="trailing" secondItem="ePc-9L-Efw" secondAttribute="trailing" id="yjS-Dd-vio"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="70d-4Y-S1A"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="h1t-S2-9Jo" id="ZRA-nG-ymI"/>
                         <outlet property="busButton" destination="ZhK-39-jLL" id="ddg-3l-vB5"/>
@@ -295,7 +294,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42.399999999999999" y="122.78860569715144"/>
+            <point key="canvasLocation" x="647" y="123"/>
         </scene>
         <!--First Table View Controller-->
         <scene sceneID="IaI-Xp-klJ">
@@ -312,6 +311,22 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="belgrade" translatesAutoresizingMaskIntoConstraints="NO" id="oup-7F-8Zt">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-Dp-keB">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Title" id="jiZ-Od-3kw">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="qqe-5q-q0S">
+                                            <connections>
+                                                <action selector="backBarButton:" destination="5Uv-Ft-JWd" id="Up9-Nq-Nbu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uKb-D7-Wx6">
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -375,18 +390,6 @@
                                     <outlet property="delegate" destination="5Uv-Ft-JWd" id="emB-4V-vr1"/>
                                 </connections>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-Dp-keB">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="jiZ-Od-3kw">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="qqe-5q-q0S">
-                                            <connections>
-                                                <action selector="backBarButton:" destination="5Uv-Ft-JWd" id="Up9-Nq-Nbu"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="0.32765057682991028" green="0.55581361055374146" blue="0.83188807964324951" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -409,12 +412,12 @@
                     <connections>
                         <outlet property="backgroundImageView" destination="oup-7F-8Zt" id="Prn-Pn-Q7m"/>
                         <outlet property="tableView" destination="uKb-D7-Wx6" id="jaZ-gG-Bfn"/>
-                        <outlet property="titleLabel" destination="jiZ-Od-3kw" id="oM8-ur-TtY"/>
+                        <outlet property="titleLabel" destination="jiZ-Od-3kw" id="CI0-gN-krn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j1m-qw-o3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="664.79999999999995" y="122.78860569715144"/>
+            <point key="canvasLocation" x="1322" y="123"/>
         </scene>
         <!--Detail Table View Controller-->
         <scene sceneID="vOR-O2-Run">
@@ -437,6 +440,11 @@
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Hx-55-F5R">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
                                 <items>
                                     <navigationItem title="Title" id="7UA-u8-dUw">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="0Qj-u7-eac">
@@ -550,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gO0-VE-DoA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1365.5999999999999" y="122.78860569715144"/>
+            <point key="canvasLocation" x="2073" y="123"/>
         </scene>
     </scenes>
     <resources>

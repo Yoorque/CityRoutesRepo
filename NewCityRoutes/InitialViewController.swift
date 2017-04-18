@@ -147,16 +147,36 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Recent Searches"
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "Recent Searches"
+//    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerLabel = UILabel()
+    
+        headerLabel.layer.borderColor = UIColor.white.cgColor
+        headerLabel.layer.borderWidth = 1
+        headerLabel.text = "Recent Searches"
+        headerLabel.textColor = .white
+        headerLabel.textAlignment = .center
+        headerLabel.backgroundColor = .clear
+        headerLabel.autoresizingMask = .flexibleWidth
+        view.addSubview(headerLabel)
+        return headerLabel
     }
-        
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = recentSearches[indexPath.row].routes
         let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
         controller.titleLabel.title = titleText
+        
     }
     
 }

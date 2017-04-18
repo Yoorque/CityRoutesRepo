@@ -50,6 +50,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
+        
         if !recentSearches.contains(selectedTransport[indexPath.row]) {
             recentSearches.insert(selectedTransport[indexPath.row], at: 0)
         }
