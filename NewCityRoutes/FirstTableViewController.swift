@@ -12,13 +12,16 @@ import UIKit
 
 class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBAction func backButton(_ sender: UIButton) {
-        saveRecentSearches()
-        dismiss(animated: true, completion: nil)
-    }
     @IBOutlet var tableView: UITableView!
     var selectedTransport = [Routes]()
     
+    @IBOutlet weak var titleLabel: UINavigationItem!
+    
+    @IBAction func backBarButton(_ sender: UIBarButtonItem) {
+        saveRecentSearches()
+        dismiss(animated: true, completion: nil)
+    }
+   
     //MARK: TableView Delegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,6 +50,8 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = self.selectedTransport[indexPath.row].routes
+        let titleText = "Selected \(selectedTransport[indexPath.row].route) is: \(selectedTransport[indexPath.row].ref)"
+        controller.titleLabel.title = titleText
         
     }
 }

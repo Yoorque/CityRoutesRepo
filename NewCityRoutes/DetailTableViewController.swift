@@ -19,7 +19,9 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     }
     @IBOutlet var tableView: UITableView!
     
-    @IBAction func backButton(_ sender: UIButton) {
+    @IBOutlet weak var titleLabel: UINavigationItem!
+    
+    @IBAction func backBarButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     

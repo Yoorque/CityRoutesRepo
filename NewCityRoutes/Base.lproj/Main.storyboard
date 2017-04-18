@@ -299,7 +299,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uKb-D7-Wx6">
-                                <rect key="frame" x="0.0" y="58" width="375" height="609"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -361,33 +361,41 @@
                                     <outlet property="delegate" destination="5Uv-Ft-JWd" id="emB-4V-vr1"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUE-b8-pYL">
-                                <rect key="frame" x="16" y="20" width="34" height="30"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="backButton:" destination="5Uv-Ft-JWd" eventType="touchUpInside" id="Do6-9Y-FJs"/>
-                                </connections>
-                            </button>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-Dp-keB">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="jiZ-Od-3kw">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="qqe-5q-q0S">
+                                            <connections>
+                                                <action selector="backBarButton:" destination="5Uv-Ft-JWd" id="Up9-Nq-Nbu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.32765057682991028" green="0.55581361055374146" blue="0.83188807964324951" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="aUE-b8-pYL" firstAttribute="leading" secondItem="hqb-BC-bFg" secondAttribute="leadingMargin" id="1hU-OJ-4Jl"/>
-                            <constraint firstItem="uKb-D7-Wx6" firstAttribute="top" secondItem="aUE-b8-pYL" secondAttribute="bottom" constant="8" symbolic="YES" id="ZSy-vk-gNM"/>
+                            <constraint firstItem="Vzg-Dp-keB" firstAttribute="top" secondItem="r7D-6n-Y54" secondAttribute="bottom" constant="8" id="92R-kO-ahE"/>
+                            <constraint firstItem="uKb-D7-Wx6" firstAttribute="leading" secondItem="hqb-BC-bFg" secondAttribute="leading" id="Q1a-8l-YAS"/>
+                            <constraint firstItem="uKb-D7-Wx6" firstAttribute="top" secondItem="Vzg-Dp-keB" secondAttribute="bottom" constant="8" id="T5v-Me-vk3"/>
+                            <constraint firstAttribute="trailing" secondItem="Vzg-Dp-keB" secondAttribute="trailing" id="V7C-4M-7Il"/>
+                            <constraint firstItem="SPa-MX-fYk" firstAttribute="top" secondItem="uKb-D7-Wx6" secondAttribute="bottom" id="WWh-8o-z0m"/>
                             <constraint firstItem="uKb-D7-Wx6" firstAttribute="trailing" secondItem="hqb-BC-bFg" secondAttribute="trailingMargin" constant="16" id="aps-Kx-m5B"/>
                             <constraint firstAttribute="bottom" secondItem="uKb-D7-Wx6" secondAttribute="bottom" id="cvX-ar-YUv"/>
-                            <constraint firstItem="aUE-b8-pYL" firstAttribute="leading" secondItem="uKb-D7-Wx6" secondAttribute="leading" constant="16" id="djq-e2-ahf"/>
-                            <constraint firstItem="aUE-b8-pYL" firstAttribute="top" secondItem="r7D-6n-Y54" secondAttribute="bottom" id="rYF-g9-gMO"/>
+                            <constraint firstItem="uKb-D7-Wx6" firstAttribute="top" secondItem="Vzg-Dp-keB" secondAttribute="bottom" constant="8" id="dw6-r7-xW3"/>
+                            <constraint firstAttribute="trailing" secondItem="uKb-D7-Wx6" secondAttribute="trailing" id="i4e-hF-CxR"/>
+                            <constraint firstItem="Vzg-Dp-keB" firstAttribute="leading" secondItem="hqb-BC-bFg" secondAttribute="leading" id="jGz-UL-xUf"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="uKb-D7-Wx6" id="jaZ-gG-Bfn"/>
+                        <outlet property="titleLabel" destination="jiZ-Od-3kw" id="oM8-ur-TtY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j1m-qw-o3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="664.79999999999995" y="124.58770614692655"/>
+            <point key="canvasLocation" x="1604" y="124.58770614692655"/>
         </scene>
         <!--Detail Table View Controller-->
         <scene sceneID="vOR-O2-Run">
@@ -402,18 +410,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KFk-Rm-UNh" customClass="CreateMapView" customModule="NewCityRoutes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="580"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="508"/>
                                 <color key="backgroundColor" red="0.89030185390000005" green="1" blue="0.96158695400000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZG-UL-Nf4">
-                                <rect key="frame" x="16" y="20" width="34" height="30"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="backButton:" destination="sOS-oI-J1R" eventType="touchUpInside" id="Iu7-ee-VKn"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cIm-K4-4mJ">
                                 <rect key="frame" x="0.0" y="579" width="375" height="88"/>
                                 <color key="backgroundColor" red="0.32558578249999998" green="0.554486692" blue="0.83342880009999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -483,28 +482,43 @@
                                     <outlet property="delegate" destination="sOS-oI-J1R" id="P6W-3U-Vlh"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Hx-55-F5R">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="7UA-u8-dUw">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="0Qj-u7-eac">
+                                            <connections>
+                                                <action selector="backBarButton:" destination="sOS-oI-J1R" id="Tc3-4d-ryw"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.32765057682991028" green="0.55581361055374146" blue="0.83188807964324951" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2Hx-55-F5R" secondAttribute="trailing" id="3QT-VG-l9T"/>
                             <constraint firstItem="d0g-ga-VTE" firstAttribute="top" secondItem="KFk-Rm-UNh" secondAttribute="bottom" constant="87" id="9Vb-h9-iXs"/>
-                            <constraint firstItem="UZG-UL-Nf4" firstAttribute="top" secondItem="R1j-EJ-AJf" secondAttribute="bottom" id="OEL-27-IVa"/>
+                            <constraint firstItem="2Hx-55-F5R" firstAttribute="top" secondItem="R1j-EJ-AJf" secondAttribute="bottom" constant="8" id="B8q-EN-aad"/>
+                            <constraint firstItem="2Hx-55-F5R" firstAttribute="leading" secondItem="Kzt-WG-n6R" secondAttribute="leading" id="BXk-qk-kAs"/>
                             <constraint firstItem="KFk-Rm-UNh" firstAttribute="leading" secondItem="Kzt-WG-n6R" secondAttribute="leading" id="Pio-CC-MdQ"/>
                             <constraint firstItem="cIm-K4-4mJ" firstAttribute="bottom" secondItem="d0g-ga-VTE" secondAttribute="top" id="Qh4-mL-gkY"/>
                             <constraint firstAttribute="trailing" secondItem="KFk-Rm-UNh" secondAttribute="trailing" id="eFL-Pz-Pbw"/>
                             <constraint firstItem="KFk-Rm-UNh" firstAttribute="leading" secondItem="cIm-K4-4mJ" secondAttribute="leading" id="eyl-Al-rr0"/>
-                            <constraint firstItem="KFk-Rm-UNh" firstAttribute="top" secondItem="Kzt-WG-n6R" secondAttribute="top" id="hqp-NB-VJX"/>
-                            <constraint firstItem="UZG-UL-Nf4" firstAttribute="leading" secondItem="Kzt-WG-n6R" secondAttribute="leadingMargin" id="obI-lI-oDb"/>
+                            <constraint firstItem="KFk-Rm-UNh" firstAttribute="top" secondItem="2Hx-55-F5R" secondAttribute="bottom" id="fN2-ly-qJt"/>
+                            <constraint firstItem="KFk-Rm-UNh" firstAttribute="top" secondItem="Kzt-WG-n6R" secondAttribute="top" constant="72" id="hqp-NB-VJX"/>
                             <constraint firstItem="KFk-Rm-UNh" firstAttribute="trailing" secondItem="cIm-K4-4mJ" secondAttribute="trailing" id="yEb-OA-5AV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="detailMapView" destination="KFk-Rm-UNh" id="4SJ-OP-9OM"/>
                         <outlet property="tableView" destination="cIm-K4-4mJ" id="cTg-T1-czh"/>
+                        <outlet property="titleLabel" destination="7UA-u8-dUw" id="Q1i-g3-DKx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gO0-VE-DoA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1340" y="124.58770614692655"/>
+            <point key="canvasLocation" x="2279.1999999999998" y="124.58770614692655"/>
         </scene>
     </scenes>
     <resources>

@@ -49,7 +49,14 @@ class ViewForTransportButtons: UIView {
         let controller = storyboard.instantiateViewController(withIdentifier: "FirstTableViewController") as! FirstTableViewController
         view.present(controller, animated: true, completion: nil)
         
+        var typeOfRoute: String = ""
+        if string == "tram" {
+            typeOfRoute = string + "s"
+        } else {
+            typeOfRoute = string + "es"
+        }
         controller.selectedTransport = array
+        controller.titleLabel.title = "List of \(typeOfRoute)"
     }
     
     
