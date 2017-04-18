@@ -8,10 +8,12 @@
 
 import UIKit
 import GoogleMaps
+
 var justOnce = true
 
 class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+    var blurClass = BlurEffect()
+    @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var crosshair: UIImageView!
     @IBOutlet var busButton: UIView!
@@ -31,6 +33,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         registerSettingsBundle()
         loadRecentSearches()
+        
+        blurClass.blurTheBackgound(view: backgroundImageView)
         //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
         
@@ -146,7 +150,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Recent Searches"
     }
-    
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         self.present(controller, animated: true, completion: nil)

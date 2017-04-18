@@ -14,7 +14,8 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet var tableView: UITableView!
     var selectedTransport = [Routes]()
-    
+    let blurClass = BlurEffect()
+    @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet weak var titleLabel: UINavigationItem!
     
     @IBAction func backBarButton(_ sender: UIBarButtonItem) {
@@ -22,6 +23,11 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         dismiss(animated: true, completion: nil)
     }
    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        blurClass.blurTheBackgound(view: backgroundImageView)
+        
+    }
     //MARK: TableView Delegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

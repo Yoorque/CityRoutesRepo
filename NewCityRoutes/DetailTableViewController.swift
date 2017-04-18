@@ -11,7 +11,8 @@ import UIKit
 class DetailTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var lineRoutes = [Relations]()
-    
+    let blurClass = BlurEffect()
+    @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var detailMapView: CreateMapView! {
         didSet {
             detailMapView.createMap(view: detailMapView)
@@ -23,6 +24,11 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func backBarButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        blurClass.blurTheBackgound(view: backgroundImageView)
     }
     
     //MARK: TableView Delegates
@@ -52,8 +58,9 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         detailMapView.drawLineMarkers(route: lineRoutes[indexPath.row])
         detailMapView.drawLinePolylines(route: lineRoutes[indexPath.row])
-        detailMapView.createNotificationLabel(view: detailMapView)
+    
         let selectedRow = tableView.cellForRow(at: indexPath) as! DetailTableViewCell
-        selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0.10, blue: 0.80, alpha: 1)
+        selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0.10, blue: 0.80, alpha: 0.5)
+        
     }
 }

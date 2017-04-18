@@ -35,7 +35,7 @@ class ViewForTransportButtons: UIView {
     }
     
     func setShadow(view: UIView) {
-        view.layer.cornerRadius = view.frame.width / 2
+        //view.layer.cornerRadius = view.frame.width / 2
         view.layer.shadowOpacity = 1
         view.layer.masksToBounds = false
         view.clipsToBounds = false
