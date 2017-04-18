@@ -66,6 +66,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="belgrade" translatesAutoresizingMaskIntoConstraints="NO" id="h1t-S2-9Jo">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.093670003116130829" green="0.2389456033706665" blue="0.58752942085266113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePc-9L-Efw" customClass="CreateMapView" customModule="NewCityRoutes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="357"/>
@@ -313,8 +314,11 @@
                             </imageView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzg-Dp-keB">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.093670003116130829" green="0.2389456033706665" blue="0.58752942085266113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.093670003116130829" green="0.2389456033706665" blue="0.58752942085266113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </textAttributes>
                                 <items>
@@ -411,6 +415,7 @@
                     </view>
                     <connections>
                         <outlet property="backgroundImageView" destination="oup-7F-8Zt" id="Prn-Pn-Q7m"/>
+                        <outlet property="navigationBar" destination="Vzg-Dp-keB" id="zMF-sB-stO"/>
                         <outlet property="tableView" destination="uKb-D7-Wx6" id="jaZ-gG-Bfn"/>
                         <outlet property="titleLabel" destination="jiZ-Od-3kw" id="CI0-gN-krn"/>
                     </connections>
@@ -440,9 +445,10 @@
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Hx-55-F5R">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.093670003116130829" green="0.2389456033706665" blue="0.58752942085266113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </textAttributes>
                                 <items>
@@ -552,6 +558,7 @@
                     <connections>
                         <outlet property="backgroundImageView" destination="DfN-X5-EvX" id="OLN-8h-j55"/>
                         <outlet property="detailMapView" destination="KFk-Rm-UNh" id="4SJ-OP-9OM"/>
+                        <outlet property="navigationBar" destination="2Hx-55-F5R" id="D9M-XS-u1B"/>
                         <outlet property="tableView" destination="cIm-K4-4mJ" id="cTg-T1-czh"/>
                         <outlet property="titleLabel" destination="7UA-u8-dUw" id="Q1i-g3-DKx"/>
                     </connections>

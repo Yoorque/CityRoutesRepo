@@ -18,6 +18,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet weak var titleLabel: UINavigationItem!
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBAction func backBarButton(_ sender: UIBarButtonItem) {
         saveRecentSearches()
         dismiss(animated: true, completion: nil)
@@ -26,6 +27,8 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         blurClass.blurTheBackgound(view: backgroundImageView)
+        navigationBar.transparentNavigationBar()
+        
         
     }
     //MARK: TableView Delegates

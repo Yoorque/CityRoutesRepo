@@ -21,6 +21,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var tableView: UITableView!
     
     @IBOutlet weak var titleLabel: UINavigationItem!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     @IBAction func backBarButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -29,6 +30,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         blurClass.blurTheBackgound(view: backgroundImageView)
+        navigationBar.transparentNavigationBar()
     }
     
     //MARK: TableView Delegates

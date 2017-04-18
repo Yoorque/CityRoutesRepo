@@ -176,8 +176,17 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         controller.lineRoutes = recentSearches[indexPath.row].routes
         let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
         controller.titleLabel.title = titleText
-        
+    
     }
     
+}
+
+extension UINavigationBar {
+    func transparentNavigationBar() {
+        self.setBackgroundImage(UIImage(), for: .default)
+        self.shadowImage = UIImage()
+        self.isTranslucent = true
+        self.backgroundColor = UIColor.clear
+    }
 }
 

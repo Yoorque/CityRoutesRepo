@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var type: String {
             return Bundle.main.bundleIdentifier! + ".\(self.rawValue)"
         }
+        
+        
     }
     
     /// Saved shortcut item used as a result of an app launch, used later when app is activated.
