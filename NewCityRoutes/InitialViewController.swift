@@ -151,6 +151,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = recentSearches[indexPath.row].routes
+        let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
+        controller.titleLabel.title = titleText
     }
     
 }
