@@ -34,10 +34,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func createMap(view: UIView) {
         // Testing on a device
-        //let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
+        let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
         
         // Testing on a simulator
-        let camera = GMSCameraPosition.camera(withLatitude: 44, longitude: 21, zoom: 15)
+        //let camera = GMSCameraPosition.camera(withLatitude: 44, longitude: 21, zoom: 15)
         
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
@@ -67,7 +67,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func drawLineMarkers(route: Relations) {
         mapView.clear()
+        if language == "latin" {
         notificationLabel.text = "Tap the station marker to see details"
+        } else {
+            notificationLabel.text = "Кликните маркер да видите детаље"
+        }
         labelAnimate(string: notificationLabel.text!)
         for feature in featureArray {
             for relation in feature.property.relations {
@@ -252,12 +256,20 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
-                notificationLabel.text = "Tap the station marker to see station details"
+                if language == "latin" {
+                notificationLabel.text = "Tap the station marker to see details"
+                } else {
+                    notificationLabel.text = "Кликните маркер да видите детаље"
+                }
                 labelAnimate(string: notificationLabel.text!)
                 markStation(forZoom: position.zoom)
             } else {
                 mapView.clear()
+                if language == "latin" {
                 notificationLabel.text = "Zoom-in to see stations"
+                } else {
+                    notificationLabel.text = "Зумирајте да видите станице"
+                }
                 labelAnimate(string: notificationLabel.text!)
             }
         }
@@ -265,7 +277,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.selectedMarker = marker
+        if language == "latin" {
         notificationLabel.text = "Tap the USSD code to copy to clipboard"
+        } else {
+            notificationLabel.text = "Кликните на USSD код, да га копирате"
+        }
         labelAnimate(string: notificationLabel.text!)
         return true
     }
@@ -278,7 +294,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         } else {
             copy.string = selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
         }
+        
+        if language == "latin" {
         notificationLabel.text = "Paste the code into phone dialer"
+        } else {
+            notificationLabel.text = "Прекопирајте код у телефон (позив)"
+        }
         labelAnimate(string: notificationLabel.text!)
     }
     
@@ -298,7 +319,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
-        notificationLabel.text = "Tap the station marker to see details"
+        if language == "latin" {
+            notificationLabel.text = "Tap the station marker to see details"
+        } else {
+            notificationLabel.text = "Кликните маркер да видите детаље"
+        }
         labelAnimate(string: notificationLabel.text!)
     }
     
