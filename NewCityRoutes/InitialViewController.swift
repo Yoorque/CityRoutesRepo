@@ -16,7 +16,10 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var crosshair: UIImageView!
+    @IBOutlet var busTitleLabel: UILabel!
     @IBOutlet var busButton: UIView!
+    @IBOutlet var tramTitleLabel: UILabel!
+    @IBOutlet var trolleybusTitleLabel: UILabel!
     @IBOutlet var trolleybusButton: UIView!
     @IBOutlet var tramButton: UIView!
     @IBOutlet var viewForTransportButtons: ViewForTransportButtons!
@@ -57,6 +60,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillAppear(animated)
         updateLanguageFromDefaults()
         removeExtraCells()
+        setTransportButtonLabels()
         tableView.reloadData()
     }
     
@@ -75,6 +79,18 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             present(alert, animated: true, completion: nil)
             defaults.set(true, forKey: "launchedBefore")
+        }
+    }
+    
+    func setTransportButtonLabels() {
+        if language == "latin" {
+        busTitleLabel.text = "Bus"
+        tramTitleLabel.text = "Tram"
+        trolleybusTitleLabel.text = "Trolleybus"
+        } else {
+            busTitleLabel.text = "Аутобус"
+            tramTitleLabel.text = "Трамвај"
+            trolleybusTitleLabel.text = "Тролејбус"
         }
     }
     
@@ -156,7 +172,11 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
         headerLabel.layer.borderColor = UIColor.white.cgColor
         headerLabel.layer.borderWidth = 1
+        if language == "latin" {
         headerLabel.text = "Recent Searches"
+        } else {
+            headerLabel.text = "Последње претраге"
+        }
         headerLabel.textColor = .white
         headerLabel.textAlignment = .center
         headerLabel.backgroundColor = .clear
@@ -174,8 +194,22 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = recentSearches[indexPath.row].routes
+        if language == "latin" {
         let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
-        controller.titleLabel.title = titleText
+            controller.titleLabel.title = titleText
+        } else {
+            var i = ""
+            if recentSearches[indexPath.row].route == "bus" {
+                i = "аутобус"
+            } else if recentSearches[indexPath.row].route == "tram" {
+                i = "трамвај"
+            } else if recentSearches[indexPath.row].route == "trolleybus" {
+                i = "тролејбус"
+            }
+            
+            let titleText = "Одабрани \(i) је: \(recentSearches[indexPath.row].ref)"
+            controller.titleLabel.title = titleText
+        }
     
     }
     

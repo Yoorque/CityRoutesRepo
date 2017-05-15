@@ -60,8 +60,24 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.present(controller, animated: true, completion: nil)
         controller.lineRoutes = self.selectedTransport[indexPath.row].routes
+        
+        if language == "latin" {
         let titleText = "Selected \(selectedTransport[indexPath.row].route) is: \(selectedTransport[indexPath.row].ref)"
-        controller.titleLabel.title = titleText
+            controller.titleLabel.title = titleText
+
+        } else {
+            var i = ""
+            if selectedTransport[indexPath.row].route == "bus" {
+                i = "аутобус"
+            } else if selectedTransport[indexPath.row].route == "tram" {
+                i = "трамвај"
+            } else if selectedTransport[indexPath.row].route == "trolleybus" {
+                i = "тролејбус"
+            }
+            
+        let titleText = "Одабрани \(i) је: \(selectedTransport[indexPath.row].ref)"
+            controller.titleLabel.title = titleText
+        }
         
     }
 }

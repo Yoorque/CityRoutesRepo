@@ -50,13 +50,26 @@ class ViewForTransportButtons: UIView {
         view.present(controller, animated: true, completion: nil)
         
         var typeOfRoute: String = ""
+        if language == "latin" {
         if string == "tram" {
             typeOfRoute = string + "s"
         } else {
             typeOfRoute = string + "es"
         }
+            controller.titleLabel.title = "List of \(typeOfRoute)"
+        } else {
+            var i = string
+            if string == "bus" {
+                i = "аутобуса"
+            } else if string == "tram" {
+                i = "трамваја"
+            } else if string == "trolleybus" {
+                i = "тролејбуса"
+            }
+            typeOfRoute = i
+            controller.titleLabel.title = "Списак \(typeOfRoute)"
+        }
         controller.selectedTransport = array
-        controller.titleLabel.title = "List of \(typeOfRoute)"
         
         
     }
