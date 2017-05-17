@@ -29,7 +29,6 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         blurClass.blurTheBackgound(view: backgroundImageView)
         navigationBar.transparentNavigationBar()
         
-        
     }
     //MARK: TableView Delegates
     

@@ -62,6 +62,11 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         removeExtraCells()
         setTransportButtonLabels()
         tableView.reloadData()
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
     }
     
     override func viewDidAppear(_ animated: Bool) {

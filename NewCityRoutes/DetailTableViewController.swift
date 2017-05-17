@@ -31,6 +31,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         blurClass.blurTheBackgound(view: backgroundImageView)
         navigationBar.transparentNavigationBar()
+      
     }
     
     //MARK: TableView Delegates

@@ -57,13 +57,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func createNotificationLabel(view: UIView) {
-        notificationLabel.frame = CGRect(x: view.bounds.size.width / 2 - 100, y: view.bounds.maxY - 30, width: 200, height: 20)
+//        notificationLabel.frame = CGRect(x: view.bounds.size.width / 2 - 100, y: view.bounds.maxY - 30, width: 200, height: 20)
         notificationLabel.textAlignment = .center
         notificationLabel.textColor = .red
         notificationLabel.adjustsFontSizeToFitWidth = true
         
         notificationLabel.autoresizingMask = .flexibleWidth
         notificationLabel.translatesAutoresizingMaskIntoConstraints = false
+        notificationLabel.font = UIFont.boldSystemFont(ofSize: 12)
         view.addSubview(notificationLabel)
     }
     
