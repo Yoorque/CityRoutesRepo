@@ -16,9 +16,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var selectedTransport = [Routes]()
     let blurClass = BlurEffect()
     @IBOutlet var backgroundImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UINavigationItem!
     
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBAction func backBarButton(_ sender: UIBarButtonItem) {
         saveRecentSearches()
         dismiss(animated: true, completion: nil)
@@ -27,9 +25,11 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         blurClass.blurTheBackgound(view: backgroundImageView)
-        navigationBar.transparentNavigationBar()
-        
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        navigationController?.navigationBar.transparentNavigationBar()
     }
+    
     //MARK: TableView Delegates
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -57,12 +57,14 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
             recentSearches.insert(selectedTransport[indexPath.row], at: 0)
         }
         
-        self.present(controller, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: controller)
+        self.present(navController, animated: true, completion: nil)
+        
         controller.lineRoutes = self.selectedTransport[indexPath.row].routes
         
         if language == "latin" {
         let titleText = "Selected \(selectedTransport[indexPath.row].route) is: \(selectedTransport[indexPath.row].ref)"
-            controller.titleLabel.title = titleText
+            controller.title = titleText
 
         } else {
             var i = ""
@@ -75,7 +77,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
         let titleText = "Одабрани \(i) је: \(selectedTransport[indexPath.row].ref)"
-            controller.titleLabel.title = titleText
+            controller.title = titleText
         }
         
     }

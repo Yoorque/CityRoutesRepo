@@ -197,11 +197,13 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
-        self.present(controller, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: controller)
+        self.present(navController, animated: true, completion: nil)
+        
         controller.lineRoutes = recentSearches[indexPath.row].routes
         if language == "latin" {
         let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
-            controller.titleLabel.title = titleText
+            controller.title = titleText
         } else {
             var i = ""
             if recentSearches[indexPath.row].route == "bus" {
@@ -213,7 +215,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
             let titleText = "Одабрани \(i) је: \(recentSearches[indexPath.row].ref)"
-            controller.titleLabel.title = titleText
+            controller.title = titleText
         }
     
     }

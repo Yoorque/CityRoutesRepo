@@ -47,7 +47,8 @@ class ViewForTransportButtons: UIView {
         let array = Json.sortedTransport(route: string)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "FirstTableViewController") as! FirstTableViewController
-        view.present(controller, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: controller)
+        view.present(navController, animated: true, completion: nil)
         
         var typeOfRoute: String = ""
         if language == "latin" {
@@ -56,7 +57,7 @@ class ViewForTransportButtons: UIView {
         } else {
             typeOfRoute = string + "es"
         }
-            controller.titleLabel.title = "List of \(typeOfRoute)"
+            controller.title = "List of \(typeOfRoute)"
         } else {
             var i = string
             if string == "bus" {
@@ -67,7 +68,11 @@ class ViewForTransportButtons: UIView {
                 i = "тролејбуса"
             }
             typeOfRoute = i
-            controller.titleLabel.title = "Списак \(typeOfRoute)"
+            
+            controller.title = "Списак \(typeOfRoute)"
+            controller.navigationController?.navigationBar.tintColor = .white
+            controller.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+            controller.navigationController?.navigationBar.transparentNavigationBar()
         }
         controller.selectedTransport = array
         
