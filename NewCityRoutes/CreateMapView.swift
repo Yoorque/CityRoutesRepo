@@ -49,6 +49,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView.delegate = self
         view.addSubview(mapView)
         createNotificationLabel(view: view)
+        
+        notificationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        notificationLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
+        notificationLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        notificationLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     func createNotificationLabel(view: UIView) {
@@ -58,6 +63,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         notificationLabel.adjustsFontSizeToFitWidth = true
         
         notificationLabel.autoresizingMask = .flexibleWidth
+        notificationLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(notificationLabel)
     }
     
