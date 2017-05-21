@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -50,7 +50,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="44j-eF-dL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-385" y="123"/>
+            <point key="canvasLocation" x="-185" y="123"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -80,7 +80,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cFX-Or-uLR" id="Kx9-0o-UTQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X7E-Q2-Qcc">
@@ -246,20 +246,7 @@
                             </view>
                             <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePc-9L-Efw" customClass="CreateMapView" customModule="NewCityRoutes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="357"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crosshair" translatesAutoresizingMaskIntoConstraints="NO" id="ybR-0F-uwC">
-                                        <rect key="frame" x="172" y="164" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="42i-LC-w3r"/>
-                                            <constraint firstAttribute="height" constant="30" id="eN0-jJ-D3h"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="ybR-0F-uwC" firstAttribute="centerY" secondItem="ePc-9L-Efw" secondAttribute="centerY" id="5jl-DX-NRz"/>
-                                    <constraint firstItem="ybR-0F-uwC" firstAttribute="centerX" secondItem="ePc-9L-Efw" secondAttribute="centerX" id="Ru9-qv-3fn"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -280,12 +267,17 @@
                             <constraint firstItem="h1t-S2-9Jo" firstAttribute="trailing" secondItem="ePc-9L-Efw" secondAttribute="trailing" id="yjS-Dd-vio"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="70d-4Y-S1A"/>
+                    <navigationItem key="navigationItem" id="70d-4Y-S1A">
+                        <barButtonItem key="rightBarButtonItem" title="Language" id="Rm6-L2-KoK">
+                            <connections>
+                                <action selector="languageButton:" destination="BYZ-38-t0r" id="7QH-76-IqM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="backgroundImageView" destination="h1t-S2-9Jo" id="ZRA-nG-ymI"/>
                         <outlet property="busButton" destination="ZhK-39-jLL" id="ddg-3l-vB5"/>
                         <outlet property="busTitleLabel" destination="Xs6-Kn-MKX" id="UYl-4y-SHW"/>
-                        <outlet property="crosshair" destination="ybR-0F-uwC" id="03M-dQ-z7S"/>
                         <outlet property="myMapView" destination="ePc-9L-Efw" id="B8C-LN-eZU"/>
                         <outlet property="tableView" destination="zNS-rI-c4B" id="1In-JG-b2j"/>
                         <outlet property="tramButton" destination="diI-OL-i6s" id="03E-13-zFS"/>
@@ -293,11 +285,12 @@
                         <outlet property="trolleybusButton" destination="P23-Cf-87F" id="WV6-VQ-dFu"/>
                         <outlet property="trolleybusTitleLabel" destination="RmY-FM-ZVK" id="Lo5-XR-tWi"/>
                         <outlet property="viewForTransportButtons" destination="5UA-5H-HzT" id="GBA-Y5-jfR"/>
+                        <segue destination="5Uv-Ft-JWd" kind="show" identifier="showFirstTVC" id="5G3-Kt-v8o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="211" y="123"/>
+            <point key="canvasLocation" x="1044" y="122.78860569715144"/>
         </scene>
         <!--First Table View Controller-->
         <scene sceneID="IaI-Xp-klJ">
@@ -324,7 +317,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D5D-8c-zsB" id="6A2-X7-hdO">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jel-PP-3Qk">
@@ -398,6 +391,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="v4G-fG-wjb" id="ECp-oz-8rj"/>
                         <outlet property="backgroundImageView" destination="oup-7F-8Zt" id="Prn-Pn-Q7m"/>
                         <outlet property="tableView" destination="uKb-D7-Wx6" id="jaZ-gG-Bfn"/>
                         <segue destination="sOS-oI-J1R" kind="show" identifier="showDetails" id="JDj-ae-Xbl"/>
@@ -405,7 +399,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j1m-qw-o3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1469" y="123"/>
+            <point key="canvasLocation" x="1852" y="123"/>
         </scene>
         <!--Detail Table View Controller-->
         <scene sceneID="vOR-O2-Run">
@@ -439,7 +433,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fLE-VY-3JC" id="Rcp-Kl-LcM">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="yXb-1R-xv0">
@@ -522,6 +516,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="P9o-7L-g5F" id="8ZW-Rz-ri9"/>
                         <outlet property="backgroundImageView" destination="DfN-X5-EvX" id="OLN-8h-j55"/>
                         <outlet property="detailMapView" destination="KFk-Rm-UNh" id="4SJ-OP-9OM"/>
                         <outlet property="tableView" destination="cIm-K4-4mJ" id="cTg-T1-czh"/>
@@ -529,31 +524,30 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gO0-VE-DoA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2105" y="123"/>
+            <point key="canvasLocation" x="2636" y="123"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="qPM-ZK-FPM">
+        <scene sceneID="ueQ-ox-DGy">
             <objects>
-                <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="vu9-zq-ocj" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="ATt-Fu-mbX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kZ0-E4-Aau">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4H-H2-hQg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="5Uv-Ft-JWd" kind="relationship" relationship="rootViewController" id="adm-G2-CNv"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="reJ-QJ-94u"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yvi-R4-9d0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0aR-5f-9hX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="811" y="123"/>
+            <point key="canvasLocation" x="319" y="123"/>
         </scene>
     </scenes>
     <resources>
         <image name="belgrade" width="512" height="384"/>
         <image name="bus" width="25" height="25"/>
-        <image name="crosshair" width="100" height="100"/>
         <image name="tram" width="25" height="25"/>
         <image name="trolleybus" width="25" height="25"/>
     </resources>

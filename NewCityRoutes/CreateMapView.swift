@@ -48,7 +48,17 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
         view.addSubview(mapView)
+        
+        let crosshair = UIImageView(image: UIImage(named: "crosshair"))
+
+        view.addSubview(crosshair)
         createNotificationLabel(view: view)
+        
+        crosshair.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        crosshair.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        crosshair.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        crosshair.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        crosshair.translatesAutoresizingMaskIntoConstraints = false
         
         notificationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         notificationLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
@@ -198,6 +208,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    
+    
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
         let index = Int(marker.accessibilityLabel!)!
@@ -257,7 +269,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     //MARK: MapView Delegates
     
-
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
@@ -283,6 +294,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.selectedMarker = marker
+        
         if language == "latin" {
         notificationLabel.text = "Tap the USSD code to copy to clipboard"
         } else {
