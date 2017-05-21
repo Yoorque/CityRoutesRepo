@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="4vc-te-7RV" customClass="InitialMapInfoWindow" customModule="NewCityRoutes" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="195" height="39"/>
+            <rect key="frame" x="0.0" y="0.0" width="195" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ec-aq-sC1">
@@ -61,7 +61,7 @@
                 <outlet property="stationUnderView" destination="9Ec-aq-sC1" id="D8I-9c-NFa"/>
                 <outlet property="underView" destination="11Y-i4-Z7t" id="JpO-II-d4d"/>
             </connections>
-            <point key="canvasLocation" x="-203.5" y="-76.5"/>
+            <point key="canvasLocation" x="-203.5" y="-42"/>
         </view>
     </objects>
 </document>
