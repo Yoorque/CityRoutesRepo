@@ -12,22 +12,35 @@ import UIKit
 
 class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
     var selectedTransport = [Routes]()
     let blurClass = BlurEffect()
     @IBOutlet var backgroundImageView: UIImageView!
     
     @IBAction func backBarButton(_ sender: UIBarButtonItem) {
+        
         saveRecentSearches()
         dismiss(animated: true, completion: nil)
     }
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         blurClass.blurTheBackgound(view: backgroundImageView)
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         navigationController?.navigationBar.transparentNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if language == "latin" {
+            backButton.title = "Back"
+        } else {
+            backButton.title = "Назад"
+        }
     }
     
     //MARK: TableView Delegates

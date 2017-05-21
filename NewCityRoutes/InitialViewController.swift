@@ -28,6 +28,38 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             myMapView.createMap(view: myMapView)
         }
     }
+    @IBAction func languageButton(_ sender: UIBarButtonItem) {
+        var lang = ""
+        let actionsSheet = UIAlertController(title: "Language", message: "Change preffered language", preferredStyle: .actionSheet)
+        actionsSheet.addAction(UIAlertAction(title: "Latin", style: .default, handler: {_ in
+            language = "latin"
+            lang = language
+            self.setTransportButtonLabels()
+            self.saveLanguageToDefaults(string: lang)
+            for subview in self.myMapView.subviews {
+                subview.removeFromSuperview()
+            }
+            self.myMapView.createMap(view: self.myMapView)
+            self.tableView.reloadData()
+        }))
+        actionsSheet.addAction(UIAlertAction(title: "Ћирилица", style: .default, handler: {_ in
+            language = "cyrillic"
+            lang = language
+            self.setTransportButtonLabels()
+            self.saveLanguageToDefaults(string: lang)
+            for subview in self.myMapView.subviews {
+                subview.removeFromSuperview()
+            }
+            self.myMapView.createMap(view: self.myMapView)
+            self.tableView.reloadData()
+        }))
+        
+        
+        
+        
+        present(actionsSheet, animated: true)
+    }
+    
 //    var json = Json()
     
     //MARK: Life cycle
@@ -36,7 +68,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         registerSettingsBundle()
         loadRecentSearches()
-        
+         
         blurClass.blurTheBackgound(view: backgroundImageView)
         //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
@@ -53,20 +85,24 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
                 view.addGestureRecognizer(tapGesture)
             }
         }
-        myMapView.bringSubview(toFront: crosshair)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateLanguageFromDefaults()
         removeExtraCells()
-        setTransportButtonLabels()
+        // setTransportButtonLabels()
         tableView.reloadData()
         UIApplication.shared.statusBarStyle = .default
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+    }
+    
+    func saveLanguageToDefaults(string: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(string, forKey: "language")
     }
     
     override func viewDidAppear(_ animated: Bool) {

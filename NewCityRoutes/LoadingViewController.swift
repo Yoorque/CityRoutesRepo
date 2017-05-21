@@ -61,7 +61,8 @@ class LoadingViewController: UIViewController {
     
     private func instantiateViewController() {
         let controller = storyboard?.instantiateViewController(withIdentifier: "InitialViewController") as! InitialViewController
-        self.present(controller, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: controller)
+        self.present(navController, animated: true, completion: nil)
     }
 
 }

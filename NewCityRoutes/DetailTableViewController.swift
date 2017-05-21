@@ -9,6 +9,7 @@
 import UIKit
 
 class DetailTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet var backButton: UIBarButtonItem!
     
     var lineRoutes = [Relations]()
     let blurClass = BlurEffect()
@@ -29,6 +30,17 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         navigationController?.navigationBar.transparentNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if language == "latin" {
+            backButton.title = "Back"
+        } else {
+            backButton.title = "Назад"
+        }
+
     }
     
     //MARK: TableView Delegates
