@@ -10,6 +10,10 @@ import UIKit
 
 class DetailMapInfoWindow: UIView {
     
+    @IBOutlet var otherLinesLanguageLabel: UILabel!
+    @IBOutlet var wheelchairLanguageLabel: UILabel!
+    @IBOutlet var coveredLanguageLabel: UILabel!
+    @IBOutlet var codeLanguageLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var selectedLine: UILabel!
     @IBOutlet var otherLines: UILabel!

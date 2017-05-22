@@ -27,52 +27,36 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet var myMapView: CreateMapView! {
         didSet {
             myMapView.createMap(view: myMapView)
+            myMapView.createCrosshair(view: myMapView)
         }
     }
     
     @IBAction func languageButton(_ sender: UIBarButtonItem) {
-        var lang = ""
         let actionsSheet = UIAlertController(title: "Language", message: "Choose your preffered language", preferredStyle: .actionSheet)
         actionsSheet.addAction(UIAlertAction(title: "English", style: .default, handler: {_ in
             language = "latin"
-            lang = language
-            
-            self.reloadFor(language: lang)
+            self.reloadFor(language: language)
         }))
         
         actionsSheet.addAction(UIAlertAction(title: "Српски", style: .default, handler: {_ in
             language = "cyrillic"
-            lang = language
-            
-            self.reloadFor(language: lang)
+            self.reloadFor(language: language)
         }))
         
         present(actionsSheet, animated: true)
     }
     
-//    var json = Json()
-    
-    func reloadFor(language: String) {
-        for subview in self.myMapView.subviews {
-            subview.removeFromSuperview()
-        }
-        self.saveLanguageToDefaults(string: language)
-        self.setTransportButtonLabels()
-        self.myMapView.createMap(view: self.myMapView)
-        self.tableView.reloadData()
-    }
     
     //MARK: Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerSettingsBundle()
         loadRecentSearches()
-        
+        navigationController?.navigationBar.transparentNavigationBar()
         blurClass.blurTheBackgound(view: backgroundImageView)
         //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
-        
-//        json.readJson()
         
         //Assigning tapGesture to buttons in viewForTransportButtons
         for view in viewForTransportButtons.subviews {
@@ -90,18 +74,9 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillAppear(animated)
         updateLanguageFromDefaults()
         removeExtraCells()
-        // setTransportButtonLabels()
+        setTransportButtonLabels()
         tableView.reloadData()
-        UIApplication.shared.statusBarStyle = .default
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-    }
-    
-    func saveLanguageToDefaults(string: String) {
-        let defaults = UserDefaults.standard
-        defaults.set(string, forKey: "language")
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -119,18 +94,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             present(alert, animated: true, completion: nil)
             defaults.set(true, forKey: "launchedBefore")
-        }
-    }
-    
-    func setTransportButtonLabels() {
-        if language == "latin" {
-        busTitleLabel.text = "Bus"
-        tramTitleLabel.text = "Tram"
-        trolleybusTitleLabel.text = "Trolleybus"
-        } else {
-            busTitleLabel.text = "Аутобус"
-            tramTitleLabel.text = "Трамвај"
-            trolleybusTitleLabel.text = "Тролејбус"
         }
     }
     
@@ -163,6 +126,11 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         UserDefaults.standard.register(defaults: appDefaults)
     }
     
+    func saveLanguageToDefaults(string: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(string, forKey: "language")
+    }
+    
     func updateLanguageFromDefaults() {
         let defaults = UserDefaults.standard
         if let languageFromDefaults = defaults.value(forKey: "language") as? String {
@@ -175,6 +143,31 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    //MARK: Helper methods
+    
+    func reloadFor(language: String) {
+        for subview in self.myMapView.subviews {
+            subview.removeFromSuperview()
+        }
+        self.saveLanguageToDefaults(string: language)
+        self.setTransportButtonLabels()
+        self.myMapView.createMap(view: self.myMapView)
+        self.myMapView.createCrosshair(view: self.myMapView)
+        self.tableView.reloadData()
+    }
+    
+    func setTransportButtonLabels() {
+        if language == "latin" {
+            busTitleLabel.text = "Bus"
+            tramTitleLabel.text = "Tram"
+            trolleybusTitleLabel.text = "Trolleybus"
+        } else {
+            busTitleLabel.text = "Аутобус"
+            tramTitleLabel.text = "Трамвај"
+            trolleybusTitleLabel.text = "Тролејбус"
+        }
+    }
+
     //MARK: TableView Delegates
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -208,17 +201,13 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Recent Searches"
-//    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = UILabel()
-    
+        
         headerLabel.layer.borderColor = UIColor.white.cgColor
         headerLabel.layer.borderWidth = 1
         if language == "latin" {
-        headerLabel.text = "Recent Searches"
+            headerLabel.text = "Recent Searches"
         } else {
             headerLabel.text = "Последње претраге"
         }
@@ -242,7 +231,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         controller.lineRoutes = recentSearches[indexPath.row].routes
         if language == "latin" {
-        let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
+            let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
             controller.title = titleText
         } else {
             var i = ""
@@ -257,7 +246,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             let titleText = "Одабрани \(i) је: \(recentSearches[indexPath.row].ref)"
             controller.title = titleText
         }
-    
     }
     
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 class BlurEffect: UIView {
-
+    
     func blurTheBackgound(view: UIView) {
         let blurEffect = UIBlurEffect(style: .regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -17,5 +17,5 @@ class BlurEffect: UIView {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
     }
-
+    
 }

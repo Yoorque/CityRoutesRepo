@@ -49,16 +49,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView.delegate = self
         view.addSubview(mapView)
         
-        let crosshair = UIImageView(image: UIImage(named: "crosshair"))
-
-        view.addSubview(crosshair)
         createNotificationLabel(view: view)
-        
-        crosshair.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        crosshair.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        crosshair.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        crosshair.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        crosshair.translatesAutoresizingMaskIntoConstraints = false
         
         notificationLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         notificationLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
@@ -66,8 +57,19 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         notificationLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
+    func createCrosshair(view: UIView) {
+        let crosshair = UIImageView(image: UIImage(named: "crosshair"))
+        view.addSubview(crosshair)
+        
+        crosshair.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        crosshair.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        crosshair.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        crosshair.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        crosshair.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     func createNotificationLabel(view: UIView) {
-//        notificationLabel.frame = CGRect(x: view.bounds.size.width / 2 - 100, y: view.bounds.maxY - 30, width: 200, height: 20)
+        //        notificationLabel.frame = CGRect(x: view.bounds.size.width / 2 - 100, y: view.bounds.maxY - 30, width: 200, height: 20)
         notificationLabel.textAlignment = .center
         notificationLabel.textColor = .red
         notificationLabel.adjustsFontSizeToFitWidth = true
@@ -84,7 +86,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func drawLineMarkers(route: Relations) {
         mapView.clear()
         if language == "latin" {
-        notificationLabel.text = "Tap the station marker to see details"
+            notificationLabel.text = "Tap the station marker to see details"
         } else {
             notificationLabel.text = "Кликните маркер да видите детаље"
         }
@@ -231,6 +233,18 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.layer.cornerRadius = 13
         infoWindow.layer.borderColor = UIColor.red.cgColor
         
+        if language == "latin" {
+            infoWindow.codeLanguageLabel.text = "Code"
+            infoWindow.coveredLanguageLabel.text = "Covered"
+            infoWindow.wheelchairLanguageLabel.text = "Wheelchair"
+            infoWindow.otherLinesLanguageLabel.text = "Lines"
+        } else {
+            infoWindow.codeLanguageLabel.text = "Код"
+            infoWindow.coveredLanguageLabel.text = "Покривена"
+            infoWindow.wheelchairLanguageLabel.text = "Колица"
+            infoWindow.otherLinesLanguageLabel.text = "Линије"
+        }
+        
         if selectedFeature[index].property.covered != "" {
             infoWindow.coveredImage.image = UIImage(named: selectedFeature[index].property.covered)
         } else if selectedFeature[index].property.shelter != ""{
@@ -275,7 +289,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
                 if language == "latin" {
-                notificationLabel.text = "Tap the station marker to see details"
+                    notificationLabel.text = "Tap the station marker to see details"
                 } else {
                     notificationLabel.text = "Кликните маркер да видите детаље"
                 }
@@ -284,7 +298,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             } else {
                 mapView.clear()
                 if language == "latin" {
-                notificationLabel.text = "Zoom-in to see stations"
+                    notificationLabel.text = "Zoom-in to see stations"
                 } else {
                     notificationLabel.text = "Зумирајте да видите станице"
                 }
@@ -297,7 +311,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView.selectedMarker = marker
         
         if language == "latin" {
-        notificationLabel.text = "Tap the USSD code to copy to clipboard"
+            notificationLabel.text = "Tap the USSD code to copy to clipboard"
         } else {
             notificationLabel.text = "Кликните на USSD код, да га копирате"
         }
@@ -315,7 +329,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
         
         if language == "latin" {
-        notificationLabel.text = "Paste the code into phone dialer"
+            notificationLabel.text = "Paste the code into phone dialer"
         } else {
             notificationLabel.text = "Прекопирајте код у телефон (позив)"
         }

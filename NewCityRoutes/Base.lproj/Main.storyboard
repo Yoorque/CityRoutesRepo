@@ -50,7 +50,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="44j-eF-dL3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-185" y="123"/>
+            <point key="canvasLocation" x="-414" y="123"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -245,30 +245,31 @@
                                 </constraints>
                             </view>
                             <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePc-9L-Efw" customClass="CreateMapView" customModule="NewCityRoutes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="357"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="293"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="5UA-5H-HzT" secondAttribute="trailing" id="0qT-pL-Ncd"/>
-                            <constraint firstItem="h1t-S2-9Jo" firstAttribute="leading" secondItem="ePc-9L-Efw" secondAttribute="leading" id="2p0-iB-Ac5"/>
+                            <constraint firstItem="ePc-9L-Efw" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="5r6-Ez-49B"/>
                             <constraint firstItem="ePc-9L-Efw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6SJ-gb-NMm"/>
+                            <constraint firstItem="h1t-S2-9Jo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8K0-kl-CI8"/>
                             <constraint firstItem="5UA-5H-HzT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DEo-dL-mJD"/>
                             <constraint firstItem="zNS-rI-c4B" firstAttribute="top" secondItem="5UA-5H-HzT" secondAttribute="bottom" id="Okc-Yo-mpA"/>
                             <constraint firstAttribute="trailing" secondItem="zNS-rI-c4B" secondAttribute="trailing" id="TJV-sl-jSX"/>
+                            <constraint firstAttribute="trailing" secondItem="h1t-S2-9Jo" secondAttribute="trailing" id="UkF-sI-Y6U"/>
+                            <constraint firstItem="5UA-5H-HzT" firstAttribute="top" secondItem="ePc-9L-Efw" secondAttribute="bottom" id="WbL-Pj-oq4"/>
                             <constraint firstAttribute="trailing" secondItem="ePc-9L-Efw" secondAttribute="trailing" id="Wfq-ed-LO3"/>
-                            <constraint firstItem="h1t-S2-9Jo" firstAttribute="top" secondItem="ePc-9L-Efw" secondAttribute="top" id="aQX-Fk-9kw"/>
                             <constraint firstItem="h1t-S2-9Jo" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="akl-lu-bZe"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zNS-rI-c4B" secondAttribute="bottom" id="by5-gn-6z4"/>
                             <constraint firstItem="zNS-rI-c4B" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dQE-rO-WAx"/>
-                            <constraint firstItem="5UA-5H-HzT" firstAttribute="top" secondItem="ePc-9L-Efw" secondAttribute="bottom" id="eJ7-gq-3ki"/>
-                            <constraint firstItem="ePc-9L-Efw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="nl8-hx-ySV"/>
-                            <constraint firstItem="h1t-S2-9Jo" firstAttribute="trailing" secondItem="ePc-9L-Efw" secondAttribute="trailing" id="yjS-Dd-vio"/>
+                            <constraint firstItem="h1t-S2-9Jo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="nah-AC-vrm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="70d-4Y-S1A">
-                        <barButtonItem key="rightBarButtonItem" title="Language" id="Rm6-L2-KoK">
+                        <barButtonItem key="rightBarButtonItem" id="Rm6-L2-KoK">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="languageButton:" destination="BYZ-38-t0r" id="7QH-76-IqM"/>
                             </connections>
@@ -532,7 +533,7 @@
             <objects>
                 <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="ATt-Fu-mbX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f4H-H2-hQg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4H-H2-hQg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

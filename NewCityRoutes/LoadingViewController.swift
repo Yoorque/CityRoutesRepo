@@ -26,10 +26,10 @@ class LoadingViewController: UIViewController {
         instantiateViewController()
         actIndicator.actIndicator(isShowed: false)
         
-//        actIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
-//        actIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
-//        actIndicator.widthAnchor.constraint(equalToConstant: 80).isActive = true
-//        actIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        //        actIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+        //        actIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+        //        actIndicator.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        //        actIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     private func setupIndicator() {
@@ -42,20 +42,20 @@ class LoadingViewController: UIViewController {
         actIndicator.actIndicator(isShowed: true)
         actIndicator.translatesAutoresizingMaskIntoConstraints = false
         
-
+        
         let widthConstraint = NSLayoutConstraint(item: actIndicator, attribute: .width, relatedBy: .equal,
                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 90)
         
         let heightConstraint = NSLayoutConstraint(item: actIndicator, attribute: .height, relatedBy: .equal,
                                                   toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 90)
-
+        
         let xConstraint = NSLayoutConstraint(item: actIndicator, attribute: .centerX, relatedBy: .equal, toItem: self.imageView, attribute: .centerX, multiplier: 1, constant: 0)
         let yConstraint = NSLayoutConstraint(item: actIndicator, attribute: .centerY, relatedBy: .equal, toItem: self.imageView, attribute: .centerY, multiplier: 1, constant: 0)
-
         
         
         
-       NSLayoutConstraint.activate([xConstraint, yConstraint, widthConstraint, heightConstraint])
+        
+        NSLayoutConstraint.activate([xConstraint, yConstraint, widthConstraint, heightConstraint])
         
     }
     
@@ -64,5 +64,5 @@ class LoadingViewController: UIViewController {
         let navController = UINavigationController(rootViewController: controller)
         self.present(navController, animated: true, completion: nil)
     }
-
+    
 }

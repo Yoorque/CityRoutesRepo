@@ -23,7 +23,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         saveRecentSearches()
         dismiss(animated: true, completion: nil)
     }
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,9 +76,9 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         controller.lineRoutes = self.selectedTransport[indexPath.row].routes
         
         if language == "latin" {
-        let titleText = "Selected \(selectedTransport[indexPath.row].route) is: \(selectedTransport[indexPath.row].ref)"
+            let titleText = "Selected \(selectedTransport[indexPath.row].route) is: \(selectedTransport[indexPath.row].ref)"
             controller.title = titleText
-
+            
         } else {
             var i = ""
             if selectedTransport[indexPath.row].route == "bus" {
@@ -89,7 +89,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
                 i = "тролејбус"
             }
             
-        let titleText = "Одабрани \(i) је: \(selectedTransport[indexPath.row].ref)"
+            let titleText = "Одабрани \(i) је: \(selectedTransport[indexPath.row].ref)"
             controller.title = titleText
         }
         

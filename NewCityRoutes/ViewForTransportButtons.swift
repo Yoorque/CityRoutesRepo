@@ -52,11 +52,11 @@ class ViewForTransportButtons: UIView {
         
         var typeOfRoute: String = ""
         if language == "latin" {
-        if string == "tram" {
-            typeOfRoute = string + "s"
-        } else {
-            typeOfRoute = string + "es"
-        }
+            if string == "tram" {
+                typeOfRoute = string + "s"
+            } else {
+                typeOfRoute = string + "es"
+            }
             controller.title = "List of \(typeOfRoute)"
         } else {
             var i = string
