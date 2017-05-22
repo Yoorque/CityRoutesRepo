@@ -12,6 +12,7 @@ import GoogleMaps
 var justOnce = true
 
 class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet var languageButton: UIBarButtonItem!
     var blurClass = BlurEffect()
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var tableView: UITableView!
@@ -28,47 +29,45 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             myMapView.createMap(view: myMapView)
         }
     }
+    
     @IBAction func languageButton(_ sender: UIBarButtonItem) {
         var lang = ""
-        let actionsSheet = UIAlertController(title: "Language", message: "Change preffered language", preferredStyle: .actionSheet)
-        actionsSheet.addAction(UIAlertAction(title: "Latin", style: .default, handler: {_ in
+        let actionsSheet = UIAlertController(title: "Language", message: "Choose your preffered language", preferredStyle: .actionSheet)
+        actionsSheet.addAction(UIAlertAction(title: "English", style: .default, handler: {_ in
             language = "latin"
             lang = language
-            self.setTransportButtonLabels()
-            self.saveLanguageToDefaults(string: lang)
-            for subview in self.myMapView.subviews {
-                subview.removeFromSuperview()
-            }
-            self.myMapView.createMap(view: self.myMapView)
-            self.tableView.reloadData()
+            
+            self.reloadFor(language: lang)
         }))
-        actionsSheet.addAction(UIAlertAction(title: "Ћирилица", style: .default, handler: {_ in
+        
+        actionsSheet.addAction(UIAlertAction(title: "Српски", style: .default, handler: {_ in
             language = "cyrillic"
             lang = language
-            self.setTransportButtonLabels()
-            self.saveLanguageToDefaults(string: lang)
-            for subview in self.myMapView.subviews {
-                subview.removeFromSuperview()
-            }
-            self.myMapView.createMap(view: self.myMapView)
-            self.tableView.reloadData()
+            
+            self.reloadFor(language: lang)
         }))
-        
-        
-        
         
         present(actionsSheet, animated: true)
     }
     
 //    var json = Json()
     
-    //MARK: Life cycle
+    func reloadFor(language: String) {
+        for subview in self.myMapView.subviews {
+            subview.removeFromSuperview()
+        }
+        self.saveLanguageToDefaults(string: language)
+        self.setTransportButtonLabels()
+        self.myMapView.createMap(view: self.myMapView)
+        self.tableView.reloadData()
+    }
     
+    //MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         registerSettingsBundle()
         loadRecentSearches()
-         
+        
         blurClass.blurTheBackgound(view: backgroundImageView)
         //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
@@ -110,11 +109,11 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let defaults = UserDefaults.standard
         if (defaults.value(forKey: "launchedBefore")) == nil{
-            let alert = UIAlertController(title: "Choose your preferred language", message: "You can modify your selection later, in Settings", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cyrillic", style: .default, handler: {_ in
+            let alert = UIAlertController(title: "Choose your preferred language", message: "You can modify your selection later by tapping on Language button in the upper right corner", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Српски", style: .default, handler: {_ in
                 defaults.set("cyrillic", forKey: "language")
             }))
-            alert.addAction(UIAlertAction(title: "Latin", style: .default, handler: {_ in
+            alert.addAction(UIAlertAction(title: "English", style: .default, handler: {_ in
                 defaults.set("latin", forKey: "language")
             }))
             
@@ -168,6 +167,11 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         let defaults = UserDefaults.standard
         if let languageFromDefaults = defaults.value(forKey: "language") as? String {
             language = languageFromDefaults
+            if language == "latin" {
+                languageButton.title = "Language"
+            } else {
+                languageButton.title = "Језик"
+            }
         }
     }
     

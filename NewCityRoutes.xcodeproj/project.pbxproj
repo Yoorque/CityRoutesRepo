@@ -28,7 +28,6 @@
 		11D6B0461E9BC94000EF0F91 /* Lines.geojson in Resources */ = {isa = PBXBuildFile; fileRef = 11D6B0451E9BC94000EF0F91 /* Lines.geojson */; };
 		11EC30281E93DF1B00846736 /* Beograd.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 11EC30271E93DF1B00846736 /* Beograd.gpx */; };
 		11EC302E1E93E76000846736 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11EC302C1E93E76000846736 /* Model.xcdatamodeld */; };
-		11F321011E7FFF9000202FF6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11F321001E7FFF9000202FF6 /* Settings.bundle */; };
 		A2F7AEB315006E32C3B88257 /* Pods_NewCityRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */; };
 		EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */; };
 		EFF1454F1EA401BF0058B754 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF1454E1EA401BF0058B754 /* LoadingViewController.swift */; };
@@ -60,7 +59,6 @@
 		11D6B0451E9BC94000EF0F91 /* Lines.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Lines.geojson; sourceTree = "<group>"; };
 		11EC30271E93DF1B00846736 /* Beograd.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Beograd.gpx; sourceTree = "<group>"; };
 		11EC302D1E93E76000846736 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		11F321001E7FFF9000202FF6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6183BCE7981F7301BFE102AE /* Pods-NewCityRoutes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.debug.xcconfig"; sourceTree = "<group>"; };
 		790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewCityRoutes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1CA1C9F7552032758CBFCC8 /* Pods-NewCityRoutes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.release.xcconfig"; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				11EC2FCC1E8EB9B700846736 /* Storyboards */,
 				11EC2FCA1E8EB94A00846736 /* CustomCells */,
 				11EC2FCB1E8EB98E00846736 /* Controllers */,
-				11F321001E7FFF9000202FF6 /* Settings.bundle */,
 				11EC2FCE1E8EBA3B00846736 /* Model */,
 				11EC2FCD1E8EB9DA00846736 /* InfoWindows */,
 				1138FE7D1E63421400D0C9C9 /* SupportingFiles */,
@@ -278,7 +275,6 @@
 				11B884231E7C80C1006BB69D /* InitialMapInfoWindow.xib in Resources */,
 				EFF145511EA402000058B754 /* CustomActivityIndicator.xib in Resources */,
 				1138FE5D1E62026A00D0C9C9 /* Main.storyboard in Resources */,
-				11F321011E7FFF9000202FF6 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
