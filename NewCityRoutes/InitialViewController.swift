@@ -12,6 +12,7 @@ import GoogleMaps
 var justOnce = true
 
 class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet var infoButton: UIBarButtonItem!
     @IBOutlet var languageButton: UIBarButtonItem!
     var blurClass = BlurEffect()
     @IBOutlet var backgroundImageView: UIImageView!
@@ -31,6 +32,10 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    @IBAction func infoButton(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showInfo", sender: self)
+    }
+    
     @IBAction func languageButton(_ sender: UIBarButtonItem) {
         let actionsSheet = UIAlertController(title: "Language", message: "Choose your preffered language", preferredStyle: .actionSheet)
         actionsSheet.addAction(UIAlertAction(title: "English", style: .default, handler: {_ in
@@ -43,6 +48,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.reloadFor(language: language)
         }))
         
+        actionsSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(actionsSheet, animated: true)
     }
     
@@ -53,6 +59,9 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         registerSettingsBundle()
         loadRecentSearches()
+        //navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName: UIFont(name: "Copperplate-Light", size: 15)!]
+        
         navigationController?.navigationBar.transparentNavigationBar()
         blurClass.blurTheBackgound(view: backgroundImageView)
         //Notification for language changes in Settings
@@ -136,8 +145,10 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         if let languageFromDefaults = defaults.value(forKey: "language") as? String {
             language = languageFromDefaults
             if language == "latin" {
+                infoButton.title = "Info"
                 languageButton.title = "Language"
             } else {
+                infoButton.title = "Инфо"
                 languageButton.title = "Језик"
             }
         }

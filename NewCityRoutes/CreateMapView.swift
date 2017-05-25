@@ -14,6 +14,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         case Main = 1
         case Detail = 2
     }
+    var currentZoomLevel: Float!
     var mapView: GMSMapView!
     var detailMarker: GMSMarker!
     var linije = ""
@@ -166,6 +167,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func markStation(forZoom zoom: Float) {
         mapView.clear()
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
+        
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
         linije = ""
@@ -206,7 +208,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             linije = ""
             transportImageNames = []
             finalIconImageName = ""
-            
         }
     }
     
@@ -220,13 +221,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.code.text = marker.snippet
         infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
         
-        
         return infoWindow
     }
     
     func detailScreenMarkerInfoWindow(marker: GMSMarker) -> UIView {
         let infoWindow = Bundle.main.loadNibNamed("DetailMapInfoWindow", owner: self, options: nil)?.first as! DetailMapInfoWindow
-        
         let index = Int(marker.accessibilityLabel!)!
         
         infoWindow.layer.borderWidth = 2
@@ -285,7 +284,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     //MARK: MapView Delegates
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        
+         currentZoomLevel = position.zoom
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
                 if language == "latin" {
@@ -296,7 +295,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 labelAnimate(string: notificationLabel.text!)
                 markStation(forZoom: position.zoom)
             } else {
-                mapView.clear()
+                //mapView.clear()
                 if language == "latin" {
                     notificationLabel.text = "Zoom-in to see stations"
                 } else {
@@ -308,6 +307,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        mapView.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
         mapView.selectedMarker = marker
         
         if language == "latin" {
