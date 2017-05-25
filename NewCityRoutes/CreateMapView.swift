@@ -295,7 +295,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 labelAnimate(string: notificationLabel.text!)
                 markStation(forZoom: position.zoom)
             } else {
-                //mapView.clear()
+                mapView.clear()
                 if language == "latin" {
                     notificationLabel.text = "Zoom-in to see stations"
                 } else {
