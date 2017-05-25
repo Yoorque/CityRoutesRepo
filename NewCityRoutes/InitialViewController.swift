@@ -17,7 +17,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     var blurClass = BlurEffect()
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var crosshair: UIImageView!
     @IBOutlet var busTitleLabel: UILabel!
     @IBOutlet var busButton: UIView!
     @IBOutlet var tramTitleLabel: UILabel!
