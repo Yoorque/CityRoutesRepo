@@ -26,19 +26,16 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     let locationManager = CLLocationManager()
     var nearestLocation = CalculateNearestStation()
-    
-    var currentLocation: CLLocationCoordinate2D? {
-        return locationManager.location?.coordinate
+    let simPosition = CLLocationCoordinate2D(latitude: 44.818611, longitude: 20.468056)
+    var currentLocation: CLLocationCoordinate2D {
+        return locationManager.location?.coordinate ?? simPosition
     }
     
     //MARK: MapView Helper Methods
     
     func createMap(view: UIView) {
         // Testing on a device
-        //let camera = GMSCameraPosition.camera(withTarget: currentLocation!, zoom: 13)
-        
-        // Testing on a simulator
-        let camera = GMSCameraPosition.camera(withLatitude: 44.818611, longitude: 20.468056, zoom: 15)
+        let camera = GMSCameraPosition.camera(withTarget: currentLocation, zoom: 15)
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -308,7 +305,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        mapView.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
+        //mapView.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
         mapView.selectedMarker = marker
         
         if language == "latin" {
