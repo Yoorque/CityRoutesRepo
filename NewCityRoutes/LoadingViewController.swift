@@ -25,11 +25,6 @@ class LoadingViewController: UIViewController {
         json.readJson()
         instantiateViewController()
         actIndicator.actIndicator(isShowed: false)
-        
-        //        actIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
-        //        actIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
-        //        actIndicator.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        //        actIndicator.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     private func setupIndicator() {

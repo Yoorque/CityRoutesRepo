@@ -208,8 +208,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
-    
-    
+        
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
         let index = Int(marker.accessibilityLabel!)!
@@ -217,6 +216,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.otherLinesLabel.text = marker.title
         infoWindow.code.text = marker.snippet
         infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
+        
+        infoWindow.otherLinesLabel.sizeToFit()
+        infoWindow.stationName.sizeToFit()
+        
+        infoWindow.frame.size = CGSize(width: 218, height: 5 + infoWindow.stationName.frame.height + infoWindow.stationUnderView.frame.height + 5 + infoWindow.otherLinesLabel.frame.height + (infoWindow.underView.frame.height - 25))
         
         return infoWindow
     }

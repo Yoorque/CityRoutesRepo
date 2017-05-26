@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -55,7 +55,7 @@
         <!--Info View Controller-->
         <scene sceneID="gDc-Qa-cfT">
             <objects>
-                <viewController storyboardIdentifier="infoViewController" id="Ofm-uf-S5h" customClass="infoViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="infoViewController" automaticallyAdjustsScrollViewInsets="NO" id="Ofm-uf-S5h" customClass="infoViewController" customModule="NewCityRoutes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="If7-4R-K2l"/>
                         <viewControllerLayoutGuide type="bottom" id="d41-XQ-LpS"/>
@@ -73,7 +73,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i8X-JR-SwV">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8X-JR-SwV">
                                 <rect key="frame" x="16" y="122" width="343" height="112"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -684,7 +684,7 @@
             <objects>
                 <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="ATt-Fu-mbX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f4H-H2-hQg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4H-H2-hQg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
