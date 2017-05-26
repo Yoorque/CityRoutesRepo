@@ -14,6 +14,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         case Main = 1
         case Detail = 2
     }
+    var crosshair = UIImageView()
     var currentZoomLevel: Float!
     var mapView: GMSMapView!
     var detailMarker: GMSMarker!
@@ -56,7 +57,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func createCrosshair(view: UIView) {
-        let crosshair = UIImageView(image: UIImage(named: "crosshair"))
+        crosshair = UIImageView(image: UIImage(named: "crosshair"))
         view.addSubview(crosshair)
         
         crosshair.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -348,6 +349,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         switch mapView.superview!.tag {
         case MapViewSource.Main.rawValue :
             let mainInfoWindow = mainScreenMarkerInfoWindow(marker: marker)
+            crosshair.isHidden = true
             return mainInfoWindow
         case MapViewSource.Detail.rawValue:
             let detailInfoWindow = detailScreenMarkerInfoWindow(marker: marker)
@@ -359,6 +361,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
+        crosshair.isHidden = false
         mapView.selectedMarker?.icon = UIImage(named: "redCircle")
         if language == "latin" {
             notificationLabel.text = "Tap the station marker to see details"
