@@ -84,11 +84,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func drawLineMarkers(route: Relations) {
         mapView.clear()
-        if language == "latin" {
-            notificationLabel.text = "Tap the station marker to see details"
-        } else {
-            notificationLabel.text = "Кликните маркер да видите детаље"
-        }
+        
+        notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
+        
         labelAnimate(string: notificationLabel.text!)
         for feature in featureArray {
             for relation in feature.property.relations {
@@ -289,20 +287,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
          currentZoomLevel = position.zoom
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
-                if language == "latin" {
-                    notificationLabel.text = "Tap the station marker to see details"
-                } else {
-                    notificationLabel.text = "Кликните маркер да видите детаље"
-                }
+                notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
                 labelAnimate(string: notificationLabel.text!)
                 markStation(forZoom: position.zoom)
             } else {
                 mapView.clear()
-                if language == "latin" {
-                    notificationLabel.text = "Zoom-in to see stations"
-                } else {
-                    notificationLabel.text = "Зумирајте да видите станице"
-                }
+                notificationLabel.text = language == "latin" ? "Zoom-in to see stations" : "Зумирајте да видите станице"
                 labelAnimate(string: notificationLabel.text!)
             }
         }
@@ -318,11 +308,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView.selectedMarker = marker
         mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
         
-        if language == "latin" {
-            notificationLabel.text = "Tap the USSD code to copy to clipboard"
-        } else {
-            notificationLabel.text = "Кликните на USSD код, да га копирате"
-        }
+        notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
         labelAnimate(string: notificationLabel.text!)
         return true
     }
@@ -330,17 +316,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let index = Int(marker.accessibilityLabel!)
         let copy = UIPasteboard.general
-        if mapView.superview?.tag == 1 {
-            copy.string = marker.snippet
-        } else {
-            copy.string = selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
-        }
         
-        if language == "latin" {
-            notificationLabel.text = "Paste the code into phone dialer"
-        } else {
-            notificationLabel.text = "Прекопирајте код у телефон (позив)"
-        }
+        copy.string = mapView.superview?.tag == 1 ? marker.snippet : selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
+        
+        notificationLabel.text = language == "latin" ? "Paste the code into phone dialer" : "Прекопирајте код у телефон (позив)"
         labelAnimate(string: notificationLabel.text!)
     }
     
@@ -363,11 +342,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
         crosshair.isHidden = false
         mapView.selectedMarker?.icon = UIImage(named: "redCircle")
-        if language == "latin" {
-            notificationLabel.text = "Tap the station marker to see details"
-        } else {
-            notificationLabel.text = "Кликните маркер да видите детаље"
-        }
+        notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
         labelAnimate(string: notificationLabel.text!)
     }
     

@@ -31,12 +31,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         navigationController?.navigationBar.transparentNavigationBar()
         
-        if language == "latin" {
-            backButton.title = "Back"
-        } else {
-            backButton.title = "Назад"
-        }
-        
+        backButton.title = language == "latin" ? "Back" : "Назад"
     }
     
     //MARK: TableView Delegates
@@ -52,11 +47,9 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
-        if language == "latin" {
-            cell.direction.text = "\(lineRoutes[indexPath.row].reltags.fromSrLatn!) - \(lineRoutes[indexPath.row].reltags.toSrLatn!)"
-        } else {
-            cell.direction.text = "\(lineRoutes[indexPath.row].reltags.from!) - \(lineRoutes[indexPath.row].reltags.to!)"
-        }
+        
+        cell.direction.text = language == "latin" ? "\(lineRoutes[indexPath.row].reltags.fromSrLatn!) - \(lineRoutes[indexPath.row].reltags.toSrLatn!)" : "\(lineRoutes[indexPath.row].reltags.from!) - \(lineRoutes[indexPath.row].reltags.to!)"
+        
         cell.lineNumber.text = lineRoutes[indexPath.row].reltags.reltagRef
         cell.customCellImageView.image = UIImage(named: lineRoutes[indexPath.row].reltags.route)
         

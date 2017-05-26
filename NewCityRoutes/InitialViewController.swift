@@ -227,11 +227,9 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         headerLabel.layer.borderColor = UIColor.white.cgColor
         headerLabel.layer.borderWidth = 1
-        if language == "latin" {
-            headerLabel.text = "Recent Searches"
-        } else {
-            headerLabel.text = "Последње претраге"
-        }
+        
+        headerLabel.text = language == "latin" ? "Recent Searches" : "Последње претраге"
+        
         headerLabel.textColor = .white
         headerLabel.textAlignment = .center
         headerLabel.backgroundColor = .clear

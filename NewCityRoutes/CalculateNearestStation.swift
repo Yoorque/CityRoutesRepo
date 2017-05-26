@@ -35,8 +35,6 @@ struct CalculateNearestStation {
                 }
             }
         }
-        // print("Feature for nearest station: \(featuresForNearestStation.count)")
-        
     }
 }
 
