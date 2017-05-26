@@ -36,7 +36,16 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func languageButton(_ sender: UIBarButtonItem) {
-        let actionsSheet = UIAlertController(title: "Language", message: "Choose your preffered language", preferredStyle: .actionSheet)
+        var message: String {
+            return language == "latin" ? "Choose your preffered language" : "Одаберите жељени језик"
+        }
+        var title: String {
+            return language == "latin" ? "Language" : "Језик"
+        }
+        var titleCancel: String {
+            return language == "latin" ? "Cancel" : "Откажи"
+        }
+        let actionsSheet = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         actionsSheet.addAction(UIAlertAction(title: "English", style: .default, handler: {_ in
             language = "latin"
             self.reloadFor(language: language)
@@ -47,7 +56,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.reloadFor(language: language)
         }))
         
-        actionsSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionsSheet.addAction(UIAlertAction(title: titleCancel, style: .cancel, handler: nil))
         present(actionsSheet, animated: true)
     }
     
