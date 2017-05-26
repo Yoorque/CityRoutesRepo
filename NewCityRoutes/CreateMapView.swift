@@ -309,7 +309,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         mapView.selectedMarker?.icon = UIImage(named: "redCircle")
-        //mapView.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
+        
+        if mapView.superview!.tag == MapViewSource.Detail.rawValue {
+            mapView.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
+        }
+        
         mapView.selectedMarker = marker
         mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
         
