@@ -146,11 +146,11 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             if language == "latin" {
                 infoButton.title = "Info"
                 languageButton.title = "Language"
-                title = "Belgrade City Routes"
+                title = "City Routes"
             } else {
                 infoButton.title = "Инфо"
                 languageButton.title = "Језик"
-                title = "Београдске Руте"
+                title = "Градске Руте"
             }
         }
     }

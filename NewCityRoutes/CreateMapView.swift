@@ -308,9 +308,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
+        mapView.selectedMarker?.icon = UIImage(named: "redCircle")
         //mapView.camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
         mapView.selectedMarker = marker
+        mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
         
         if language == "latin" {
             notificationLabel.text = "Tap the USSD code to copy to clipboard"
@@ -354,6 +355,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
+        mapView.selectedMarker?.icon = UIImage(named: "redCircle")
         if language == "latin" {
             notificationLabel.text = "Tap the station marker to see details"
         } else {
