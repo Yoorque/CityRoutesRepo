@@ -15,10 +15,19 @@ class infoViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var longTextLabel: UITextView!
     @IBOutlet var developerLabel: UITextField!
-
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet var copyrightLabel: UILabel!
+    
+    var blurEffect = BlurEffect()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        longTextLabel.textAlignment = .justified
+        longTextLabel.backgroundColor = UIColor.clear
+        blurEffect.blurTheBackgound(view: backgroundImage)
+        
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.classForCoder() as! UIAppearanceContainer.Type]).setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
+        
         
         if language == "latin" {
             titleLabel.text = "City Routes"

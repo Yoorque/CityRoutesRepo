@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -64,6 +64,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="belgrade" translatesAutoresizingMaskIntoConstraints="NO" id="fXx-Th-Rju">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tph-In-DTu">
                                 <rect key="frame" x="16" y="72" width="343" height="42"/>
                                 <constraints>
@@ -79,7 +82,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Yxz-dM-Y4U"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright ⓒ. All rights reservedⓇ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="3Yg-UJ-26B">
@@ -157,16 +160,20 @@
                             <constraint firstItem="Tph-In-DTu" firstAttribute="leading" secondItem="i8X-JR-SwV" secondAttribute="leading" id="76u-d6-vSN"/>
                             <constraint firstItem="3sU-O0-o7S" firstAttribute="top" secondItem="i8X-JR-SwV" secondAttribute="bottom" constant="8" symbolic="YES" id="A74-D2-TI5"/>
                             <constraint firstItem="Tph-In-DTu" firstAttribute="trailing" secondItem="i8X-JR-SwV" secondAttribute="trailing" id="ASL-zd-vvH"/>
+                            <constraint firstItem="d41-XQ-LpS" firstAttribute="top" secondItem="fXx-Th-Rju" secondAttribute="bottom" id="DGW-Ze-8kn"/>
                             <constraint firstItem="bKK-xO-O19" firstAttribute="centerY" secondItem="T9l-mN-LLe" secondAttribute="centerY" id="IQo-q4-elh"/>
                             <constraint firstItem="IAz-Ev-aZa" firstAttribute="trailing" secondItem="3Yg-UJ-26B" secondAttribute="trailing" id="K0C-aT-ZRf"/>
                             <constraint firstItem="IAz-Ev-aZa" firstAttribute="leading" secondItem="ulP-QE-WNb" secondAttribute="trailing" constant="8" symbolic="YES" id="NLO-ZQ-GEa"/>
                             <constraint firstItem="ulP-QE-WNb" firstAttribute="centerY" secondItem="IAz-Ev-aZa" secondAttribute="centerY" id="Nck-I6-8x3"/>
+                            <constraint firstItem="fXx-Th-Rju" firstAttribute="leading" secondItem="TxF-se-ixv" secondAttribute="leading" id="QkI-pY-7Dg"/>
                             <constraint firstItem="bKK-xO-O19" firstAttribute="leading" secondItem="ulP-QE-WNb" secondAttribute="leading" id="R9N-3N-l2N"/>
                             <constraint firstItem="IAz-Ev-aZa" firstAttribute="top" secondItem="T9l-mN-LLe" secondAttribute="bottom" constant="11" id="WCA-m1-oqo"/>
+                            <constraint firstAttribute="trailing" secondItem="fXx-Th-Rju" secondAttribute="trailing" id="XWl-Dh-7M0"/>
                             <constraint firstItem="T9l-mN-LLe" firstAttribute="leading" secondItem="bKK-xO-O19" secondAttribute="trailing" constant="8" symbolic="YES" id="Zwk-sY-hRK"/>
                             <constraint firstItem="d41-XQ-LpS" firstAttribute="top" secondItem="3Yg-UJ-26B" secondAttribute="bottom" constant="8" symbolic="YES" id="bQW-DK-mEq"/>
                             <constraint firstItem="KSL-6K-gMq" firstAttribute="leading" secondItem="YZd-cQ-4so" secondAttribute="trailing" constant="8" symbolic="YES" id="bot-f4-GVj"/>
                             <constraint firstItem="i8X-JR-SwV" firstAttribute="leading" secondItem="3sU-O0-o7S" secondAttribute="leading" id="dTc-lw-f8P"/>
+                            <constraint firstItem="fXx-Th-Rju" firstAttribute="top" secondItem="TxF-se-ixv" secondAttribute="top" id="dcy-JY-sTQ"/>
                             <constraint firstItem="T9l-mN-LLe" firstAttribute="trailing" secondItem="IAz-Ev-aZa" secondAttribute="trailing" id="fLc-z1-5er"/>
                             <constraint firstItem="KSL-6K-gMq" firstAttribute="leading" secondItem="T9l-mN-LLe" secondAttribute="leading" id="jym-cE-l4S"/>
                             <constraint firstItem="T9l-mN-LLe" firstAttribute="leading" secondItem="IAz-Ev-aZa" secondAttribute="leading" id="k1u-0V-iDH"/>
@@ -182,6 +189,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundImage" destination="fXx-Th-Rju" id="xwl-6r-l3r"/>
                         <outlet property="copyrightLabel" destination="3Yg-UJ-26B" id="fGT-GM-66A"/>
                         <outlet property="developerLabel" destination="3sU-O0-o7S" id="H5d-cO-Lq7"/>
                         <outlet property="dusan" destination="YZd-cQ-4so" id="bJ7-og-Jqu"/>
@@ -684,7 +692,7 @@
             <objects>
                 <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="ATt-Fu-mbX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4H-H2-hQg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f4H-H2-hQg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
