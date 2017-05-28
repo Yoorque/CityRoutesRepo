@@ -160,7 +160,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     // Calculate nearest station from user location
     
-    func markStation(forZoom zoom: Float) {
+    func markStation(forPosition position: GMSCameraPosition) {
         mapView.clear()
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
         
@@ -180,14 +180,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             
             let lat = feature.geometry.coordinates[0].lat
             let lon = feature.geometry.coordinates[0].lon
-            let position = CLLocationCoordinate2DMake(lat, lon)
-            detailMarker = GMSMarker(position: position)
+            let pos = CLLocationCoordinate2DMake(lat, lon)
+            detailMarker = GMSMarker(position: pos)
             
             detailMarker.appearAnimation = GMSMarkerAnimation.pop
             detailMarker.map = mapView
             detailMarker.accessibilityLabel = "\(i)"
             i += 1
-            switch zoom {
+            switch position.zoom {
             case 15..<18:
                 detailMarker.icon = UIImage(named: "redCircle")
             case 18...mapView.maxZoom:
@@ -289,7 +289,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             if position.zoom >= 15 {
                 notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
                 labelAnimate(string: notificationLabel.text!)
-                markStation(forZoom: position.zoom)
+                markStation(forPosition: position)
             } else {
                 mapView.clear()
                 notificationLabel.text = language == "latin" ? "Zoom-in to see stations" : "Зумирајте да видите станице"
