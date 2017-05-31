@@ -31,6 +31,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    let recentSearchController = RecentSearchController()
+
     @IBAction func infoButton(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "showInfo", sender: self)
     }
@@ -66,7 +68,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         registerSettingsBundle()
-        loadRecentSearches()
+//        loadRecentSearches()
         //navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName: UIFont(name: "Copperplate-Light", size: 15)!]
         
@@ -85,14 +87,20 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
                 view.addGestureRecognizer(tapGesture)
             }
         }
+        setupRecentSearch()
+    }
+    
+    private func setupRecentSearch() {
+        recentSearches = recentSearchController.savedRoutes
+        tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateLanguageFromDefaults()
-        removeExtraCells()
+//        removeExtraCells()
         setTransportButtonLabels()
-        tableView.reloadData()
+ //       tableView.reloadData()
         
     }
     
@@ -133,6 +141,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.viewForTransportButtons.selectedTransports(view: self ,sender: view.accessibilityIdentifier!)
                 })
             })
+            
         }
     }
     
@@ -203,6 +212,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         while recentSearches.count > 3 {
             recentSearches.removeLast()
         }
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -263,6 +273,19 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         controller.backButton.title = language == "latin" ? "Back" : "Назад"
     }
     
+}
+
+extension InitialViewController: FirstTableViewControllerDelegate {
+    func recentSearchWasSaved(route: Routes) {
+        print("Prosledjena ruta delegatu \(route)")
+        if !recentSearches.contains(route) {
+            recentSearches.insert(route, at: 0)
+            removeExtraCells()
+            recentSearchController.savedRoutes = recentSearches
+            tableView.reloadData()
+        }
+        
+    }
 }
 
 extension UINavigationBar {

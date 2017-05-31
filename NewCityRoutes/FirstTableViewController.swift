@@ -8,7 +8,9 @@
 
 import UIKit
 
-
+protocol FirstTableViewControllerDelegate: class {
+    func recentSearchWasSaved(route: Routes)
+}
 
 class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -18,19 +20,18 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     let blurClass = BlurEffect()
     @IBOutlet var backgroundImageView: UIImageView!
     
+    weak var delegate: FirstTableViewControllerDelegate?
+    
     @IBAction func backBarButton(_ sender: UIBarButtonItem) {
-        
-        saveRecentSearches()
         dismiss(animated: true, completion: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         blurClass.blurTheBackgound(view: backgroundImageView)
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         navigationController?.navigationBar.transparentNavigationBar()
-        
     }
     
     //MARK: TableView Delegates
@@ -56,10 +57,8 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.deselectRow(at: indexPath, animated: true)
         let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         
-        if !recentSearches.contains(selectedTransport[indexPath.row]) {
-            recentSearches.insert(selectedTransport[indexPath.row], at: 0)
-        }
-        
+        delegate?.recentSearchWasSaved(route: selectedTransport[indexPath.row])
+
         let navController = UINavigationController(rootViewController: controller)
         self.present(navController, animated: true, completion: nil)
         
