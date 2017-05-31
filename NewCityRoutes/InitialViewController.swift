@@ -208,16 +208,10 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
         
-        let labelText = "Both directions available"
-        let labelTextSr = "Оба смера"
+        let labelText = language == "latin" ? "Both directions available" : "Оба смера"
         cell.customCellImageView.image = UIImage(named: recentSearches[indexPath.row].route)
         cell.lineNumber.text = recentSearches[indexPath.row].ref
-        
-        if language == "latin" {
-            cell.direction.text = labelText
-        } else {
-            cell.direction.text = labelTextSr
-        }
+        cell.direction.text = labelText
         
         return cell
     }
@@ -265,6 +259,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             let titleText = "Одабрани \(i) је: \(recentSearches[indexPath.row].ref)"
             controller.title = titleText
         }
+        
+        controller.backButton.title = language == "latin" ? "Back" : "Назад"
     }
     
 }

@@ -31,11 +31,6 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         navigationController?.navigationBar.transparentNavigationBar()
         
-        if language == "latin" {
-            backButton.title = "Back"
-        } else {
-            backButton.title = "Назад"
-        }
     }
     
     //MARK: TableView Delegates
