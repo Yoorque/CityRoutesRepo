@@ -28,7 +28,6 @@ class LoadingViewController: UIViewController {
     }
     
     private func setupIndicator() {
-        
         actIndicator.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
         actIndicator.layer.borderColor = UIColor.white.cgColor
         actIndicator.layer.cornerRadius = 10
@@ -36,7 +35,6 @@ class LoadingViewController: UIViewController {
         imageView.addSubview(actIndicator)
         actIndicator.actIndicator(isShowed: true)
         actIndicator.translatesAutoresizingMaskIntoConstraints = false
-        
         
         let widthConstraint = NSLayoutConstraint(item: actIndicator, attribute: .width, relatedBy: .equal,
                                                  toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 90)
@@ -47,11 +45,7 @@ class LoadingViewController: UIViewController {
         let xConstraint = NSLayoutConstraint(item: actIndicator, attribute: .centerX, relatedBy: .equal, toItem: self.imageView, attribute: .centerX, multiplier: 1, constant: 0)
         let yConstraint = NSLayoutConstraint(item: actIndicator, attribute: .centerY, relatedBy: .equal, toItem: self.imageView, attribute: .centerY, multiplier: 1, constant: 0)
         
-        
-        
-        
         NSLayoutConstraint.activate([xConstraint, yConstraint, widthConstraint, heightConstraint])
-        
     }
     
     private func instantiateViewController() {
@@ -59,5 +53,4 @@ class LoadingViewController: UIViewController {
         let navController = UINavigationController(rootViewController: controller)
         self.present(navController, animated: true, completion: nil)
     }
-    
 }

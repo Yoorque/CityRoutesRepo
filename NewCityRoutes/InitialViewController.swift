@@ -68,7 +68,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         registerSettingsBundle()
-//        loadRecentSearches()
         //navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName: UIFont(name: "Copperplate-Light", size: 15)!]
         
@@ -98,10 +97,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateLanguageFromDefaults()
-//        removeExtraCells()
         setTransportButtonLabels()
- //       tableView.reloadData()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -141,7 +137,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.viewForTransportButtons.selectedTransports(view: self ,sender: view.accessibilityIdentifier!)
                 })
             })
-            
         }
     }
     
@@ -228,12 +223,9 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = UILabel()
-        
         headerLabel.layer.borderColor = UIColor.white.cgColor
         headerLabel.layer.borderWidth = 1
-        
         headerLabel.text = language == "latin" ? "Recent Searches" : "Последње претраге"
-        
         headerLabel.textColor = .white
         headerLabel.textAlignment = .center
         headerLabel.backgroundColor = .clear
@@ -269,22 +261,18 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             let titleText = "Одабрани \(i) је: \(recentSearches[indexPath.row].ref)"
             controller.title = titleText
         }
-        
         controller.backButton.title = language == "latin" ? "Back" : "Назад"
     }
-    
 }
 
 extension InitialViewController: FirstTableViewControllerDelegate {
     func recentSearchWasSaved(route: Routes) {
-        print("Prosledjena ruta delegatu \(route)")
         if !recentSearches.contains(route) {
             recentSearches.insert(route, at: 0)
             removeExtraCells()
             recentSearchController.savedRoutes = recentSearches
             tableView.reloadData()
         }
-        
     }
 }
 

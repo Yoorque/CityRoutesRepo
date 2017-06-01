@@ -26,13 +26,11 @@ class infoViewController: UIViewController {
         longTextLabel.backgroundColor = UIColor.clear
         blurEffect.blurTheBackgound(view: backgroundImage)
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.classForCoder() as! UIAppearanceContainer.Type]).setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
        
-        
         if language == "latin" {
             titleLabel.text = "City Routes"
             longTextLabel.text = "This application was developed using openstreetmap.com and overpas-turbo.eu. Considering that openstreetmap.com is an open source map editing website, our data may slightly differ from the actual state. Should you notice any errors with data or have any suggestions to make our maps better, please, let us know at your own convenience, so we can correct the map data in our next update. You will find our team's emails below."
@@ -51,6 +49,4 @@ class infoViewController: UIViewController {
             predrag.text = "Предраг Ђорђевић"
         }
     }
-    
-    
 }
