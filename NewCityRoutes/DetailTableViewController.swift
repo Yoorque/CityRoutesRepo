@@ -30,8 +30,6 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         navigationController?.navigationBar.transparentNavigationBar()
-        
-        backButton.title = language == "latin" ? "Back" : "Назад"
     }
     
     //MARK: TableView Delegates

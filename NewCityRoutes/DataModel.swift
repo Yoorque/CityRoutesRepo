@@ -19,19 +19,19 @@ func ==(left: Routes, right: Routes) -> Bool {
 
 import Foundation
 
-func saveRecentSearches() {
-    let data = NSKeyedArchiver.archivedData(withRootObject: recentSearches)
-    let defaults = UserDefaults.standard
-    defaults.set(data, forKey: "savedSearches")
-}
-
-func loadRecentSearches() {
-    let defaults = UserDefaults.standard
-    if let data = defaults.value(forKey: "savedSearches") as? Data {
-        let unarchivedData = NSKeyedUnarchiver.unarchiveObject(with: data) as! [Routes]
-        recentSearches = unarchivedData
-    }
-}
+//func saveRecentSearches() {
+//    let data = NSKeyedArchiver.archivedData(withRootObject: recentSearches)
+//    let defaults = UserDefaults.standard
+//    defaults.set(data, forKey: "savedSearches")
+//}
+//
+//func loadRecentSearches() {
+//    let defaults = UserDefaults.standard
+//    if let data = defaults.value(forKey: "savedSearches") as? Data {
+//        let unarchivedData = NSKeyedUnarchiver.unarchiveObject(with: data) as! [Routes]
+//        recentSearches = unarchivedData
+//    }
+//}
 
 //Deklaracije
 

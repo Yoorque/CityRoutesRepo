@@ -37,7 +37,7 @@ class infoViewController: UIViewController {
             titleLabel.text = "City Routes"
             longTextLabel.text = "This application was developed using openstreetmap.com and overpas-turbo.eu. Considering that openstreetmap.com is an open source map editing website, our data may slightly differ from the actual state. Should you notice any errors with data or have any suggestions to make our maps better, please, let us know at your own convenience, so we can correct the map data in our next update. You will find our team's emails below."
             developerLabel.text = "Developer Team:"
-            copyrightLabel.text = "Copyright ⓒ. All rights reservedⓇ"
+            copyrightLabel.text = "Copyright ⓒ. All rights reserved Ⓡ"
             dusan.text = "Dušan Juranović"
             marko.text = "Marko Tribl"
             predrag.text = "Predrag Djordjević"

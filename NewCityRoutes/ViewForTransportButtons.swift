@@ -75,6 +75,8 @@ class ViewForTransportButtons: UIView {
             controller.navigationController?.navigationBar.transparentNavigationBar()
         }
         controller.selectedTransport = array
+        controller.backButton.title = language == "latin" ? "Back" : "Назад"
+        controller.delegate = view as! InitialViewController
         
         
     }

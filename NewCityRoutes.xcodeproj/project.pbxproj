@@ -30,6 +30,7 @@
 		11EC30281E93DF1B00846736 /* Beograd.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 11EC30271E93DF1B00846736 /* Beograd.gpx */; };
 		11EC302E1E93E76000846736 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11EC302C1E93E76000846736 /* Model.xcdatamodeld */; };
 		A2F7AEB315006E32C3B88257 /* Pods_NewCityRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */; };
+		EF76C0931EDF51C300F3E5D7 /* RecentSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF76C0921EDF51C300F3E5D7 /* RecentSearchController.swift */; };
 		EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */; };
 		EFF1454F1EA401BF0058B754 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF1454E1EA401BF0058B754 /* LoadingViewController.swift */; };
 		EFF145511EA402000058B754 /* CustomActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = EFF145501EA402000058B754 /* CustomActivityIndicator.xib */; };
@@ -64,6 +65,7 @@
 		6183BCE7981F7301BFE102AE /* Pods-NewCityRoutes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.debug.xcconfig"; sourceTree = "<group>"; };
 		790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewCityRoutes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1CA1C9F7552032758CBFCC8 /* Pods-NewCityRoutes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.release.xcconfig"; sourceTree = "<group>"; };
+		EF76C0921EDF51C300F3E5D7 /* RecentSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchController.swift; sourceTree = "<group>"; };
 		EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateNearestStation.swift; sourceTree = "<group>"; };
 		EFF1454E1EA401BF0058B754 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		EFF145501EA402000058B754 /* CustomActivityIndicator.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomActivityIndicator.xib; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				11406B6C1EA64F6100039D05 /* BlurEffect.swift */,
 				1138FE6B1E620C2100D0C9C9 /* ViewForTransportButtons.swift */,
 				1138FE751E6301ED00D0C9C9 /* DataModel.swift */,
+				EF76C0921EDF51C300F3E5D7 /* RecentSearchController.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				1138FE6A1E62028C00D0C9C9 /* CreateMapView.swift in Sources */,
 				1138FE741E62DAA900D0C9C9 /* FirstTableViewController.swift in Sources */,
 				11108FC71E71CF90008BE488 /* DetailTableViewCell.swift in Sources */,
+				EF76C0931EDF51C300F3E5D7 /* RecentSearchController.swift in Sources */,
 				1138FE761E6301ED00D0C9C9 /* DataModel.swift in Sources */,
 				EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */,
 				EFF145531EA4034E0058B754 /* CustomActivityIndicator.swift in Sources */,
