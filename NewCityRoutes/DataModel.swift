@@ -206,15 +206,19 @@ class Routes: NSObject, NSCoding {
     var ref: String = ""
     var route: String = ""
     var routes: [Relations] = []
-    var lineRef: Int = 0
+    var lineRef: Int?
     
     override var hashValue: Int {
-        return lineRef
+        return lineRef!
     }
     
     override func isEqual(_ object: Any?) -> Bool {
         if let other = object as? Routes {
-            return self.lineRef == other.lineRef
+            if let initial = self.lineRef {
+                return initial == other.lineRef
+            } else {
+                return false
+            }
         } else {
             return false
         }
@@ -245,7 +249,7 @@ class Routes: NSObject, NSCoding {
         if let routess = aDecoder.decodeObject(forKey: "routes") as? [Relations] {
             self.routes = routess
         }
-        if let lineReff = aDecoder.decodeObject(forKey: "reff") as? Int {
+        if let lineReff = aDecoder.decodeObject(forKey: "lineRef") as? Int {
             self.lineRef = lineReff
         }
     }

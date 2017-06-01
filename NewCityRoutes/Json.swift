@@ -143,6 +143,6 @@ struct Json {
             }
         }
         
-        return routesSet.sorted(by: {$0.lineRef < $1.lineRef})
+        return routesSet.sorted(by: {$0.lineRef! < $1.lineRef!})
     }
 }
