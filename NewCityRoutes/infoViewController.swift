@@ -25,7 +25,7 @@ class infoViewController: UIViewController {
         longTextLabel.textAlignment = .justified
         longTextLabel.backgroundColor = UIColor.clear
         blurEffect.blurTheBackgound(view: backgroundImage)
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.classForCoder() as! UIAppearanceContainer.Type]).setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
+//        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.classForCoder() as! UIAppearanceContainer.Type]).setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {

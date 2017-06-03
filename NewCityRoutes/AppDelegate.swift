@@ -40,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.statusBarStyle = .lightContent
         
+        Appearance.setGlobalAppearance()
+        
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE")
 //        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {

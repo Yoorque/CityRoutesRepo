@@ -70,9 +70,6 @@ class ViewForTransportButtons: UIView {
             typeOfRoute = i
             
             controller.title = "Списак \(typeOfRoute)"
-            controller.navigationController?.navigationBar.tintColor = .white
-            controller.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-            controller.navigationController?.navigationBar.transparentNavigationBar()
         }
         controller.selectedTransport = array
         controller.backButton.title = language == "latin" ? "Back" : "Назад"

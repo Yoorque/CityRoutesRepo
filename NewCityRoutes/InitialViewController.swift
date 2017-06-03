@@ -68,10 +68,6 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         registerSettingsBundle()
-        //navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white, NSFontAttributeName: UIFont(name: "Copperplate-Light", size: 15)!]
-        
-        navigationController?.navigationBar.transparentNavigationBar()
         blurClass.blurTheBackgound(view: backgroundImageView)
         //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
@@ -276,12 +272,4 @@ extension InitialViewController: FirstTableViewControllerDelegate {
     }
 }
 
-extension UINavigationBar {
-    func transparentNavigationBar() {
-        self.setBackgroundImage(UIImage(), for: .default)
-        self.shadowImage = UIImage()
-        self.isTranslucent = true
-        self.backgroundColor = UIColor.clear
-    }
-}
 

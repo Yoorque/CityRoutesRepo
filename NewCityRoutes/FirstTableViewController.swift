@@ -29,9 +29,6 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         blurClass.blurTheBackgound(view: backgroundImageView)
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-        navigationController?.navigationBar.transparentNavigationBar()
     }
     
     //MARK: TableView Delegates

@@ -27,9 +27,6 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         blurClass.blurTheBackgound(view: backgroundImageView)
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
-        navigationController?.navigationBar.transparentNavigationBar()
     }
     
     //MARK: TableView Delegates
