@@ -228,7 +228,7 @@
                                 </constraints>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cFX-Or-uLR" customClass="DetailTableViewCell" customModule="NewCityRoutes" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="cFX-Or-uLR" customClass="DetailTableViewCell" customModule="NewCityRoutes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cFX-Or-uLR" id="Kx9-0o-UTQ">
@@ -709,7 +709,7 @@
             <objects>
                 <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="ATt-Fu-mbX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4H-H2-hQg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f4H-H2-hQg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

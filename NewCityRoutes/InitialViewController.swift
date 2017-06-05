@@ -237,30 +237,40 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
-        let navController = UINavigationController(rootViewController: controller)
-        self.present(navController, animated: true, completion: nil)
         
-        controller.lineRoutes = recentSearches[indexPath.row].routes
-        if language == "latin" {
-            let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
-            controller.title = titleText
-        } else {
-            var i = ""
-            if recentSearches[indexPath.row].route == "bus" {
-                i = "аутобус"
-            } else if recentSearches[indexPath.row].route == "tram" {
-                i = "трамвај"
-            } else if recentSearches[indexPath.row].route == "trolleybus" {
-                i = "тролејбус"
-            }
-            
-            let titleText = "Одабрани \(i) је: \(recentSearches[indexPath.row].ref)"
-            controller.title = titleText
-        }
-        controller.backButton.title = language == "latin" ? "Back" : "Назад"
+        UIView.animate(withDuration: 0.2, animations: { _ in
+            tableView.cellForRow(at: indexPath)?.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.2, animations: { _ in
+                tableView.cellForRow(at: indexPath)?.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }, completion: { _ in
+                
+                let controller = self.storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
+                let navController = UINavigationController(rootViewController: controller)
+                self.present(navController, animated: true, completion: nil)
+                
+                controller.lineRoutes = recentSearches[indexPath.row].routes
+                if language == "latin" {
+                    let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
+                    controller.title = titleText
+                } else {
+                    var i = ""
+                    if recentSearches[indexPath.row].route == "bus" {
+                        i = "аутобус"
+                    } else if recentSearches[indexPath.row].route == "tram" {
+                        i = "трамвај"
+                    } else if recentSearches[indexPath.row].route == "trolleybus" {
+                        i = "тролејбус"
+                    }
+                    
+                    let titleText = "Одабрани \(i) је: \(recentSearches[indexPath.row].ref)"
+                    controller.title = titleText
+                }
+                controller.backButton.title = language == "latin" ? "Back" : "Назад"
+            })
+        })
     }
+    
 }
 
 //MARK: Colors
