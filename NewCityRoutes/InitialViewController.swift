@@ -276,15 +276,15 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
 //MARK: Colors
 
 extension UIColor {
-    class var busRed: UIColor {
+    @nonobjc class var busRed: UIColor {
         return UIColor.red
     }
     
-    class var tramGreen: UIColor {
+    @nonobjc class var tramGreen: UIColor {
         return UIColor.green
     }
     
-    class var trolleyOrange: UIColor {
+    @nonobjc class var trolleyOrange: UIColor {
         return UIColor.orange
     }
     
