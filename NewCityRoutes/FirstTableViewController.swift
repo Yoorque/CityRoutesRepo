@@ -78,6 +78,6 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
             let titleText = "Одабрани \(i) је: \(selectedTransport[indexPath.row].ref)"
             controller.title = titleText
         }
-        
+        controller.backButton.title = language == "latin" ? "Back" : "Назад"
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -220,7 +220,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.093670003116130829" green="0.2389456033706665" blue="0.58752942085266113" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="1" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zNS-rI-c4B">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" sectionIndexMinimumDisplayRowCount="1" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zNS-rI-c4B">
                                 <rect key="frame" x="0.0" y="457" width="375" height="210"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -232,9 +232,20 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cFX-Or-uLR" id="Kx9-0o-UTQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y4B-ey-rnM">
+                                                    <rect key="frame" x="3" y="1" width="369" height="57"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="25"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                            <integer key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X7E-Q2-Qcc">
                                                     <rect key="frame" x="8" y="14" width="30" height="30"/>
                                                     <constraints>
@@ -260,11 +271,15 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="y4B-ey-rnM" secondAttribute="bottom" constant="1" id="2GI-ql-Kus"/>
+                                                <constraint firstItem="y4B-ey-rnM" firstAttribute="top" secondItem="Kx9-0o-UTQ" secondAttribute="top" constant="1" id="3kZ-nT-iue"/>
                                                 <constraint firstItem="X7E-Q2-Qcc" firstAttribute="top" secondItem="jf2-DJ-dPB" secondAttribute="top" id="5b9-jO-SXs"/>
                                                 <constraint firstItem="jf2-DJ-dPB" firstAttribute="leading" secondItem="X7E-Q2-Qcc" secondAttribute="trailing" constant="8" symbolic="YES" id="8f6-aN-9ZQ"/>
                                                 <constraint firstItem="X7E-Q2-Qcc" firstAttribute="leading" secondItem="Kx9-0o-UTQ" secondAttribute="leadingMargin" id="CJW-xi-L9F"/>
                                                 <constraint firstItem="X7E-Q2-Qcc" firstAttribute="bottom" secondItem="jf2-DJ-dPB" secondAttribute="bottom" id="FLu-7L-Rst"/>
                                                 <constraint firstItem="X7E-Q2-Qcc" firstAttribute="centerY" secondItem="Kx9-0o-UTQ" secondAttribute="centerY" id="GnT-HA-kOP"/>
+                                                <constraint firstItem="y4B-ey-rnM" firstAttribute="leading" secondItem="Kx9-0o-UTQ" secondAttribute="leading" constant="3" id="TYZ-7f-inO"/>
+                                                <constraint firstAttribute="trailing" secondItem="y4B-ey-rnM" secondAttribute="trailing" constant="3" id="c8d-yr-rK3"/>
                                                 <constraint firstItem="jf2-DJ-dPB" firstAttribute="centerY" secondItem="rzp-hs-t9l" secondAttribute="centerY" constant="-1" id="gPa-CN-UlB"/>
                                                 <constraint firstItem="rzp-hs-t9l" firstAttribute="leading" secondItem="jf2-DJ-dPB" secondAttribute="trailing" constant="8" symbolic="YES" id="r3n-OY-yjo"/>
                                                 <constraint firstItem="rzp-hs-t9l" firstAttribute="trailing" secondItem="Kx9-0o-UTQ" secondAttribute="trailingMargin" id="vIk-Ov-IiZ"/>
@@ -272,6 +287,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="borderView" destination="y4B-ey-rnM" id="WSJ-DZ-8Ir"/>
                                             <outlet property="customCellImageView" destination="X7E-Q2-Qcc" id="ju7-nS-lj3"/>
                                             <outlet property="direction" destination="rzp-hs-t9l" id="guf-Uo-hS8"/>
                                             <outlet property="lineNumber" destination="jf2-DJ-dPB" id="MjH-PD-BYG"/>

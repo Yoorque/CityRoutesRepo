@@ -114,7 +114,6 @@
 				11EC2FCE1E8EBA3B00846736 /* Model */,
 				11EC2FCD1E8EB9DA00846736 /* InfoWindows */,
 				1138FE7D1E63421400D0C9C9 /* SupportingFiles */,
-				EF76C0D51EE2F3FC00F3E5D7 /* Appearance.swift */,
 			);
 			path = NewCityRoutes;
 			sourceTree = "<group>";
@@ -123,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				1138FE571E62026A00D0C9C9 /* AppDelegate.swift */,
+				EF76C0D51EE2F3FC00F3E5D7 /* Appearance.swift */,
 				1138FE771E63028500D0C9C9 /* Json.swift */,
 				11D6B0451E9BC94000EF0F91 /* Lines.geojson */,
 				11EC30271E93DF1B00846736 /* Beograd.gpx */,

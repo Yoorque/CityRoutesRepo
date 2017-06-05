@@ -12,6 +12,7 @@ import GoogleMaps
 var justOnce = true
 
 class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet var borderView: UIView!
     @IBOutlet var infoButton: UIBarButtonItem!
     @IBOutlet var languageButton: UIBarButtonItem!
     var blurClass = BlurEffect()
@@ -208,8 +209,9 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
-        
         let labelText = language == "latin" ? "Both directions available" : "Оба смера"
+        cell.borderView.layer.borderColor = UIColor.color(for: recentSearches[indexPath.row].route).cgColor
+        cell.borderView.backgroundColor = UIColor.color(for: recentSearches[indexPath.row].route).withAlphaComponent(0.1)
         cell.customCellImageView.image = UIImage(named: recentSearches[indexPath.row].route)
         cell.lineNumber.text = recentSearches[indexPath.row].ref
         cell.direction.text = labelText
@@ -258,6 +260,31 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             controller.title = titleText
         }
         controller.backButton.title = language == "latin" ? "Back" : "Назад"
+    }
+}
+
+//MARK: Colors
+
+extension UIColor {
+    class var busRed: UIColor {
+        return UIColor.red
+    }
+    
+    class var tramGreen: UIColor {
+        return UIColor.green
+    }
+    
+    class var trolleyOrange: UIColor {
+        return UIColor.orange
+    }
+    
+    class func color(for transport: String) -> UIColor {
+        switch transport {
+        case "bus": return .busRed
+        case "tram": return .tramGreen
+        case "trolleybus": return .trolleyOrange
+        default: return .clear
+        }
     }
 }
 
