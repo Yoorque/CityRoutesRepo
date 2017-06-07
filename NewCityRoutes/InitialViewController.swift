@@ -221,16 +221,21 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = UILabel()
-        headerLabel.layer.borderColor = UIColor.white.cgColor
-        headerLabel.layer.borderWidth = 1
+        headerLabel.layer.borderColor = UIColor.white.withAlphaComponent(0.7).cgColor
+        headerLabel.layer.borderWidth = 2
         headerLabel.layer.cornerRadius = 15
         headerLabel.text = language == "latin" ? "Recent Searches" : "Последње претраге"
         headerLabel.textColor = .white
         headerLabel.textAlignment = .center
         headerLabel.backgroundColor = .clear
         headerLabel.autoresizingMask = .flexibleWidth
-        
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
+        
+        headerLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 3).isActive = true
+        headerLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -3).isActive = true
+        headerLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 1).isActive = true
+        headerLabel.bottomAnchor.constraint(equalTo: tableView.cellForRow(at: IndexPath(row: 0, section: 0))!.topAnchor, constant: -1).isActive = true
         
         return headerLabel
     }
