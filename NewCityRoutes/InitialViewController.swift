@@ -235,7 +235,12 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         headerLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 3).isActive = true
         headerLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -3).isActive = true
         headerLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 1).isActive = true
+        
+        if tableView.cellForRow(at: IndexPath(row: 0, section: 0)) != nil {
         headerLabel.bottomAnchor.constraint(equalTo: tableView.cellForRow(at: IndexPath(row: 0, section: 0))!.topAnchor, constant: -1).isActive = true
+        } else {
+            headerLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        }
         
         return headerLabel
     }
