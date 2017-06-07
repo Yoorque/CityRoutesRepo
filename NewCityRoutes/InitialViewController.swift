@@ -284,14 +284,10 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         })
     }
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = language == "latin" ? "Delete" : "Обриши"
         
-        let deleteAction = UITableViewRowAction(style: .destructive, title: delete, handler: {(action, indexPath) in
+        let deleteAction = UITableViewRowAction(style: .destructive, title: delete, handler: {_ in
             
             self.removeRecentSearch(fromRow: indexPath.row)
         })
