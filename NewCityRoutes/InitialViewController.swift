@@ -228,7 +228,14 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         headerLabel.textAlignment = .center
         headerLabel.backgroundColor = .clear
         headerLabel.autoresizingMask = .flexibleWidth
+        headerLabel.layer.cornerRadius = 10
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
+        
+        headerLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 5).isActive = true
+        headerLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -5).isActive = true
+        headerLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 1).isActive = true
+        
         return headerLabel
     }
     
