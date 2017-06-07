@@ -223,12 +223,15 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         let headerLabel = UILabel()
         headerLabel.layer.borderColor = UIColor.white.cgColor
         headerLabel.layer.borderWidth = 1
+        headerLabel.layer.cornerRadius = 15
         headerLabel.text = language == "latin" ? "Recent Searches" : "Последње претраге"
         headerLabel.textColor = .white
         headerLabel.textAlignment = .center
         headerLabel.backgroundColor = .clear
         headerLabel.autoresizingMask = .flexibleWidth
+        
         view.addSubview(headerLabel)
+        
         return headerLabel
     }
     
