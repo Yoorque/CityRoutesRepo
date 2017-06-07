@@ -284,6 +284,19 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         })
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = language == "latin" ? "Delete" : "Обриши"
+        
+        let deleteAction = UITableViewRowAction(style: .destructive, title: delete, handler: {(action, indexPath) in
+            
+            self.removeRecentSearch(fromRow: indexPath.row)
+        })
+        return [deleteAction]
+    }
 }
 
 //MARK: Colors
@@ -319,6 +332,12 @@ extension InitialViewController: FirstTableViewControllerDelegate {
             recentSearchController.savedRoutes = recentSearches
             tableView.reloadData()
         }
+    }
+    
+    func removeRecentSearch(fromRow row: Int) {
+        recentSearches.remove(at: row)
+        recentSearchController.savedRoutes = recentSearches
+        tableView.reloadData()
     }
 }
 
