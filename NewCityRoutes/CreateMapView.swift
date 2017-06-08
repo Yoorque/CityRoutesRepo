@@ -14,6 +14,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         case Main = 1
         case Detail = 2
     }
+    
+    var currentMarkerIcon = UIImage()
     var crosshair = UIImageView()
     var currentZoomLevel: Float!
     var mapView: GMSMapView!
@@ -190,6 +192,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             switch position.zoom {
             case 15..<18:
                 detailMarker.icon = UIImage(named: "redCircle")
+                detailMarker.iconView?.tintColor = UIColor.green
             case 18...mapView.maxZoom:
                 for image in transportImageNames {
                     finalIconImageName = finalIconImageName + image
@@ -207,7 +210,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
-        
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
         let index = Int(marker.accessibilityLabel!)!
@@ -281,10 +283,13 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 })
         })
     }
+    
     //MARK: MapView Delegates
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-         currentZoomLevel = position.zoom
+        
+        currentZoomLevel = position.zoom
+        mapView.selectedMarker = nil
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
                 notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
@@ -299,7 +304,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        mapView.selectedMarker?.icon = UIImage(named: "redCircle")
+        
+        currentMarkerIcon = marker.icon!
+        
         if mapView.superview!.tag == MapViewSource.Detail.rawValue {
             CATransaction.begin()
             CATransaction.setAnimationDuration(0.5)
@@ -343,8 +350,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
+        
         crosshair.isHidden = false
-        mapView.selectedMarker?.icon = UIImage(named: "redCircle")
+        marker.icon = currentMarkerIcon
+        
         notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
         labelAnimate(string: notificationLabel.text!)
     }

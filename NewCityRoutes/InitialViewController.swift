@@ -210,8 +210,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
         let labelText = language == "latin" ? "Both directions available" : "Оба смера"
-        cell.borderView.layer.borderColor = UIColor.color(for: recentSearches[indexPath.row].route).cgColor
-        cell.borderView.backgroundColor = UIColor.color(for: recentSearches[indexPath.row].route).withAlphaComponent(0.1)
+        cell.borderView.layer.borderColor = UIColor.color(forTransport: recentSearches[indexPath.row].route).cgColor
+        cell.borderView.backgroundColor = UIColor.color(forTransport: recentSearches[indexPath.row].route).withAlphaComponent(0.1)
         cell.customCellImageView.image = UIImage(named: recentSearches[indexPath.row].route)
         cell.lineNumber.text = recentSearches[indexPath.row].ref
         cell.direction.text = labelText
@@ -310,7 +310,7 @@ extension UIColor {
         return UIColor.orange
     }
     
-    class func color(for transport: String) -> UIColor {
+    class func color(forTransport transport: String) -> UIColor {
         switch transport {
         case "bus": return .busRed
         case "tram": return .tramGreen
