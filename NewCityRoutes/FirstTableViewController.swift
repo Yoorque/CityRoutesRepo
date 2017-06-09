@@ -42,6 +42,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         cell.cellImageView.image = UIImage(named: selectedTransport[indexPath.row].route)
         cell.refNumber.text = selectedTransport[indexPath.row].ref
+        cell.refNumber.textColor = UIColor.color(forTransport: selectedTransport[indexPath.row].route)
         if language == "latin" {
             cell.titleLabel.text = selectedTransport[indexPath.row].routes[0].reltags.fromSrLatn + "-" + selectedTransport[indexPath.row].routes[0].reltags.toSrLatn
         } else {

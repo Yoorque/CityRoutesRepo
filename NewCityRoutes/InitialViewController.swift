@@ -214,6 +214,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.borderView.backgroundColor = UIColor.color(forTransport: recentSearches[indexPath.row].route).withAlphaComponent(0.1)
         cell.customCellImageView.image = UIImage(named: recentSearches[indexPath.row].route)
         cell.lineNumber.text = recentSearches[indexPath.row].ref
+        cell.lineNumber.textColor = UIColor.color(forTransport: recentSearches[indexPath.row].route)
         cell.direction.text = labelText
         
         return cell
@@ -299,11 +300,11 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
 
 extension UIColor {
     @nonobjc class var busRed: UIColor {
-        return UIColor.red
+        return UIColor(red: 1, green: 58/255, blue: 58/255, alpha: 1)
     }
     
     @nonobjc class var tramGreen: UIColor {
-        return UIColor.green
+        return UIColor(red: 112/255, green: 193/255, blue: 106/255, alpha: 1)
     }
     
     @nonobjc class var trolleyOrange: UIColor {

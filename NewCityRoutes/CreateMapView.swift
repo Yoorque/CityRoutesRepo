@@ -289,7 +289,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         
         currentZoomLevel = position.zoom
-        mapView.selectedMarker = nil
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
                 notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
