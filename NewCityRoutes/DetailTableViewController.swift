@@ -56,7 +56,11 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         detailMapView.drawLinePolylines(route: lineRoutes[indexPath.row])
         
         let selectedRow = tableView.cellForRow(at: indexPath) as! DetailTableViewCell
-        selectedRow.contentView.backgroundColor = UIColor(colorLiteralRed: 0, green: 0.10, blue: 0.80, alpha: 0.5)
-        
+        selectedRow.selectionImage.image = UIImage(named: "yes")
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let selectedRow = tableView.cellForRow(at: indexPath) as! DetailTableViewCell
+        selectedRow.selectionImage.image = UIImage()
     }
 }

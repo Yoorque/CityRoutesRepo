@@ -10,6 +10,7 @@ import UIKit
 
 class DetailTableViewCell: UITableViewCell {
     
+    @IBOutlet var selectionImage: UIImageView!
     @IBOutlet var borderView: UIView!
     @IBOutlet var customCellImageView: UIImageView!
     @IBOutlet var direction: UILabel!

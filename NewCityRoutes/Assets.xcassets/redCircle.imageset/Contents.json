@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Red-circle.svg.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "redCircle.png",
       "scale" : "2x"
     },
     {
