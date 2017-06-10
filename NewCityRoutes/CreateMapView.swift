@@ -9,6 +9,13 @@
 import UIKit
 import GoogleMaps
 
+func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString {
+    let result = NSMutableAttributedString()
+    result.append(left)
+    result.append(right)
+    return result
+}
+
 class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     enum MapViewSource: Int {
         case Main = 1
@@ -20,7 +27,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var currentZoomLevel: Float!
     var mapView: GMSMapView!
     var detailMarker: GMSMarker!
-    var linije = ""
+    var linije = NSAttributedString()
     var viewController = InitialViewController()
     var selectedFeature = [Feature]()
     var selectedRelation = [Relations]()
@@ -135,7 +142,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     // Iscrtava rutu i markere u zavisnosti od odabrane u drawTransportLines() odakle se i poziva
     
     private func setCoords(coord: Coordinates, feature: Feature, relation: Relations) {
-        linije = ""
+        
+        linije = NSAttributedString()
+        
         selectedFeature.append(feature)
         selectedRelation.append(relation)
         
@@ -154,10 +163,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         for rela in feature.property.relations {
             if rela.reltags.reltagRef != relation.reltags.reltagRef {
                 
-                linije = linije + " " + rela.reltags.reltagRef
+                linije = linije + NSAttributedString(string: " ") + NSAttributedString(string: rela.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: rela.reltags.route)])
             }
+            
+            detailMarker.userData = linije
         }
-        detailMarker.snippet = linije
     }
     
     // Calculate nearest station from user location
@@ -168,7 +178,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
-        linije = ""
+        linije = NSAttributedString()
         i = 0
         selectedFeature.removeAll()
         
@@ -176,7 +186,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         for feature in selectedFeature {
             for relation in feature.property.relations {
-                linije = linije + " " + relation.reltags.reltagRef
+                linije = linije + NSAttributedString(string: " ") + NSAttributedString(string: relation.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: relation.reltags.route)])
+                
                 transportImageNames.insert(relation.reltags.route)
             }
             
@@ -192,7 +203,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             switch position.zoom {
             case 15..<18:
                 detailMarker.icon = UIImage(named: "redCircle")
-                detailMarker.iconView?.tintColor = UIColor.green
             case 18...mapView.maxZoom:
                 for image in transportImageNames {
                     finalIconImageName = finalIconImageName + image
@@ -202,9 +212,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             default:
                 break
             }
-            detailMarker.title = linije
+            
+            detailMarker.userData = linije
             detailMarker.snippet = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
-            linije = ""
+            linije = NSAttributedString()
             transportImageNames = []
             finalIconImageName = ""
         }
@@ -214,7 +225,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
         let index = Int(marker.accessibilityLabel!)!
         
-        infoWindow.otherLinesLabel.text = marker.title
+        infoWindow.otherLinesLabel.attributedText = marker.userData as? NSAttributedString
+        
         infoWindow.code.text = marker.snippet
         infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
         
@@ -266,8 +278,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
         
-        infoWindow.otherLines.text = marker.snippet != "" ? marker.snippet : "none"
-        infoWindow.selectedLine.text = selectedRelation[index].reltags.reltagRef
+        infoWindow.otherLines.attributedText = marker.userData as? NSAttributedString
+        infoWindow.selectedLine.attributedText = NSAttributedString(string: selectedRelation[index].reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: selectedRelation[index].reltags.route)])
         infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
         
         return infoWindow
