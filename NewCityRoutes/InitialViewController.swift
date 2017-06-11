@@ -153,15 +153,9 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         let defaults = UserDefaults.standard
         if let languageFromDefaults = defaults.value(forKey: "language") as? String {
             language = languageFromDefaults
-            if language == "latin" {
-                infoButton.title = "Info"
-                languageButton.title = "Language"
-                title = "City Routes"
-            } else {
-                infoButton.title = "Инфо"
-                languageButton.title = "Језик"
-                title = "Градске Руте"
-            }
+            infoButton.title = language == "latin" ? "Info": "Инфо"
+            languageButton.title = language == "latin" ? "Language" : "Језик"
+            title = language == "latin" ? "City Routes" : "Градске Руте"
         }
     }
     
@@ -179,15 +173,9 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func setTransportButtonLabels() {
-        if language == "latin" {
-            busTitleLabel.text = "Bus"
-            tramTitleLabel.text = "Tram"
-            trolleybusTitleLabel.text = "Trolleybus"
-        } else {
-            busTitleLabel.text = "Аутобус"
-            tramTitleLabel.text = "Трамвај"
-            trolleybusTitleLabel.text = "Тролејбус"
-        }
+        busTitleLabel.text = language == "latin" ? "Bus" : "Аутобус"
+        tramTitleLabel.text = language == "latin" ? "Tram" : "Трамвај"
+        trolleybusTitleLabel.text = language == "latin" ? "Trolleybus" : "Тролејбус"
     }
 
     //MARK: TableView Delegates
