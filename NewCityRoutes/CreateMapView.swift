@@ -52,6 +52,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         mapView.settings.compassButton = true
+        
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         mapView.delegate = self
@@ -175,6 +176,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func markStation(forPosition position: GMSCameraPosition) {
         mapView.clear()
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
+        let circle = GMSCircle(position: position.target, radius: 300)
+        circle.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.05)
+        circle.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
+        circle.strokeWidth = 1
+        circle.map = mapView
         
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
