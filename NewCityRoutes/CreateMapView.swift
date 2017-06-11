@@ -25,7 +25,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var currentMarkerIcon = UIImageView()
     var currentZoomLevel: Float!
     var mapView: GMSMapView!
-    var detailMarker: GMSMarker!
+    var detailMarker: GMSMarker! {
+        didSet {
+            detailMarker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+        }
+        
+    }
+    var currentSelectedMarkers = [GMSMarker]()
+    var circle: GMSCircle?
     var linije = NSAttributedString()
     var viewController = InitialViewController()
     var selectedFeature = [Feature]()
@@ -158,7 +165,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         detailMarker = GMSMarker(position:coords)
         detailMarker.accessibilityLabel = "\(i)"
         i += 1
-        detailMarker.icon = UIImage(named: "redCircle")
+        
+        detailMarker.icon = UIImage(named: "whiteRedCircle")
         detailMarker.appearAnimation = GMSMarkerAnimation.pop
         detailMarker.map = mapView
         
@@ -173,8 +181,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     // Calculate nearest station from user location
-    var currentSelectedMarkers = [GMSMarker]()
-    var circle: GMSCircle?
+    
     func markStation(forPosition position: GMSCameraPosition) {
     // mapView.clear()
         circle?.map = nil
