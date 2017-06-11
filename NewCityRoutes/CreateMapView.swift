@@ -174,8 +174,15 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     // Calculate nearest station from user location
     var currentSelectedMarkers = [GMSMarker]()
+    var circle: GMSCircle?
     func markStation(forPosition position: GMSCameraPosition) {
     // mapView.clear()
+        circle?.map = nil
+        circle = GMSCircle(position: position.target, radius: 300)
+        circle?.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.05)
+        circle?.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
+        circle?.strokeWidth = 1
+        circle?.map = mapView
         
         for marker in currentSelectedMarkers {
             if marker != mapView.selectedMarker {
@@ -184,11 +191,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
         
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
-        let circle = GMSCircle(position: position.target, radius: 300)
-        circle.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.05)
-        circle.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
-        circle.strokeWidth = 1
-        circle.map = mapView
+       
         
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
@@ -236,6 +239,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             transportImageNames = []
             finalIconImageName = ""
         }
+        
     }
     
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
