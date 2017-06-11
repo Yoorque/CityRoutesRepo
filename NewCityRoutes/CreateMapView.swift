@@ -183,7 +183,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     // Calculate nearest station from user location
     
     func markStation(forPosition position: GMSCameraPosition) {
-    // mapView.clear()
+        // mapView.clear()
         circle?.map = nil
         circle = GMSCircle(position: position.target, radius: 300)
         circle?.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.05)
@@ -198,7 +198,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
         
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
-       
+        
         
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
@@ -274,17 +274,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.layer.cornerRadius = 13
         infoWindow.layer.borderColor = UIColor.red.cgColor
         
-        if language == "latin" {
-            infoWindow.codeLanguageLabel.text = "Code"
-            infoWindow.coveredLanguageLabel.text = "Covered"
-            infoWindow.wheelchairLanguageLabel.text = "Wheelchair"
-            infoWindow.otherLinesLanguageLabel.text = "Lines"
-        } else {
-            infoWindow.codeLanguageLabel.text = "Код"
-            infoWindow.coveredLanguageLabel.text = "Покривена"
-            infoWindow.wheelchairLanguageLabel.text = "Колица"
-            infoWindow.otherLinesLanguageLabel.text = "Линије"
-        }
+        infoWindow.codeLanguageLabel.text = language == "latin" ? "Code" : "Код"
+        infoWindow.coveredLanguageLabel.text = language == "latin" ? "Covered" : "Покривена"
+        infoWindow.wheelchairLanguageLabel.text = language == "latin" ? "Wheelchair" : "Колица"
+        infoWindow.otherLinesLanguageLabel.text = language == "latin" ? "Lines" : "Линије"
         
         if selectedFeature[index].property.covered != "" {
             infoWindow.coveredImage.image = UIImage(named: selectedFeature[index].property.covered)
@@ -347,21 +340,19 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         currentMarkerIcon.image = marker.icon!
         
         //if mapView.superview!.tag == MapViewSource.Detail.rawValue {
-            CATransaction.begin()
-            CATransaction.setAnimationDuration(0.5)
-            let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
-            mapView.animate(to: camera)
-            CATransaction.commit()
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(0.5)
+        let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
+        mapView.animate(to: camera)
+        CATransaction.commit()
         //}
         
         mapView.selectedMarker = marker
         
         if currentZoomLevel < 18 {
             mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
-        } else {
-           
-            
         }
+        
         notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
         labelAnimate(string: notificationLabel.text!)
         return true
