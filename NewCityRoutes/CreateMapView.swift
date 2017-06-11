@@ -29,8 +29,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         didSet {
             detailMarker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         }
-        
     }
+    
     var currentSelectedMarkers = [GMSMarker]()
     var circle: GMSCircle?
     var linije = NSAttributedString()
@@ -39,7 +39,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var selectedRelation = [Relations]()
     var i = 0
     var notificationLabel = UILabel()
-    
     let locationManager = CLLocationManager()
     var nearestLocation = CalculateNearestStation()
     let simPosition = CLLocationCoordinate2D(latitude: 44.818611, longitude: 20.468056)
@@ -81,8 +80,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         crosshair.widthAnchor.constraint(equalToConstant: 30).isActive = true
         crosshair.heightAnchor.constraint(equalToConstant: 30).isActive = true
         crosshair.translatesAutoresizingMaskIntoConstraints = false
-        
-        
     }
     
     func createNotificationLabel(view: UIView) {
@@ -96,7 +93,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         notificationLabel.font = UIFont.boldSystemFont(ofSize: 12)
         view.addSubview(notificationLabel)
     }
-    
     
     //Izvlaci i filtrira odabranu vrstu prevoza i poziva se iz DetailViewController-a
     
@@ -175,7 +171,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 
                 linije = linije + NSAttributedString(string: " ") + NSAttributedString(string: rela.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: rela.reltags.route)])
             }
-            
             detailMarker.userData = linije
         }
     }
@@ -198,7 +193,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
         
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
-        
         
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
@@ -231,7 +225,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 for image in transportImageNames {
                     finalIconImageName = finalIconImageName + image
                 }
-                
                 detailMarker.icon = UIImage(named: finalIconImageName)
             default:
                 break
@@ -246,7 +239,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             transportImageNames = []
             finalIconImageName = ""
         }
-        
     }
     
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{

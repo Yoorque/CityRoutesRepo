@@ -121,6 +121,7 @@
 		1138FE7D1E63421400D0C9C9 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				11406B6C1EA64F6100039D05 /* BlurEffect.swift */,
 				1138FE571E62026A00D0C9C9 /* AppDelegate.swift */,
 				EF76C0D51EE2F3FC00F3E5D7 /* Appearance.swift */,
 				1138FE771E63028500D0C9C9 /* Json.swift */,
@@ -150,6 +151,7 @@
 				1138FE591E62026A00D0C9C9 /* InitialViewController.swift */,
 				1138FE731E62DAA900D0C9C9 /* FirstTableViewController.swift */,
 				1138FE7B1E6324A300D0C9C9 /* DetailTableViewController.swift */,
+				EF76C0921EDF51C300F3E5D7 /* RecentSearchController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -158,9 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				1138FE5B1E62026A00D0C9C9 /* Main.storyboard */,
-				EFF145501EA402000058B754 /* CustomActivityIndicator.xib */,
-				11B884221E7C80C1006BB69D /* InitialMapInfoWindow.xib */,
-				1138FE7E1E637D3100D0C9C9 /* DetailMapInfoWindow.xib */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -169,7 +168,9 @@
 			isa = PBXGroup;
 			children = (
 				11B884201E7C8045006BB69D /* InitialMapInfoWindow.swift */,
+				11B884221E7C80C1006BB69D /* InitialMapInfoWindow.xib */,
 				1138FE801E637D3E00D0C9C9 /* DetailMapInfoWindow.swift */,
+				1138FE7E1E637D3100D0C9C9 /* DetailMapInfoWindow.xib */,
 			);
 			name = InfoWindows;
 			sourceTree = "<group>";
@@ -179,11 +180,7 @@
 			children = (
 				11EC302C1E93E76000846736 /* Model.xcdatamodeld */,
 				EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */,
-				1138FE691E62028C00D0C9C9 /* CreateMapView.swift */,
-				11406B6C1EA64F6100039D05 /* BlurEffect.swift */,
-				1138FE6B1E620C2100D0C9C9 /* ViewForTransportButtons.swift */,
 				1138FE751E6301ED00D0C9C9 /* DataModel.swift */,
-				EF76C0921EDF51C300F3E5D7 /* RecentSearchController.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -209,6 +206,9 @@
 			isa = PBXGroup;
 			children = (
 				EFF145521EA4034E0058B754 /* CustomActivityIndicator.swift */,
+				EFF145501EA402000058B754 /* CustomActivityIndicator.xib */,
+				1138FE691E62028C00D0C9C9 /* CreateMapView.swift */,
+				1138FE6B1E620C2100D0C9C9 /* ViewForTransportButtons.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
