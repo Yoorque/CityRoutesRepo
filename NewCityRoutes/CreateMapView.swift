@@ -21,9 +21,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         case Main = 1
         case Detail = 2
     }
-    
-    var currentMarkerIcon = UIImage()
     var crosshair = UIImageView()
+    var currentMarkerIcon = UIImageView()
     var currentZoomLevel: Float!
     var mapView: GMSMapView!
     var detailMarker: GMSMarker!
@@ -74,6 +73,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         crosshair.widthAnchor.constraint(equalToConstant: 30).isActive = true
         crosshair.heightAnchor.constraint(equalToConstant: 30).isActive = true
         crosshair.translatesAutoresizingMaskIntoConstraints = false
+        
+        
     }
     
     func createNotificationLabel(view: UIView) {
@@ -171,9 +172,16 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     // Calculate nearest station from user location
-    
+    var currentSelectedMarkers = [GMSMarker]()
     func markStation(forPosition position: GMSCameraPosition) {
-        mapView.clear()
+    // mapView.clear()
+        
+        for marker in currentSelectedMarkers {
+            if marker != mapView.selectedMarker {
+                marker.map = nil
+            }
+        }
+        
         nearestLocation.calculateNearestStation(from: mapView.camera.target)
         
         var transportImageNames = Set<String>()
@@ -216,6 +224,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             detailMarker.userData = linije
             detailMarker.snippet = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
             linije = NSAttributedString()
+            
+            currentSelectedMarkers.append(detailMarker)
+            
             transportImageNames = []
             finalIconImageName = ""
         }
@@ -316,19 +327,24 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        currentMarkerIcon = marker.icon!
+        currentMarkerIcon.image = marker.icon!
         
-        if mapView.superview!.tag == MapViewSource.Detail.rawValue {
+        //if mapView.superview!.tag == MapViewSource.Detail.rawValue {
             CATransaction.begin()
             CATransaction.setAnimationDuration(0.5)
             let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
             mapView.animate(to: camera)
             CATransaction.commit()
-        }
+        //}
         
         mapView.selectedMarker = marker
-        mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
         
+        if currentZoomLevel < 18 {
+            mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
+        } else {
+           
+            
+        }
         notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
         labelAnimate(string: notificationLabel.text!)
         return true
@@ -363,7 +379,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
         
         crosshair.isHidden = false
-        marker.icon = currentMarkerIcon
+        marker.icon = currentMarkerIcon.image
         
         notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
         labelAnimate(string: notificationLabel.text!)

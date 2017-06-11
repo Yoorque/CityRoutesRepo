@@ -31,7 +31,7 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         blurClass.blurTheBackgound(view: backgroundImageView)
     }
     
-    //MARK: TableView Delegates
+    //MARK: TableView DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return selectedTransport.count
@@ -50,6 +50,8 @@ class FirstTableViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return cell
     }
+    
+    //MARK: TableView Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

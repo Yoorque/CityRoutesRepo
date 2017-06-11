@@ -29,7 +29,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         blurClass.blurTheBackgound(view: backgroundImageView)
     }
     
-    //MARK: TableView Delegates
+    //MARK: TableView DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if lineRoutes[0].rel == lineRoutes[1].rel {
@@ -50,6 +50,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         
         return cell
     }
+    //MARK: TableView Delegates
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         detailMapView.drawLineMarkers(route: lineRoutes[indexPath.row])
