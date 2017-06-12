@@ -189,6 +189,15 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         for marker in currentSelectedMarkers {
             if marker != mapView.selectedMarker {
                 marker.map = nil
+            } else {
+                switch currentZoomLevel {
+                case 15..<18:
+                    marker.icon = UIImage(named: "fullRedCircle")
+                case 18...mapView.maxZoom:
+                    marker.icon = currentMarkerIcon.image
+                default:
+                    break
+                }
             }
         }
         
@@ -329,7 +338,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        currentMarkerIcon.image = marker.icon!
         
         //if mapView.superview!.tag == MapViewSource.Detail.rawValue {
         CATransaction.begin()
@@ -339,6 +347,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         CATransaction.commit()
         //}
         
+        currentMarkerIcon.image = marker.icon!
         mapView.selectedMarker = marker
         
         if currentZoomLevel < 18 {
@@ -379,7 +388,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
         
         crosshair.isHidden = false
-        marker.icon = currentMarkerIcon.image
+        mapView.selectedMarker?.map = nil
+        //marker.icon = currentMarkerIcon.image
         
         notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
         labelAnimate(string: notificationLabel.text!)
