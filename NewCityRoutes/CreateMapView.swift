@@ -388,8 +388,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, didCloseInfoWindowOf marker: GMSMarker) {
         
         crosshair.isHidden = false
-        mapView.selectedMarker?.map = nil
-        //marker.icon = currentMarkerIcon.image
+        if mapView.superview?.tag == 1 {
+            mapView.selectedMarker?.map = nil
+        } else {
+            marker.icon = currentMarkerIcon.image
+        }
         
         notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
         labelAnimate(string: notificationLabel.text!)
