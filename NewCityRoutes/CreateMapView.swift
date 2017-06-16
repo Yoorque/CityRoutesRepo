@@ -338,21 +338,16 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        
-        //if mapView.superview!.tag == MapViewSource.Detail.rawValue {
         CATransaction.begin()
         CATransaction.setAnimationDuration(0.5)
         let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
         mapView.animate(to: camera)
         CATransaction.commit()
-        //}
         
         currentMarkerIcon.image = marker.icon!
         mapView.selectedMarker = marker
         
-        if currentZoomLevel < 18 {
-            mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
-        }
+        mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
         
         notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
         labelAnimate(string: notificationLabel.text!)

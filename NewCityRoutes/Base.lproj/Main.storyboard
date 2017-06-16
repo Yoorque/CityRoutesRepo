@@ -76,11 +76,11 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8X-JR-SwV">
-                                <rect key="frame" x="16" y="122" width="343" height="150"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8X-JR-SwV">
+                                <rect key="frame" x="16" y="122" width="343" height="201"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="Yxz-dM-Y4U"/>
+                                    <constraint firstAttribute="height" constant="201" id="Yxz-dM-Y4U"/>
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -96,7 +96,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Dušan Juranović" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YZd-cQ-4so">
-                                <rect key="frame" x="35" y="322" width="141" height="30"/>
+                                <rect key="frame" x="34" y="373" width="141" height="30"/>
                                 <color key="backgroundColor" red="0.89030185390000005" green="1" blue="0.96158695400000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="141" id="Ecw-IU-fhk"/>
@@ -106,33 +106,33 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Marko Tribl" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bKK-xO-O19">
-                                <rect key="frame" x="35" y="354" width="141" height="30"/>
+                                <rect key="frame" x="34" y="405" width="141" height="30"/>
                                 <color key="backgroundColor" red="0.89030185390000005" green="1" blue="0.96158695400000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Predrag Djordjević" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ulP-QE-WNb">
-                                <rect key="frame" x="35" y="386" width="141" height="30"/>
+                                <rect key="frame" x="34" y="437" width="141" height="30"/>
                                 <color key="backgroundColor" red="0.89030185390000005" green="1" blue="0.96158695400000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="triblmarko@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="T9l-mN-LLe">
-                                <rect key="frame" x="184" y="359" width="175" height="21"/>
+                                <rect key="frame" x="183" y="410" width="175" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="djordjevicpredrag37@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="IAz-Ev-aZa">
-                                <rect key="frame" x="184" y="391" width="175" height="21"/>
+                                <rect key="frame" x="183" y="442" width="175" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="juranovicd@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="KSL-6K-gMq">
-                                <rect key="frame" x="184" y="327" width="175" height="21"/>
+                                <rect key="frame" x="183" y="378" width="175" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Xcg-B9-Vh7"/>
                                 </constraints>
@@ -141,7 +141,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3sU-O0-o7S">
-                                <rect key="frame" x="16" y="280" width="130" height="30"/>
+                                <rect key="frame" x="16" y="331" width="130" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="QXi-YT-Uju"/>
                                 </constraints>
@@ -152,7 +152,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="i8X-JR-SwV" firstAttribute="trailing" secondItem="KSL-6K-gMq" secondAttribute="trailing" id="12r-lJ-JpH"/>
+                            <constraint firstItem="i8X-JR-SwV" firstAttribute="trailing" secondItem="KSL-6K-gMq" secondAttribute="trailing" constant="1" id="12r-lJ-JpH"/>
                             <constraint firstItem="KSL-6K-gMq" firstAttribute="top" secondItem="i8X-JR-SwV" secondAttribute="bottom" constant="55" id="2l6-8D-xHB"/>
                             <constraint firstItem="3sU-O0-o7S" firstAttribute="leading" secondItem="3Yg-UJ-26B" secondAttribute="leading" id="5tT-Uk-Hr4"/>
                             <constraint firstItem="ulP-QE-WNb" firstAttribute="top" secondItem="bKK-xO-O19" secondAttribute="bottom" constant="2" id="5th-Od-Gyf"/>
@@ -163,7 +163,7 @@
                             <constraint firstItem="Tph-In-DTu" firstAttribute="trailing" secondItem="i8X-JR-SwV" secondAttribute="trailing" id="ASL-zd-vvH"/>
                             <constraint firstItem="d41-XQ-LpS" firstAttribute="top" secondItem="fXx-Th-Rju" secondAttribute="bottom" id="DGW-Ze-8kn"/>
                             <constraint firstItem="bKK-xO-O19" firstAttribute="centerY" secondItem="T9l-mN-LLe" secondAttribute="centerY" id="IQo-q4-elh"/>
-                            <constraint firstItem="IAz-Ev-aZa" firstAttribute="trailing" secondItem="3Yg-UJ-26B" secondAttribute="trailing" id="K0C-aT-ZRf"/>
+                            <constraint firstItem="IAz-Ev-aZa" firstAttribute="trailing" secondItem="3Yg-UJ-26B" secondAttribute="trailing" constant="-1" id="K0C-aT-ZRf"/>
                             <constraint firstItem="IAz-Ev-aZa" firstAttribute="leading" secondItem="ulP-QE-WNb" secondAttribute="trailing" constant="8" symbolic="YES" id="NLO-ZQ-GEa"/>
                             <constraint firstItem="ulP-QE-WNb" firstAttribute="centerY" secondItem="IAz-Ev-aZa" secondAttribute="centerY" id="Nck-I6-8x3"/>
                             <constraint firstItem="fXx-Th-Rju" firstAttribute="leading" secondItem="TxF-se-ixv" secondAttribute="leading" id="QkI-pY-7Dg"/>
@@ -185,7 +185,7 @@
                             <constraint firstItem="i8X-JR-SwV" firstAttribute="top" secondItem="Tph-In-DTu" secondAttribute="bottom" constant="8" symbolic="YES" id="pAa-iy-EQg"/>
                             <constraint firstItem="Tph-In-DTu" firstAttribute="top" secondItem="If7-4R-K2l" secondAttribute="bottom" constant="8" symbolic="YES" id="uYc-mV-Xcj"/>
                             <constraint firstItem="bKK-xO-O19" firstAttribute="top" secondItem="YZd-cQ-4so" secondAttribute="bottom" constant="2" id="urr-Tq-bjJ"/>
-                            <constraint firstItem="YZd-cQ-4so" firstAttribute="leading" secondItem="TxF-se-ixv" secondAttribute="leadingMargin" constant="19" id="uvG-JL-G7C"/>
+                            <constraint firstItem="YZd-cQ-4so" firstAttribute="leading" secondItem="TxF-se-ixv" secondAttribute="leadingMargin" constant="18" id="uvG-JL-G7C"/>
                             <constraint firstItem="YZd-cQ-4so" firstAttribute="centerY" secondItem="KSL-6K-gMq" secondAttribute="centerY" id="yGV-OV-1AY"/>
                         </constraints>
                     </view>
