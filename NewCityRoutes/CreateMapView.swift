@@ -179,12 +179,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func markStation(forPosition position: GMSCameraPosition) {
         // mapView.clear()
-        circle?.map = nil
-        circle = GMSCircle(position: position.target, radius: 300)
-        circle?.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.05)
-        circle?.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
-        circle?.strokeWidth = 1
-        circle?.map = mapView
         
         for marker in currentSelectedMarkers {
             if marker != mapView.selectedMarker {
@@ -336,6 +330,17 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        if position.zoom >= 15 {
+            circle?.map = nil
+            circle = GMSCircle(position: position.target, radius: 300)
+            circle?.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.05)
+            circle?.strokeColor = UIColor(red: 255/255, green: 153/255, blue: 51/255, alpha: 0.5)
+            circle?.strokeWidth = 1
+            circle?.map = mapView
+        }
+    }
+    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         CATransaction.begin()
@@ -384,9 +389,17 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         crosshair.isHidden = false
         if mapView.superview?.tag == 1 {
-            mapView.selectedMarker?.map = nil
+            switch currentZoomLevel {
+            case 15..<18:
+                marker.icon = UIImage(named: "redCircle")
+            case 18...mapView.maxZoom:
+                marker.icon = currentMarkerIcon.image
+            default:
+                marker.icon = UIImage()
+            }
+    
         } else {
-            marker.icon = currentMarkerIcon.image
+            marker.icon = UIImage(named: "whiteRedCircle")
         }
         
         notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
