@@ -185,12 +185,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 marker.map = nil
             } else {
                 switch currentZoomLevel {
-                case 15..<18:
-                    marker.icon = UIImage(named: "fullRedCircle")
-                case 18...mapView.maxZoom:
-                    marker.icon = currentMarkerIcon.image
-                default:
-                    break
+                    case 15..<18:
+                        marker.icon = UIImage(named: "fullRedCircle")
+                    case 18...mapView.maxZoom:
+                        print(marker.userData!)
+                        print("Ikona: \((marker.userData as! [String:Any])["markerImage"] as! String + "Full")")
+                        mapView.selectedMarker?.icon = UIImage(named: (marker.userData as! [String:Any])["markerImage"] as! String + "Full")
+                    default:
+                        break
                 }
             }
         }
@@ -225,15 +227,15 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             case 15..<18:
                 detailMarker.icon = UIImage(named: "redCircle")
             case 18...mapView.maxZoom:
-                for image in transportImageNames {
-                    finalIconImageName = finalIconImageName + image
+                for imageName in transportImageNames {
+                    finalIconImageName = finalIconImageName + imageName
                 }
                 detailMarker.icon = UIImage(named: finalIconImageName)
             default:
                 break
             }
-            
-            detailMarker.userData = linije
+            let dictionary: [String: Any] = ["linije": linije, "markerImage": finalIconImageName]
+            detailMarker.userData = dictionary
             detailMarker.snippet = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
             linije = NSAttributedString()
             
@@ -247,8 +249,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
         let index = Int(marker.accessibilityLabel!)!
+        let markerDict = marker.userData as! [String: Any]
         
-        infoWindow.otherLinesLabel.attributedText = marker.userData as? NSAttributedString
+        infoWindow.otherLinesLabel.attributedText = markerDict["linije"] as? NSAttributedString
         
         infoWindow.code.text = marker.snippet
         infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
@@ -344,18 +347,27 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
         CATransaction.begin()
         CATransaction.setAnimationDuration(0.5)
         let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
         mapView.animate(to: camera)
         CATransaction.commit()
         
-        currentMarkerIcon.image = marker.icon!
+        currentMarkerIcon.image = marker.icon
         mapView.selectedMarker = marker
-        
-        mapView.selectedMarker?.icon = UIImage(named: "fullRedCircle")
-        
+        if mapView.superview!.tag == MapViewSource.Main.rawValue {
+            let markerDict = marker.userData as! [String: Any]
+       switch currentZoomLevel {
+        case 15..<18:
+            marker.icon = UIImage(named: "fullRedCircle")
+        case 18...mapView.maxZoom:
+            marker.icon = UIImage(named: markerDict["markerImage"] as! String + "Full")
+        default:
+            break
+        }
+        } else {
+            marker.icon = UIImage(named: "fullRedCircle")
+        }
         notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
         labelAnimate(string: notificationLabel.text!)
         return true
@@ -397,7 +409,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             case 18...mapView.maxZoom:
                 marker.icon = currentMarkerIcon.image
             default:
-                marker.icon = UIImage()
+               break
             }
             
         } else {
