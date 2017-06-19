@@ -269,6 +269,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
                     controller.title = titleText
                 }
                 controller.backButton.title = language == "latin" ? "Back" : "Назад"
+                self.recentSearchWasSaved(route: recentSearches[indexPath.row])
             })
         })
     }
@@ -313,10 +314,14 @@ extension InitialViewController: FirstTableViewControllerDelegate {
     func recentSearchWasSaved(route: Routes) {
         if !recentSearches.contains(route) {
             recentSearches.insert(route, at: 0)
-            removeExtraCells()
-            recentSearchController.savedRoutes = recentSearches
-            tableView.reloadData()
+        } else {
+            recentSearches.remove(at: recentSearches.index(where: {$0 == route})!)
+            recentSearches.insert(route, at: 0)
+            
         }
+        removeExtraCells()
+        recentSearchController.savedRoutes = recentSearches
+        tableView.reloadData()
     }
     
     func removeRecentSearch(fromRow row: Int) {
