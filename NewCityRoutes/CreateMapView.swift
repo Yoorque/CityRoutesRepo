@@ -69,6 +69,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         notificationLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
         notificationLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         notificationLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+         notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
+        labelAnimate(string: notificationLabel.text!)
     }
     
     func createCrosshair(view: UIView) {
@@ -163,7 +166,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         i += 1
         
         detailMarker.icon = UIImage(named: "whiteRedCircle")
-        detailMarker.appearAnimation = GMSMarkerAnimation.pop
+        //detailMarker.appearAnimation = GMSMarkerAnimation.pop
         detailMarker.map = mapView
         
         for rela in feature.property.relations {
@@ -217,7 +220,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             let pos = CLLocationCoordinate2DMake(lat, lon)
             detailMarker = GMSMarker(position: pos)
             
-            detailMarker.appearAnimation = GMSMarkerAnimation.pop
+            // detailMarker.appearAnimation = GMSMarkerAnimation.pop
             detailMarker.map = mapView
             detailMarker.accessibilityLabel = "\(i)"
             i += 1
@@ -320,8 +323,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         currentZoomLevel = position.zoom
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
-                notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
-                labelAnimate(string: notificationLabel.text!)
+                // notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
+                //labelAnimate(string: notificationLabel.text!)
                 markStation(forPosition: position)
             } else {
                 mapView.clear()
@@ -405,7 +408,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             case 15..<18:
                 marker.icon = UIImage(named: "redCircle")
             case 18...mapView.maxZoom:
-                marker.icon = currentMarkerIcon.image
+                marker.icon = UIImage(named: (marker.userData as! [String: Any])["markerImage"] as! String)
             default:
                 break
             }
