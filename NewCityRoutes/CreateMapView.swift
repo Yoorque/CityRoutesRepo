@@ -23,7 +23,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     var crosshair = UIImageView()
     var currentMarkerIcon = UIImageView()
-    var currentZoomLevel: Float!
     var mapView: GMSMapView!
     var detailMarker: GMSMarker! {
         didSet {
@@ -31,6 +30,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    var currentZoomLevel: Float!
+    var currentBearing: CLLocationDirection!
+    var currentAngle: Double!
     var currentSelectedMarkers = [GMSMarker]()
     var circle: GMSCircle?
     var linije = NSAttributedString()
@@ -319,7 +321,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     //MARK: MapView Delegates
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        
+        currentBearing = position.bearing
+        currentAngle = position.viewingAngle
         currentZoomLevel = position.zoom
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
@@ -350,7 +353,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         CATransaction.begin()
         CATransaction.setAnimationDuration(0.5)
-        let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel)
+        
+        let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel, bearing: currentBearing, viewingAngle: currentAngle)
         mapView.animate(to: camera)
         CATransaction.commit()
         
