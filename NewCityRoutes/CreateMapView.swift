@@ -297,7 +297,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.otherLines.attributedText = markerDict["lines"] as? NSAttributedString
         infoWindow.selectedLine.attributedText = NSAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: markerDict["route"] as! String)])
         infoWindow.imageView.image = UIImage(named: markerDict["route"] as! String)
-        
+    
         return infoWindow
     }
     
@@ -329,30 +329,29 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                     for route in routes {
                         let legs = route["legs"] as! [[String: Any]]
                         
-                        var totalDistance: Double = 0.0
+                        var totalDistance = 0
                         for leg in legs {
-                            var walkPolyline = GMSPolyline()
+                            
                             let steps = leg["steps"] as! [[String: Any]]
                             for step in steps {
                                 let distance = step["distance"] as! [String:Any]
-                                
-                                let distanceValue = distance["value"] as! Double
+                                let distanceValue = distance["value"] as! Int
                                 let startLocation = step["start_location"] as! [String: Any]
                                 let endLocation = step["end_location"] as! [String: Any]
-                                
                                 let polyPath = GMSMutablePath()
                                 let startCoords = CLLocationCoordinate2DMake(startLocation["lat"] as! CLLocationDegrees, startLocation["lng"] as! CLLocationDegrees)
                                 let endCoords = CLLocationCoordinate2DMake(endLocation["lat"] as! CLLocationDegrees, endLocation["lng"] as! CLLocationDegrees)
                                 polyPath.add(startCoords)
                                 polyPath.add(endCoords)
-                                walkPolyline = GMSPolyline(path: polyPath)
-                                let strokeStyle = [GMSStrokeStyle.solidColor(UIColor.blue), GMSStrokeStyle.solidColor(UIColor.clear)]
-                                let dashLenghts: [NSNumber] = [5,10]
+                                
+                                let walkPolyline = GMSPolyline(path: polyPath)
+                                let anotherStyle = GMSStrokeStyle.gradient(from: UIColor.yellow, to: UIColor.purple)
+                                let strokeStyles = [GMSStrokeStyle.solidColor(UIColor.blue), GMSStrokeStyle.solidColor(UIColor.clear), anotherStyle]
+                                let dashLenghts: [NSNumber] = [5,10,5]
                                 let lenghtKind = GMSLengthKind.geodesic
-                                walkPolyline.spans = GMSStyleSpans(polyPath, strokeStyle, dashLenghts, lenghtKind)
-                                walkPolyline.strokeColor = .blue
+                                walkPolyline.spans = GMSStyleSpans(polyPath, strokeStyles, dashLenghts, lenghtKind)
                                 walkPolyline.strokeWidth = 2
-                                walkPolyline.map = mapView
+                                    walkPolyline.map = mapView
                                 walkPolyLineArray.append(walkPolyline)
                                 totalDistance += distanceValue
                             }
@@ -416,7 +415,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
-             calculateRoute(toMarker: marker)
+            calculateRoute(toMarker: marker)
             switch currentZoomLevel {
             case 15..<18:
                 marker.icon = UIImage(named: "fullRedCircle")
