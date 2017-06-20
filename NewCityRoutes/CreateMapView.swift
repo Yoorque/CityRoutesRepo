@@ -36,7 +36,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var currentAngle: Double!
     var currentSelectedMarkers = [GMSMarker]()
     var circle: GMSCircle?
-    var linije = NSAttributedString()
+    var lines = NSAttributedString()
     var viewController = InitialViewController()
     var selectedFeature = [Feature]()
     var selectedRelation = [Relations]()
@@ -151,9 +151,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     // Iscrtava rutu i markere u zavisnosti od odabrane u drawTransportLines() odakle se i poziva
     
-    var i = 0
+    
     private func setCoords(coord: Coordinates, feature: Feature, relation: Relations) {
-        linije = NSAttributedString()
+        lines = NSAttributedString()
+        var dictionary = [String: Any]()
         
         selectedFeature.append(feature)
         selectedRelation.append(relation)
@@ -164,20 +165,29 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView.camera = camera
         
         detailMarker = GMSMarker(position:coords)
-        detailMarker.accessibilityLabel = "\(i)"
-        i += 1
-        
         detailMarker.icon = UIImage(named: "whiteRedCircle")
-        //detailMarker.appearAnimation = GMSMarkerAnimation.pop
         detailMarker.map = mapView
         
         for rela in feature.property.relations {
             if rela.reltags.reltagRef != relation.reltags.reltagRef {
                 
-                linije = linije + NSAttributedString(string: " ") + NSAttributedString(string: rela.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: rela.reltags.route)])
+                lines = lines + NSAttributedString(string: " ") + NSAttributedString(string: rela.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: rela.reltags.route)])
             }
-            detailMarker.userData = linije
         }
+        let covered = feature.property.covered != "" ? feature.property.covered : feature.property.shelter != "" ? feature.property.shelter : "no"
+        let wheelchair = feature.property.wheelchair != "" ? feature.property.wheelchair : "no"
+        let code = feature.property.phone != "" ? feature.property.phone : feature.property.codeRef != "" ? "*011*\(feature.property.codeRef)#" : "no code"
+        let stationName = language == "latin" ? feature.property.nameSrLatn : feature.property.name
+        
+        dictionary.updateValue(lines, forKey: "lines")
+        dictionary.updateValue(covered, forKey: "covered")
+        dictionary.updateValue(wheelchair, forKey: "wheelchair")
+        dictionary.updateValue(code, forKey: "code")
+        dictionary.updateValue(stationName, forKey: "stationName")
+        dictionary.updateValue(relation.reltags.route, forKey: "route")
+        dictionary.updateValue(relation.reltags.reltagRef, forKey: "selectedLine")
+        
+        detailMarker.userData = dictionary
     }
     
     // Calculate nearest station from user location
@@ -202,7 +212,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
-        linije = NSAttributedString()
+        lines = NSAttributedString()
         
         selectedFeature.removeAll()
         
@@ -210,7 +220,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         for feature in selectedFeature {
             for relation in feature.property.relations {
-                linije = linije + NSAttributedString(string: " ") + NSAttributedString(string: relation.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: relation.reltags.route)])
+                lines = lines + NSAttributedString(string: " ") + NSAttributedString(string: relation.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: relation.reltags.route)])
                 
                 transportImageNames.insert(relation.reltags.route)
             }
@@ -218,14 +228,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             let lat = feature.geometry.coordinates[0].lat
             let lon = feature.geometry.coordinates[0].lon
             let pos = CLLocationCoordinate2DMake(lat, lon)
-            detailMarker = GMSMarker(position: pos)
             
-            // detailMarker.appearAnimation = GMSMarkerAnimation.pop
+            detailMarker = GMSMarker(position: pos)
             detailMarker.map = mapView
             
             for imageName in transportImageNames {
                 finalIconImageName = finalIconImageName + imageName
             }
+            
             switch position.zoom {
             case 15..<18:
                 detailMarker.icon = UIImage(named: "redCircle")
@@ -234,15 +244,16 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             default:
                 break
             }
+            
             let stationName = language == "latin" ? feature.property.nameSrLatn : feature.property.name
             let code = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
             
-            let dictionary: [String: Any] = ["linije": linije, "markerImage": finalIconImageName, "code": code, "stationName": stationName]
+            let dictionary: [String: Any] = ["lines": lines, "markerImage": finalIconImageName, "code": code, "stationName": stationName]
             detailMarker.userData = dictionary
             
             currentSelectedMarkers.append(detailMarker)
             
-            linije = NSAttributedString()
+            lines = NSAttributedString()
             transportImageNames = []
             finalIconImageName = ""
         }
@@ -252,7 +263,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
         let markerDict = marker.userData as! [String: Any]
         
-        infoWindow.otherLinesLabel.attributedText = markerDict["linije"] as? NSAttributedString
+        infoWindow.otherLinesLabel.attributedText = markerDict["lines"] as? NSAttributedString
         infoWindow.distance.text = markerDict["distance"] as? String
         infoWindow.code.text = markerDict["code"] as? String
         infoWindow.stationName.text = markerDict["stationName"] as? String
@@ -267,7 +278,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func detailScreenMarkerInfoWindow(marker: GMSMarker) -> UIView {
         let infoWindow = Bundle.main.loadNibNamed("DetailMapInfoWindow", owner: self, options: nil)?.first as! DetailMapInfoWindow
-        let index = Int(marker.accessibilityLabel!)!
+        
+        let markerDict = marker.userData as! [String: Any]
         
         infoWindow.layer.borderWidth = 2
         infoWindow.layer.cornerRadius = 13
@@ -278,29 +290,13 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.wheelchairLanguageLabel.text = language == "latin" ? "Wheelchair" : "Колица"
         infoWindow.otherLinesLanguageLabel.text = language == "latin" ? "Lines" : "Линије"
         
-        if selectedFeature[index].property.covered != "" {
-            infoWindow.coveredImage.image = UIImage(named: selectedFeature[index].property.covered)
-        } else if selectedFeature[index].property.shelter != ""{
-            infoWindow.coveredImage.image = UIImage(named: selectedFeature[index].property.shelter)
-        } else {
-            infoWindow.coveredImage.image = UIImage(named: "no")
-        }
-        
-        if selectedFeature[index].property.phone != "" {
-            infoWindow.code.text = selectedFeature[index].property.phone
-        } else if selectedFeature[index].property.codeRef != ""{
-            infoWindow.code.text = "*011*\(selectedFeature[index].property.codeRef)#"
-        } else {
-            infoWindow.code.text = "no code"
-        }
-        
-        infoWindow.wheelchairImage.image = selectedFeature[index].property.wheelchair != "" ? UIImage(named: selectedFeature[index].property.wheelchair) : UIImage(named: "no")
-        
-        infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
-        
-        infoWindow.otherLines.attributedText = marker.userData as? NSAttributedString
-        infoWindow.selectedLine.attributedText = NSAttributedString(string: selectedRelation[index].reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: selectedRelation[index].reltags.route)])
-        infoWindow.imageView.image = UIImage(named: selectedRelation[index].reltags.route)
+        infoWindow.coveredImage.image = UIImage(named: markerDict["covered"] as! String)
+        infoWindow.wheelchairImage.image = UIImage(named: markerDict["wheelchair"] as! String)
+        infoWindow.code.text = markerDict["code"] as? String
+        infoWindow.stationName.text  = markerDict["stationName"] as? String
+        infoWindow.otherLines.attributedText = markerDict["lines"] as? NSAttributedString
+        infoWindow.selectedLine.attributedText = NSAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: markerDict["route"] as! String)])
+        infoWindow.imageView.image = UIImage(named: markerDict["route"] as! String)
         
         return infoWindow
     }
