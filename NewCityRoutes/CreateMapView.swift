@@ -30,6 +30,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    var walkPolyLineArray = [GMSPolyline]()
     var currentZoomLevel: Float!
     var currentBearing: CLLocationDirection!
     var currentAngle: Double!
@@ -39,7 +40,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var viewController = InitialViewController()
     var selectedFeature = [Feature]()
     var selectedRelation = [Relations]()
-    var i = 0
     var notificationLabel = UILabel()
     let locationManager = CLLocationManager()
     var nearestLocation = CalculateNearestStation()
@@ -151,8 +151,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     // Iscrtava rutu i markere u zavisnosti od odabrane u drawTransportLines() odakle se i poziva
     
+    var i = 0
     private func setCoords(coord: Coordinates, feature: Feature, relation: Relations) {
-        
         linije = NSAttributedString()
         
         selectedFeature.append(feature)
@@ -183,8 +183,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     // Calculate nearest station from user location
     
     func markStation(forPosition position: GMSCameraPosition) {
-        // mapView.clear()
-        
         for marker in currentSelectedMarkers {
             if marker != mapView.selectedMarker {
                 marker.map = nil
@@ -205,7 +203,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
         linije = NSAttributedString()
-        i = 0
+        
         selectedFeature.removeAll()
         
         selectedFeature = nearestLocation.featuresForNearestStation
@@ -224,8 +222,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             
             // detailMarker.appearAnimation = GMSMarkerAnimation.pop
             detailMarker.map = mapView
-            detailMarker.accessibilityLabel = "\(i)"
-            i += 1
+            
             for imageName in transportImageNames {
                 finalIconImageName = finalIconImageName + imageName
             }
@@ -237,13 +234,15 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             default:
                 break
             }
-            let dictionary: [String: Any] = ["linije": linije, "markerImage": finalIconImageName]
+            let stationName = language == "latin" ? feature.property.nameSrLatn : feature.property.name
+            let code = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
+            
+            let dictionary: [String: Any] = ["linije": linije, "markerImage": finalIconImageName, "code": code, "stationName": stationName]
             detailMarker.userData = dictionary
-            detailMarker.snippet = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
-            linije = NSAttributedString()
             
             currentSelectedMarkers.append(detailMarker)
             
+            linije = NSAttributedString()
             transportImageNames = []
             finalIconImageName = ""
         }
@@ -251,17 +250,16 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
-        let index = Int(marker.accessibilityLabel!)!
         let markerDict = marker.userData as! [String: Any]
         
         infoWindow.otherLinesLabel.attributedText = markerDict["linije"] as? NSAttributedString
-        
-        infoWindow.code.text = marker.snippet
-        infoWindow.stationName.text = language == "latin" ? selectedFeature[index].property.nameSrLatn : selectedFeature[index].property.name
+        infoWindow.distance.text = markerDict["distance"] as? String
+        infoWindow.code.text = markerDict["code"] as? String
+        infoWindow.stationName.text = markerDict["stationName"] as? String
         
         infoWindow.otherLinesLabel.sizeToFit()
         infoWindow.stationName.sizeToFit()
-        
+      
         infoWindow.frame.size = CGSize(width: 218, height: 5 + infoWindow.stationName.frame.height + infoWindow.stationUnderView.frame.height + 5 + infoWindow.otherLinesLabel.frame.height + (infoWindow.underView.frame.height - 25))
         
         return infoWindow
@@ -318,6 +316,73 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         })
     }
     
+    func calculateRoute(toMarker marker: GMSMarker) {
+        clearWalkPolylines()
+        
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(currentLocation.latitude),\(currentLocation.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE"
+        
+        if let path = URL(string: url) {
+            do {
+                
+                let data = try String(contentsOf: path, encoding: String.Encoding.utf8)
+                let jData = data.data(using: String.Encoding.utf8)
+                do {
+                    let json = try JSONSerialization.jsonObject(with: jData!, options: []) as? [String: Any]
+                    
+                    let routes = json!["routes"] as! [[String: Any]]
+                    for route in routes {
+                        let legs = route["legs"] as! [[String: Any]]
+                        
+                        var totalDistance: Double = 0.0
+                        for leg in legs {
+                            var walkPolyline = GMSPolyline()
+                            let steps = leg["steps"] as! [[String: Any]]
+                            for step in steps {
+                                let distance = step["distance"] as! [String:Any]
+                                
+                                let distanceValue = distance["value"] as! Double
+                                let startLocation = step["start_location"] as! [String: Any]
+                                let endLocation = step["end_location"] as! [String: Any]
+                                
+                                let polyPath = GMSMutablePath()
+                                let startCoords = CLLocationCoordinate2DMake(startLocation["lat"] as! CLLocationDegrees, startLocation["lng"] as! CLLocationDegrees)
+                                let endCoords = CLLocationCoordinate2DMake(endLocation["lat"] as! CLLocationDegrees, endLocation["lng"] as! CLLocationDegrees)
+                                polyPath.add(startCoords)
+                                polyPath.add(endCoords)
+                                walkPolyline = GMSPolyline(path: polyPath)
+                                let strokeStyle = [GMSStrokeStyle.solidColor(UIColor.blue), GMSStrokeStyle.solidColor(UIColor.clear)]
+                                let dashLenghts: [NSNumber] = [5,10]
+                                let lenghtKind = GMSLengthKind.geodesic
+                                walkPolyline.spans = GMSStyleSpans(polyPath, strokeStyle, dashLenghts, lenghtKind)
+                                walkPolyline.strokeColor = .blue
+                                walkPolyline.strokeWidth = 2
+                                walkPolyline.map = mapView
+                                walkPolyLineArray.append(walkPolyline)
+                                totalDistance += distanceValue
+                            }
+                        }
+                        var newDictValue = marker.userData as! [String:Any]
+                        newDictValue.updateValue("\(totalDistance) m", forKey: "distance")
+                        marker.userData = newDictValue
+                    }
+                } catch {
+                    print("Bad json")
+                }
+            } catch {
+                print("Bad path")
+            }
+        } else {
+            print("Bad url")
+        }
+    }
+    
+    func clearWalkPolylines() {
+        for line in walkPolyLineArray {
+            line.map = nil
+        }
+        walkPolyLineArray = []
+    }
+    
     //MARK: MapView Delegates
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
@@ -326,8 +391,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         currentZoomLevel = position.zoom
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
-                // notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
-                //labelAnimate(string: notificationLabel.text!)
                 markStation(forPosition: position)
             } else {
                 mapView.clear()
@@ -338,6 +401,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
             if position.zoom >= 15 {
                 circle?.map = nil
@@ -351,17 +415,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(0.5)
-        
-        let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel, bearing: currentBearing, viewingAngle: currentAngle)
-        mapView.animate(to: camera)
-        CATransaction.commit()
-        
-        currentMarkerIcon.image = marker.icon
-        mapView.selectedMarker = marker
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
-            
+             calculateRoute(toMarker: marker)
             switch currentZoomLevel {
             case 15..<18:
                 marker.icon = UIImage(named: "fullRedCircle")
@@ -373,17 +428,30 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         } else {
             marker.icon = UIImage(named: "fullRedCircle")
         }
+        
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(0.5)
+        let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel, bearing: currentBearing, viewingAngle: currentAngle)
+        mapView.animate(to: camera)
+        CATransaction.commit()
+        
+        currentMarkerIcon.image = marker.icon
+        mapView.selectedMarker = marker
+        
         notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
         labelAnimate(string: notificationLabel.text!)
         return true
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        let index = Int(marker.accessibilityLabel!)
         let copy = UIPasteboard.general
-        
-        copy.string = mapView.superview?.tag == 1 ? marker.snippet : selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
-        
+        if mapView.superview?.tag == 1 {
+            copy.string = (marker.userData as! [String: Any])["code"] as? String
+        } else {
+            let index = Int(marker.accessibilityLabel!)
+            copy.string = selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
+        }
+
         notificationLabel.text = language == "latin" ? "Paste the code into phone dialer" : "Прекопирајте код у телефон (позив)"
         labelAnimate(string: notificationLabel.text!)
     }
@@ -408,6 +476,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         crosshair.isHidden = false
         if mapView.superview?.tag == 1 {
+           
             switch currentZoomLevel {
             case 15..<18:
                 marker.icon = UIImage(named: "redCircle")

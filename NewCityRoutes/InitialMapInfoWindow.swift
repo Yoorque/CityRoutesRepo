@@ -10,6 +10,7 @@ import UIKit
 
 class InitialMapInfoWindow: UIView {
     
+    @IBOutlet var distance: UILabel!
     @IBOutlet var stationName: UILabel!
     @IBOutlet var otherLinesLabel: UILabel!
     @IBOutlet var code: UILabel!
