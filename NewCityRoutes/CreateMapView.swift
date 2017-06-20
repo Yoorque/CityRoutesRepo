@@ -445,13 +445,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let copy = UIPasteboard.general
-        if mapView.superview?.tag == 1 {
-            copy.string = (marker.userData as! [String: Any])["code"] as? String
-        } else {
-            let index = Int(marker.accessibilityLabel!)
-            copy.string = selectedFeature[index!].property.phone != "" ? selectedFeature[index!].property.phone : "*011*\(selectedFeature[index!].property.codeRef)#"
-        }
-
+        copy.string = (marker.userData as! [String: Any])["code"] as? String
         notificationLabel.text = language == "latin" ? "Paste the code into phone dialer" : "Прекопирајте код у телефон (позив)"
         labelAnimate(string: notificationLabel.text!)
     }
