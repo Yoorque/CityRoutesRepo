@@ -414,6 +414,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        clearWalkPolylines()
+    }
+    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         if mapView.superview!.tag == MapViewSource.Main.rawValue {
              calculateRoute(toMarker: marker)
