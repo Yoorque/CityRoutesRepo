@@ -95,7 +95,22 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillAppear(animated)
         updateLanguageFromDefaults()
         setTransportButtonLabels()
+        if currentReachabilityStatus == .notReachable {
+            let alert = UIAlertController(title: "WARNING!", message: "Check your internet connection!", preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    })
+                }
+            }
+            alert.addAction(settingsAction)
+            //alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
     }
+}
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)

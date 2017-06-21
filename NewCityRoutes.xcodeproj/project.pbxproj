@@ -30,6 +30,7 @@
 		11EC30281E93DF1B00846736 /* Beograd.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 11EC30271E93DF1B00846736 /* Beograd.gpx */; };
 		11EC302E1E93E76000846736 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11EC302C1E93E76000846736 /* Model.xcdatamodeld */; };
 		A2F7AEB315006E32C3B88257 /* Pods_NewCityRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */; };
+		A619F4DC1EFAAAD20071EE89 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A619F4DB1EFAAAD20071EE89 /* Extensions.swift */; };
 		EF76C0931EDF51C300F3E5D7 /* RecentSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF76C0921EDF51C300F3E5D7 /* RecentSearchController.swift */; };
 		EF76C0D61EE2F3FC00F3E5D7 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF76C0D51EE2F3FC00F3E5D7 /* Appearance.swift */; };
 		EF77FE3B1E71E19000227DBE /* CalculateNearestStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF77FE3A1E71E19000227DBE /* CalculateNearestStation.swift */; };
@@ -65,6 +66,7 @@
 		11EC302D1E93E76000846736 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		6183BCE7981F7301BFE102AE /* Pods-NewCityRoutes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.debug.xcconfig"; sourceTree = "<group>"; };
 		790BD97FE00D79C99C47EAA7 /* Pods_NewCityRoutes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewCityRoutes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A619F4DB1EFAAAD20071EE89 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D1CA1C9F7552032758CBFCC8 /* Pods-NewCityRoutes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewCityRoutes.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewCityRoutes/Pods-NewCityRoutes.release.xcconfig"; sourceTree = "<group>"; };
 		EF76C0921EDF51C300F3E5D7 /* RecentSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchController.swift; sourceTree = "<group>"; };
 		EF76C0D51EE2F3FC00F3E5D7 /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				1138FE571E62026A00D0C9C9 /* AppDelegate.swift */,
 				EF76C0D51EE2F3FC00F3E5D7 /* Appearance.swift */,
 				1138FE771E63028500D0C9C9 /* Json.swift */,
+				A619F4DB1EFAAAD20071EE89 /* Extensions.swift */,
 				1194A6CF1EF7DAF200AA44CA /* LinesNew.geojson */,
 				11EC30271E93DF1B00846736 /* Beograd.gpx */,
 				1138FE5E1E62026A00D0C9C9 /* Assets.xcassets */,
@@ -355,6 +358,7 @@
 				1138FE6A1E62028C00D0C9C9 /* CreateMapView.swift in Sources */,
 				1138FE741E62DAA900D0C9C9 /* FirstTableViewController.swift in Sources */,
 				11108FC71E71CF90008BE488 /* DetailTableViewCell.swift in Sources */,
+				A619F4DC1EFAAAD20071EE89 /* Extensions.swift in Sources */,
 				EF76C0931EDF51C300F3E5D7 /* RecentSearchController.swift in Sources */,
 				1138FE761E6301ED00D0C9C9 /* DataModel.swift in Sources */,
 				EF76C0D61EE2F3FC00F3E5D7 /* Appearance.swift in Sources */,

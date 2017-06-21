@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Appearance.setGlobalAppearance()
         
+   
+        
         // Override point for customization after application launch.
         GMSServices.provideAPIKey("AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE")
         return true

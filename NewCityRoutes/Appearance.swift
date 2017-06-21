@@ -17,5 +17,6 @@ struct Appearance {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().backgroundColor = UIColor.clear
+        
     }
 }
