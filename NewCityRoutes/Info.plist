@@ -25,7 +25,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your location will be used even if the app is in the background</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location will be used only when you are using the app</string>
+	<string>Your location will be used only when using the app</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

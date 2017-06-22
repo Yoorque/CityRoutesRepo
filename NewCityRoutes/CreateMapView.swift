@@ -317,9 +317,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         })
     }
     
+    var alertCounter = 0
     func calculateRoute(toMarker marker: GMSMarker) {
         clearWalkPolylines()
-        
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(currentLocation.latitude),\(currentLocation.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE"
         
         if let path = URL(string: url) {
@@ -370,12 +370,18 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 }
             } catch {
                 print("Bad path")
-            
-                let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
-                let message = language == "latin" ? "You need internet connection for directions to station!" : "Потребна је интернет конекција за навођење до станице!"
-                
-                alertDelegate?.showAlert(title: title, message: message)
-                
+                if alertCounter == 0 || alertCounter == 5 {
+                   
+                    let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+                    let message = language == "latin" ? "You need internet connection for directions to station!" : "Потребна је интернет конекција за навођење до станице!"
+                    
+                    alertDelegate?.showAlert(title: title, message: message)
+                    
+                }
+                alertCounter += 1
+                if alertCounter == 5 {
+                    alertCounter = 0
+                }
             }
         } else {
             print("Bad url")
