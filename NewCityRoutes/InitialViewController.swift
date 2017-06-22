@@ -29,12 +29,12 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         didSet {
             myMapView.createMap(view: myMapView)
             myMapView.createCrosshair(view: myMapView)
-            
+            myMapView.alertDelegate = self
         }
     }
     
     let recentSearchController = RecentSearchController()
-
+    
     @IBAction func infoButton(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "showInfo", sender: self)
     }
@@ -111,8 +111,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             alert.addAction(settingsAction)
             alert.addAction(UIAlertAction(title: language == "latin" ? "Cancel" : "Otkaži", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
+        }
     }
-}
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -194,7 +194,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         tramTitleLabel.text = language == "latin" ? "Tram" : "Трамвај"
         trolleybusTitleLabel.text = language == "latin" ? "Trolleybus" : "Тролејбус"
     }
-
+    
     //MARK: TableView Delegates
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -243,7 +243,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         headerLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 1).isActive = true
         
         if tableView.cellForRow(at: IndexPath(row: 0, section: 0)) != nil {
-        headerLabel.bottomAnchor.constraint(equalTo: tableView.cellForRow(at: IndexPath(row: 0, section: 0))!.topAnchor, constant: -1).isActive = true
+            headerLabel.bottomAnchor.constraint(equalTo: tableView.cellForRow(at: IndexPath(row: 0, section: 0))!.topAnchor, constant: -1).isActive = true
         } else {
             headerLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         }
@@ -327,7 +327,7 @@ extension UIColor {
     }
 }
 
-extension InitialViewController: FirstTableViewControllerDelegate {
+extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate {
     func recentSearchWasSaved(route: Routes) {
         if !recentSearches.contains(route) {
             recentSearches.insert(route, at: 0)
@@ -345,6 +345,24 @@ extension InitialViewController: FirstTableViewControllerDelegate {
         recentSearches.remove(at: row)
         recentSearchController.savedRoutes = recentSearches
         tableView.reloadData()
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Podešavanja", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                })
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        
+        alert.addAction(settingsAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

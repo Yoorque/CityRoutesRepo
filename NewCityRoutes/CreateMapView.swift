@@ -9,6 +9,10 @@
 import UIKit
 import GoogleMaps
 
+protocol AlertDelegate: class {
+    func showAlert(title: String, message: String)
+}
+
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString {
     let result = NSMutableAttributedString()
     result.append(left)
@@ -30,6 +34,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    weak var alertDelegate: AlertDelegate?
     var walkPolyLineArray = [GMSPolyline]()
     var currentZoomLevel: Float!
     var currentBearing: CLLocationDirection!
@@ -72,7 +77,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         notificationLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
         notificationLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-         notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
+        notificationLabel.text = language == "latin" ? "Tap the station marker to see details" : "Кликните маркер да видите детаље"
         labelAnimate(string: notificationLabel.text!)
     }
     
@@ -270,7 +275,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         infoWindow.otherLinesLabel.sizeToFit()
         infoWindow.stationName.sizeToFit()
-      
+        
         infoWindow.frame.size = CGSize(width: 218, height: 5 + infoWindow.stationName.frame.height + infoWindow.stationUnderView.frame.height + 5 + infoWindow.otherLinesLabel.frame.height + (infoWindow.underView.frame.height - 25))
         
         return infoWindow
@@ -297,7 +302,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.otherLines.attributedText = markerDict["lines"] as? NSAttributedString
         infoWindow.selectedLine.attributedText = NSAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: markerDict["route"] as! String)])
         infoWindow.imageView.image = UIImage(named: markerDict["route"] as! String)
-    
+        
         return infoWindow
     }
     
@@ -351,7 +356,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                                 let lenghtKind = GMSLengthKind.geodesic
                                 walkPolyline.spans = GMSStyleSpans(polyPath, strokeStyles, dashLenghts, lenghtKind)
                                 walkPolyline.strokeWidth = 2
-                                    walkPolyline.map = mapView
+                                walkPolyline.map = mapView
                                 walkPolyLineArray.append(walkPolyline)
                                 totalDistance += distanceValue
                             }
@@ -365,35 +370,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 }
             } catch {
                 print("Bad path")
-                if currentReachabilityStatus == .notReachable {
-                    let alert = UIAlertController(title: language == "latin" ? "WARNING!" : "UPOZORENJE!", message: language == "latin" ? "Check your internet connection!" : "Proverite internet konekciju!", preferredStyle: .alert)
-                    let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Podešavanja", style: .default) { (_) -> Void in
-                        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
-                            return
-                        }
-                        if UIApplication.shared.canOpenURL(settingsUrl) {
-                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                            })
-                        }
-                    }
-                    alert.addAction(settingsAction)
-                    alert.addAction(UIAlertAction(title: language == "latin" ? "Cancel" : "Otkaži", style: .default, handler: nil))
-                    var rootViewController = UIApplication.shared.keyWindow?.rootViewController
-                    if let navigationController = rootViewController as? UINavigationController {
-                        rootViewController = navigationController.viewControllers.first
-                        
-                       // ovde je negde resenje, problem je u tome sto je root view controller nama LoadingVC koji uopste nije u navigation controller stacku, i on pokusava da presentuje alert na loading VC, a ne znam kako da mu kazem da ga presentuje na initalViewControlleru
-                     
-                    }
-                    
-                     rootViewController?.present(alert, animated: true, completion: nil)
-                    
-                    
-                    
-                    //a ovde dole se buni za nema self.present jer nije kontroler nego samo View, pa moramo da vidimo kako cemo ga prikazati odavde tamo
-                    
-                    //self.present(alert, animated: true, completion: nil)
-                }
+            
+                let title = language == "latin" ? "WARNING!" : "UPOZORENJE!"
+                let message = language == "latin" ? "Check your internet connection!" : "Proverite internet konekciju!"
+                
+                alertDelegate?.showAlert(title: title, message: message)
+                
             }
         } else {
             print("Bad url")
@@ -498,7 +480,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         crosshair.isHidden = false
         if mapView.superview?.tag == 1 {
-           
+            
             switch currentZoomLevel {
             case 15..<18:
                 marker.icon = UIImage(named: "redCircle")
