@@ -98,8 +98,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         updateLanguageFromDefaults()
         setTransportButtonLabels()
         if currentReachabilityStatus == .notReachable {
-            let alert = UIAlertController(title: language == "latin" ? "WARNING!" : "UPOZORENJE!", message: language == "latin" ? "Check your internet connection!" : "Proverite internet konekciju!", preferredStyle: .alert)
-            let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Podešavanja", style: .default) { (_) -> Void in
+            let alert = UIAlertController(title: language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!", message: language == "latin" ? "Check your internet connection!" : "Проверите интернет конекцију!", preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Подешавања", style: .default) { (_) -> Void in
                 guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
                     return
                 }
@@ -109,7 +109,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
             alert.addAction(settingsAction)
-            alert.addAction(UIAlertAction(title: language == "latin" ? "Cancel" : "Otkaži", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: language == "latin" ? "Cancel" : "Откажи", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
@@ -349,7 +349,7 @@ extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Podešavanja", style: .default) { (_) -> Void in
+        let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Подешавања", style: .default) { (_) -> Void in
             guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
                 return
             }
@@ -358,7 +358,7 @@ extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate
                 })
             }
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: language == "latin" ? "Cancel" : "Откажи", style: .default, handler: nil)
         
         alert.addAction(settingsAction)
         alert.addAction(cancelAction)

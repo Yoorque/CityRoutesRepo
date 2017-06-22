@@ -371,8 +371,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             } catch {
                 print("Bad path")
             
-                let title = language == "latin" ? "WARNING!" : "UPOZORENJE!"
-                let message = language == "latin" ? "Check your internet connection!" : "Proverite internet konekciju!"
+                let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+                let message = language == "latin" ? "You need internet connection for directions to station!" : "Потребна је интернет конекција за навођење до станице!"
                 
                 alertDelegate?.showAlert(title: title, message: message)
                 
