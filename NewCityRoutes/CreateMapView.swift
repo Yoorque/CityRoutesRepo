@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 
 protocol AlertDelegate: class {
-    func showAlert(title: String, message: String)
+    func showAlert(title: String, message: String, actions: [UIAlertAction])
 }
 
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString {
@@ -367,24 +367,48 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                     }
                 } catch {
                     print("Bad json")
+                    let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+                    let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
+                    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertDelegate?.showAlert(title: title, message: message, actions: [action])
                 }
             } catch {
                 print("Bad path")
-                if alertCounter == 0 || alertCounter == 5 {
-                   
+                if currentReachabilityStatus == .notReachable {
+                    if alertCounter == 0 || alertCounter == 5 {
+                        
+                        let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+                        let message = language == "latin" ? "You need internet connection for directions to station!" : "Потребна је интернет конекција за навођење до станице!"
+                        let cancelAction = UIAlertAction(title: language == "latin" ? "Cancel" : "Откажи", style: .default, handler: nil)
+                        let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Подешавања", style: .default) { (_) -> Void in
+                            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                                return
+                            }
+                            if UIApplication.shared.canOpenURL(settingsUrl) {
+                                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                                })
+                            }
+                        }
+                        alertDelegate?.showAlert(title: title, message: message, actions: [settingsAction, cancelAction])
+                        
+                    }
+                    alertCounter += 1
+                    if alertCounter == 5 {
+                        alertCounter = 0
+                    }
+                } else {
                     let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
-                    let message = language == "latin" ? "You need internet connection for directions to station!" : "Потребна је интернет конекција за навођење до станице!"
-                    
-                    alertDelegate?.showAlert(title: title, message: message)
-                    
-                }
-                alertCounter += 1
-                if alertCounter == 5 {
-                    alertCounter = 0
+                    let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
+                    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertDelegate?.showAlert(title: title, message: message, actions: [action])
                 }
             }
         } else {
             print("Bad url")
+            let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+            let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertDelegate?.showAlert(title: title, message: message, actions: [action])
         }
     }
     

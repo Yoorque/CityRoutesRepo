@@ -347,21 +347,12 @@ extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate
         tableView.reloadData()
     }
     
-    func showAlert(title: String, message: String) {
+    func showAlert(title: String, message: String, actions: [UIAlertAction]) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Подешавања", style: .default) { (_) -> Void in
-            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
-                return
-            }
-            if UIApplication.shared.canOpenURL(settingsUrl) {
-                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                })
-            }
-        }
-        let cancelAction = UIAlertAction(title: language == "latin" ? "Cancel" : "Откажи", style: .default, handler: nil)
         
-        alert.addAction(settingsAction)
-        alert.addAction(cancelAction)
+        for action in actions {
+            alert.addAction(action)
+        }
         self.present(alert, animated: true, completion: nil)
     }
 }
