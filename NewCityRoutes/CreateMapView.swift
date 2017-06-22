@@ -365,6 +365,35 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 }
             } catch {
                 print("Bad path")
+                if currentReachabilityStatus == .notReachable {
+                    let alert = UIAlertController(title: language == "latin" ? "WARNING!" : "UPOZORENJE!", message: language == "latin" ? "Check your internet connection!" : "Proverite internet konekciju!", preferredStyle: .alert)
+                    let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Podešavanja", style: .default) { (_) -> Void in
+                        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                            return
+                        }
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                            })
+                        }
+                    }
+                    alert.addAction(settingsAction)
+                    alert.addAction(UIAlertAction(title: language == "latin" ? "Cancel" : "Otkaži", style: .default, handler: nil))
+                    var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+                    if let navigationController = rootViewController as? UINavigationController {
+                        rootViewController = navigationController.viewControllers.first
+                        
+                       // ovde je negde resenje, problem je u tome sto je root view controller nama LoadingVC koji uopste nije u navigation controller stacku, i on pokusava da presentuje alert na loading VC, a ne znam kako da mu kazem da ga presentuje na initalViewControlleru
+                     
+                    }
+                    
+                     rootViewController?.present(alert, animated: true, completion: nil)
+                    
+                    
+                    
+                    //a ovde dole se buni za nema self.present jer nije kontroler nego samo View, pa moramo da vidimo kako cemo ga prikazati odavde tamo
+                    
+                    //self.present(alert, animated: true, completion: nil)
+                }
             }
         } else {
             print("Bad url")

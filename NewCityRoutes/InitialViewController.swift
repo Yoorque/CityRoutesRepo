@@ -29,6 +29,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         didSet {
             myMapView.createMap(view: myMapView)
             myMapView.createCrosshair(view: myMapView)
+            
         }
     }
     
@@ -89,6 +90,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     private func setupRecentSearch() {
         recentSearches = recentSearchController.savedRoutes
         tableView.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,8 +98,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         updateLanguageFromDefaults()
         setTransportButtonLabels()
         if currentReachabilityStatus == .notReachable {
-            let alert = UIAlertController(title: "WARNING!", message: "Check your internet connection!", preferredStyle: .alert)
-            let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            let alert = UIAlertController(title: language == "latin" ? "WARNING!" : "UPOZORENJE!", message: language == "latin" ? "Check your internet connection!" : "Proverite internet konekciju!", preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Podešavanja", style: .default) { (_) -> Void in
                 guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
                     return
                 }
@@ -107,7 +109,7 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
             alert.addAction(settingsAction)
-            //alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: language == "latin" ? "Cancel" : "Otkaži", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
     }
 }
