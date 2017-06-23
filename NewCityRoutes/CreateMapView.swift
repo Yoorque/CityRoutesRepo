@@ -237,9 +237,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             detailMarker = GMSMarker(position: pos)
             detailMarker.map = mapView
             
-            for imageName in transportImageNames {
-                finalIconImageName = finalIconImageName + imageName
-            }
+            finalIconImageName = transportImageNames.reduce("", +)
             
             switch position.zoom {
             case 15..<18:
@@ -350,9 +348,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                                 polyPath.add(endCoords)
                                 
                                 let walkPolyline = GMSPolyline(path: polyPath)
-                                let anotherStyle = GMSStrokeStyle.gradient(from: UIColor.yellow, to: UIColor.purple)
-                                let strokeStyles = [GMSStrokeStyle.solidColor(UIColor.blue), GMSStrokeStyle.solidColor(UIColor.clear), anotherStyle]
-                                let dashLenghts: [NSNumber] = [5,10,5]
+                                let anotherStyle = GMSStrokeStyle.gradient(from: UIColor.yellow, to: UIColor.blue)
+                                let strokeStyles = [anotherStyle, GMSStrokeStyle.solidColor(UIColor.clear)]
+                                let dashLenghts: [NSNumber] = [4,2]
                                 let lenghtKind = GMSLengthKind.geodesic
                                 walkPolyline.spans = GMSStyleSpans(polyPath, strokeStyles, dashLenghts, lenghtKind)
                                 walkPolyline.strokeWidth = 2
