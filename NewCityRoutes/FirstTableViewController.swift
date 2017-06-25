@@ -10,6 +10,7 @@ import UIKit
 
 protocol FirstTableViewControllerDelegate: class {
     func recentSearchWasSaved(route: Routes)
+    func removeRecentSearch(fromRow row: Int)
 }
 
 class FirstTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {

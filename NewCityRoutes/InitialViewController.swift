@@ -11,7 +11,13 @@ import GoogleMaps
 
 var justOnce = true
 
-class InitialViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+protocol RecentSearchDelegate: NSObjectProtocol {
+    func instantiateViewControllerFrom(routes: [Relations], route: Routes, transport: String, ref: String)
+}
+
+class InitialViewController: UIViewController {
+    
     @IBOutlet var borderView: UIView!
     @IBOutlet var infoButton: UIBarButtonItem!
     @IBOutlet var languageButton: UIBarButtonItem!
@@ -34,6 +40,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     let recentSearchController = RecentSearchController()
+    
+    var recentSearchDataSource: RecentSearchDataSource?
     
     @IBAction func infoButton(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "showInfo", sender: self)
@@ -84,11 +92,15 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
                 view.addGestureRecognizer(tapGesture)
             }
         }
-        setupRecentSearch()
+        
     }
     
     private func setupRecentSearch() {
-        recentSearches = recentSearchController.savedRoutes
+        recentSearchDataSource = RecentSearchDataSource(recentSearches: recentSearchController.savedRoutes)
+        recentSearchDataSource?.delegate = self
+        recentSearchDataSource?.recentSearchDelegate = self
+        tableView.dataSource = recentSearchDataSource
+        tableView.delegate = recentSearchDataSource
         tableView.reloadData()
         
     }
@@ -112,6 +124,8 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
             alert.addAction(UIAlertAction(title: language == "latin" ? "Cancel" : "Откажи", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+        setupRecentSearch()
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -195,111 +209,13 @@ class InitialViewController: UIViewController, UITableViewDelegate, UITableViewD
         trolleybusTitleLabel.text = language == "latin" ? "Trolleybus" : "Тролејбус"
     }
     
-    //MARK: TableView Delegates
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentSearches.count
-    }
-    
     func removeExtraCells() {
-        while recentSearches.count > 3 {
-            recentSearches.removeLast()
+        while (recentSearchDataSource?.recentSearches.count)! > 3 {
+            recentSearchDataSource?.recentSearches.removeLast()
         }
         tableView.reloadData()
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
-        let labelText = language == "latin" ? "Both directions available" : "Оба смера"
-        cell.borderView.layer.borderColor = UIColor.color(forTransport: recentSearches[indexPath.row].route).cgColor
-        cell.borderView.backgroundColor = UIColor.color(forTransport: recentSearches[indexPath.row].route).withAlphaComponent(0.1)
-        cell.customCellImageView.image = UIImage(named: recentSearches[indexPath.row].route)
-        cell.lineNumber.text = recentSearches[indexPath.row].ref
-        cell.lineNumber.textColor = UIColor.color(forTransport: recentSearches[indexPath.row].route)
-        cell.direction.text = labelText
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerLabel = UILabel()
-        headerLabel.layer.borderColor = UIColor.white.withAlphaComponent(0.7).cgColor
-        headerLabel.layer.borderWidth = 2
-        headerLabel.layer.cornerRadius = 15
-        headerLabel.text = language == "latin" ? "Recent Searches" : "Последње претраге"
-        headerLabel.textColor = .white
-        headerLabel.textAlignment = .center
-        headerLabel.backgroundColor = .clear
-        headerLabel.autoresizingMask = .flexibleWidth
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(headerLabel)
-        
-        headerLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 3).isActive = true
-        headerLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -3).isActive = true
-        headerLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 1).isActive = true
-        
-        if tableView.cellForRow(at: IndexPath(row: 0, section: 0)) != nil {
-            headerLabel.bottomAnchor.constraint(equalTo: tableView.cellForRow(at: IndexPath(row: 0, section: 0))!.topAnchor, constant: -1).isActive = true
-        } else {
-            headerLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        }
-        
-        return headerLabel
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        UIView.animate(withDuration: 0.2, animations: { _ in
-            tableView.cellForRow(at: indexPath)?.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-        }, completion: {_ in
-            UIView.animate(withDuration: 0.2, animations: { _ in
-                tableView.cellForRow(at: indexPath)?.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }, completion: { _ in
-                
-                let controller = self.storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
-                let navController = UINavigationController(rootViewController: controller)
-                self.present(navController, animated: true, completion: nil)
-                
-                controller.lineRoutes = recentSearches[indexPath.row].routes
-                if language == "latin" {
-                    let titleText = "Selected \(recentSearches[indexPath.row].route) is: \(recentSearches[indexPath.row].ref)"
-                    controller.title = titleText
-                } else {
-                    var i = ""
-                    if recentSearches[indexPath.row].route == "bus" {
-                        i = "аутобус"
-                    } else if recentSearches[indexPath.row].route == "tram" {
-                        i = "трамвај"
-                    } else if recentSearches[indexPath.row].route == "trolleybus" {
-                        i = "тролејбус"
-                    }
-                    
-                    let titleText = "Одабрани \(i) је: \(recentSearches[indexPath.row].ref)"
-                    controller.title = titleText
-                }
-                controller.backButton.title = language == "latin" ? "Back" : "Назад"
-                self.recentSearchWasSaved(route: recentSearches[indexPath.row])
-            })
-        })
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = language == "latin" ? "Delete" : "Обриши"
-        
-        let deleteAction = UITableViewRowAction(style: .destructive, title: delete, handler: {_ in
-            
-            self.removeRecentSearch(fromRow: indexPath.row)
-        })
-        return [deleteAction]
-    }
+
 }
 
 //MARK: Colors
@@ -329,21 +245,22 @@ extension UIColor {
 
 extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate {
     func recentSearchWasSaved(route: Routes) {
-        if !recentSearches.contains(route) {
-            recentSearches.insert(route, at: 0)
+        if !(recentSearchDataSource?.recentSearches)!.contains(route) {
+            recentSearchDataSource?.insertRoute(route: route)
         } else {
-            recentSearches.remove(at: recentSearches.index(where: {$0 == route})!)
-            recentSearches.insert(route, at: 0)
+            recentSearchDataSource?.removeRoute(route: route)
+            recentSearchDataSource?.insertRoute(route: route)
             
         }
         removeExtraCells()
-        recentSearchController.savedRoutes = recentSearches
+        recentSearchController.savedRoutes = (recentSearchDataSource?.recentSearches)!
         tableView.reloadData()
     }
     
     func removeRecentSearch(fromRow row: Int) {
-        recentSearches.remove(at: row)
-        recentSearchController.savedRoutes = recentSearches
+        recentSearchDataSource?.recentSearches.remove(at: row)
+
+        recentSearchController.savedRoutes = (recentSearchDataSource?.recentSearches)!
         tableView.reloadData()
     }
     
@@ -354,6 +271,36 @@ extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate
             alert.addAction(action)
         }
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension InitialViewController: RecentSearchDelegate {
+    func instantiateViewControllerFrom(routes: [Relations], route: Routes, transport: String, ref: String) {
+        
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
+        let navController = UINavigationController(rootViewController: controller)
+        self.present(navController, animated: true, completion: nil)
+        
+        controller.lineRoutes = routes
+        if language == "latin" {
+            let titleText = "Selected \(transport) is: \(ref)"
+            controller.title = titleText
+        } else {
+            var i = ""
+            if transport == "bus" {
+                i = "аутобус"
+            } else if transport == "tram" {
+                i = "трамвај"
+            } else if transport == "trolleybus" {
+                i = "тролејбус"
+            }
+            
+            let titleText = "Одабрани \(i) је: \(ref)"
+            controller.title = titleText
+        }
+        controller.backButton.title = language == "latin" ? "Back" : "Назад"
+        recentSearchWasSaved(route: route)
+ 
     }
 }
 
