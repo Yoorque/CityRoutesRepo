@@ -14,7 +14,7 @@ class RecentSearchDataSource: NSObject {
     var recentSearches: [Routes]
     
     weak var delegate: FirstTableViewControllerDelegate?
-    weak var recentSearchDelegate: RecentSearchDelegate?
+    weak var recentSearchDelegate: InstantiateVCDelegate?
     
     init(recentSearches: [Routes]) {
         self.recentSearches = recentSearches

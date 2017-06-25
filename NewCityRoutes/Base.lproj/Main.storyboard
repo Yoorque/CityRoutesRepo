@@ -537,10 +537,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="5Uv-Ft-JWd" id="Tpc-fC-3hM"/>
-                                    <outlet property="delegate" destination="5Uv-Ft-JWd" id="emB-4V-vr1"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.32765057682991028" green="0.55581361055374146" blue="0.83188807964324951" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -711,7 +707,7 @@
             <objects>
                 <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="ATt-Fu-mbX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f4H-H2-hQg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4H-H2-hQg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

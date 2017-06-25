@@ -12,7 +12,7 @@ import GoogleMaps
 var justOnce = true
 
 
-protocol RecentSearchDelegate: NSObjectProtocol {
+protocol InstantiateVCDelegate: NSObjectProtocol {
     func instantiateViewControllerFrom(routes: [Relations], route: Routes, transport: String, ref: String)
 }
 
@@ -274,7 +274,7 @@ extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate
     }
 }
 
-extension InitialViewController: RecentSearchDelegate {
+extension InitialViewController: InstantiateVCDelegate {
     func instantiateViewControllerFrom(routes: [Relations], route: Routes, transport: String, ref: String) {
         
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController

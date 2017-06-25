@@ -49,7 +49,7 @@ class ViewForTransportButtons: UIView {
         let controller = storyboard.instantiateViewController(withIdentifier: "FirstTableViewController") as! FirstTableViewController
         let navController = UINavigationController(rootViewController: controller)
         view.present(navController, animated: true, completion: nil)
-        
+    
         var typeOfRoute: String = ""
         if language == "latin" {
             if string == "tram" {
@@ -71,9 +71,9 @@ class ViewForTransportButtons: UIView {
             
             controller.title = "Списак \(typeOfRoute)"
         }
-        controller.selectedTransport = array
         controller.backButton.title = language == "latin" ? "Back" : "Назад"
         controller.delegate = view as! InitialViewController
+        controller.firstTableViewDataSource = FirstTableViewDataSource(selectedTransport: array)
         
         
     }
