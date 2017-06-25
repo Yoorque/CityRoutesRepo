@@ -8,10 +8,13 @@
 
 import UIKit
 
-class DetailTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol DetailTableViewDelegate: NSObjectProtocol {
+    func drawLine(route: Relations)
+}
+
+class DetailTableViewController: UIViewController, UITableViewDelegate {
     @IBOutlet var backButton: UIBarButtonItem!
     
-    var lineRoutes = [Relations]()
     let blurClass = BlurEffect()
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var detailMapView: CreateMapView! {
@@ -24,44 +27,26 @@ class DetailTableViewController: UIViewController, UITableViewDelegate, UITableV
         dismiss(animated: true, completion: nil)
     }
     
+    var detailTableViewDataSource: DetailTableViewDataSource?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         blurClass.blurTheBackgound(view: backgroundImageView)
+        
+        setupTableView()
     }
     
-    //MARK: TableView DataSource
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if lineRoutes[0].rel == lineRoutes[1].rel {
-            tableView.rowHeight = 88
-            return 1
-        } else {
-            return lineRoutes.count
-        }
+    private func setupTableView() {
+        tableView.dataSource = detailTableViewDataSource
+        tableView.delegate = detailTableViewDataSource
+        detailTableViewDataSource?.delegate = self
+        tableView.reloadData()
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! DetailTableViewCell
-        
-        cell.direction.text = language == "latin" ? "\(lineRoutes[indexPath.row].reltags.fromSrLatn!) - \(lineRoutes[indexPath.row].reltags.toSrLatn!)" : "\(lineRoutes[indexPath.row].reltags.from!) - \(lineRoutes[indexPath.row].reltags.to!)"
-        
-        cell.lineNumber.text = lineRoutes[indexPath.row].reltags.reltagRef
-        cell.customCellImageView.image = UIImage(named: lineRoutes[indexPath.row].reltags.route)
-        
-        return cell
-    }
-    //MARK: TableView Delegates
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        detailMapView.drawLineMarkers(route: lineRoutes[indexPath.row])
-        detailMapView.drawLinePolylines(route: lineRoutes[indexPath.row])
-        
-        let selectedRow = tableView.cellForRow(at: indexPath) as! DetailTableViewCell
-        selectedRow.selectionImage.image = UIImage(named: "yes")
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let selectedRow = tableView.cellForRow(at: indexPath) as! DetailTableViewCell
-        selectedRow.selectionImage.image = UIImage()
+}
+
+extension DetailTableViewController: DetailTableViewDelegate {
+    func drawLine(route: Relations) {
+        detailMapView.drawLineMarkers(route: route)
+        detailMapView.drawLinePolylines(route: route)
     }
 }
