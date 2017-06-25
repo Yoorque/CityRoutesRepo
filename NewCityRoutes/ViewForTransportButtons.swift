@@ -75,9 +75,5 @@ class ViewForTransportButtons: UIView {
         controller.delegate = view as! InitialViewController
         controller.firstTableViewDataSource = FirstTableViewDataSource(selectedTransport: array)
         
-        
     }
-    
-    
-    
 }

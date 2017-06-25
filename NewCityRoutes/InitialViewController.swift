@@ -91,8 +91,7 @@ class InitialViewController: UIViewController {
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
                 view.addGestureRecognizer(tapGesture)
             }
-        }
-        
+        }  
     }
     
     private func setupRecentSearch() {
@@ -280,8 +279,8 @@ extension InitialViewController: InstantiateVCDelegate {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         let navController = UINavigationController(rootViewController: controller)
         self.present(navController, animated: true, completion: nil)
-        
-        controller.lineRoutes = routes
+
+        controller.detailTableViewDataSource = DetailTableViewDataSource(lineRoutes: routes)
         if language == "latin" {
             let titleText = "Selected \(transport) is: \(ref)"
             controller.title = titleText

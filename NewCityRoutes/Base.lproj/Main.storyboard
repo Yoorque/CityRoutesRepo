@@ -663,10 +663,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="sOS-oI-J1R" id="bqq-Zc-I3v"/>
-                                    <outlet property="delegate" destination="sOS-oI-J1R" id="P6W-3U-Vlh"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

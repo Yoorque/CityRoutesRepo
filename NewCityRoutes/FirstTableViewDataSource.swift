@@ -18,7 +18,7 @@ class FirstTableViewDataSource: NSObject {
     }
 }
 
-extension FirstTableViewDataSource: UITableViewDataSource,UITableViewDelegate {
+extension FirstTableViewDataSource: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -47,35 +47,6 @@ extension FirstTableViewDataSource: UITableViewDataSource,UITableViewDelegate {
         let route = selectedTransport[index]
         
         delegate?.instantiateViewController(routes: routes, route: route, transport: transport, ref: lineRef)
-        
-//        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
-//        
-//        delegate?.recentSearchWasSaved(route: selectedTransport[indexPath.row])
-//        
-//        let navController = UINavigationController(rootViewController: controller)
-//        self.present(navController, animated: true, completion: nil)
-//        
-//        controller.lineRoutes = self.selectedTransport[indexPath.row].routes
-//        
-//        if language == "latin" {
-//            let titleText = "Selected \(selectedTransport[indexPath.row].route) is: \(selectedTransport[indexPath.row].ref)"
-//            controller.title = titleText
-//            
-//        } else {
-//            var i = ""
-//            if selectedTransport[indexPath.row].route == "bus" {
-//                i = "аутобус"
-//            } else if selectedTransport[indexPath.row].route == "tram" {
-//                i = "трамвај"
-//            } else if selectedTransport[indexPath.row].route == "trolleybus" {
-//                i = "тролејбус"
-//            }
-//            
-//            let titleText = "Одабрани \(i) је: \(selectedTransport[indexPath.row].ref)"
-//            controller.title = titleText
-//        }
-//        controller.backButton.title = language == "latin" ? "Back" : "Назад"
+    
     }
-
- 
 }

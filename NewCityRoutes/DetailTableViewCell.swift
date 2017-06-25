@@ -26,6 +26,14 @@ class DetailTableViewCell: UITableViewCell {
             direction.text = model?.direction
         }
     }
+    
+    var modelRelation: ModelRelation? {
+        didSet {
+            customCellImageView.image = modelRelation?.image
+            lineNumber.text = modelRelation?.lineNumber
+            direction.text = (modelRelation?.directionFrom)! + "-" + (modelRelation?.directionTo)!
+        }
+    }
 }
 
 extension DetailTableViewCell {
@@ -40,6 +48,24 @@ extension DetailTableViewCell {
             self.image = UIImage(named: transport)!
             self.color = UIColor.color(forTransport: transport)
             self.direction = language == "latin" ? "Both directions available" : "Оба смера"
+        }
+    }
+    
+    struct ModelRelation {
+        
+        let lineNumber: String
+        let directionFrom: String
+        let directionTo: String
+        let image: UIImage
+        let color: UIColor
+        
+        init(relation: Relations, transport: String) {
+            self.directionFrom = language == "latin" ? relation.reltags.fromSrLatn : relation.reltags.from
+            self.directionTo = language == "latin" ? relation.reltags.toSrLatn : relation.reltags.to
+            self.lineNumber = relation.reltags.reltagRef
+            self.image = UIImage(named: transport)!
+            self.color = UIColor.color(forTransport: transport)
+            
         }
     }
 

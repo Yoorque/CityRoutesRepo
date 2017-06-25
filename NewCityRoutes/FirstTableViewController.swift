@@ -21,7 +21,6 @@ class FirstTableViewController: UIViewController {
     
     @IBOutlet var backButton: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
-//    var selectedTransport = [Routes]()
     let blurClass = BlurEffect()
     @IBOutlet var backgroundImageView: UIImageView!
     
@@ -58,7 +57,7 @@ extension FirstTableViewController: InstantiateDVCDelegate {
         let navController = UINavigationController(rootViewController: controller)
         self.present(navController, animated: true, completion: nil)
         
-        controller.lineRoutes = routes
+        controller.detailTableViewDataSource = DetailTableViewDataSource(lineRoutes: routes)
         
         if language == "latin" {
             let titleText = "Selected \(transport) is: \(ref)"
