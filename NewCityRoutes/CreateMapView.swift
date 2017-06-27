@@ -13,6 +13,10 @@ protocol AlertDelegate: class {
     func showAlert(title: String, message: String, actions: [UIAlertAction])
 }
 
+protocol NotificationForIndicatorDelegate: class {
+    func isIndicatorActive(value: Bool)
+}
+
 func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString {
     let result = NSMutableAttributedString()
     result.append(left)
@@ -53,10 +57,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         return locationManager.location?.coordinate ?? simPosition
     }
     
+    weak var activityDelegate: NotificationForIndicatorDelegate?
+    
+    
     //MARK: MapView Helper Methods
     
     func createMap(view: UIView) {
         // Testing on a device
+        
         let camera = GMSCameraPosition.camera(withTarget: currentLocation, zoom: 15)
         
         mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
@@ -93,7 +101,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func createNotificationLabel(view: UIView) {
-        //        notificationLabel.frame = CGRect(x: view.bounds.size.width / 2 - 100, y: view.bounds.maxY - 30, width: 200, height: 20)
+        
         notificationLabel.textAlignment = .center
         notificationLabel.textColor = .red
         notificationLabel.adjustsFontSizeToFitWidth = true
@@ -315,10 +323,13 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         })
     }
     
+    
     var alertCounter = 0
+    
     func calculateRoute(toMarker marker: GMSMarker) {
         clearWalkPolylines()
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(currentLocation.latitude),\(currentLocation.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE"
+        
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.currentLocation.latitude),\(self.currentLocation.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE"
         
         if let path = URL(string: url) {
             do {
@@ -334,7 +345,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                         
                         var totalDistance = 0
                         for leg in legs {
-                            
                             let steps = leg["steps"] as! [[String: Any]]
                             for step in steps {
                                 let distance = step["distance"] as! [String:Any]
@@ -354,8 +364,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                                 let lenghtKind = GMSLengthKind.geodesic
                                 walkPolyline.spans = GMSStyleSpans(polyPath, strokeStyles, dashLenghts, lenghtKind)
                                 walkPolyline.strokeWidth = 2
-                                walkPolyline.map = mapView
-                                walkPolyLineArray.append(walkPolyline)
+                                walkPolyline.map = self.mapView
+                                self.walkPolyLineArray.append(walkPolyline)
                                 totalDistance += distanceValue
                             }
                         }
@@ -368,12 +378,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                     let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
                     let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
                     let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertDelegate?.showAlert(title: title, message: message, actions: [action])
+                    self.alertDelegate?.showAlert(title: title, message: message, actions: [action])
                 }
             } catch {
                 print("Bad path")
-                if currentReachabilityStatus == .notReachable {
-                    if alertCounter == 0 || alertCounter == 5 {
+                if self.currentReachabilityStatus == .notReachable {
+                    if self.alertCounter == 0 || self.alertCounter == 5 {
                         
                         let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
                         let message = language == "latin" ? "You need internet connection for directions to station!" : "Потребна је интернет конекција за навођење до станице!"
@@ -387,18 +397,18 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                                 })
                             }
                         }
-                        alertDelegate?.showAlert(title: title, message: message, actions: [settingsAction, cancelAction])
+                        self.alertDelegate?.showAlert(title: title, message: message, actions: [settingsAction, cancelAction])
                         
                     }
-                    alertCounter += 1
-                    if alertCounter == 5 {
-                        alertCounter = 0
+                    self.alertCounter += 1
+                    if self.alertCounter == 5 {
+                        self.alertCounter = 0
                     }
                 } else {
                     let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
                     let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
                     let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alertDelegate?.showAlert(title: title, message: message, actions: [action])
+                    self.alertDelegate?.showAlert(title: title, message: message, actions: [action])
                 }
             }
         } else {
@@ -406,7 +416,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
             let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertDelegate?.showAlert(title: title, message: message, actions: [action])
+            self.alertDelegate?.showAlert(title: title, message: message, actions: [action])
         }
     }
     
@@ -453,31 +463,39 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        if mapView.superview!.tag == MapViewSource.Main.rawValue {
-            calculateRoute(toMarker: marker)
-            switch currentZoomLevel {
-            case 15..<18:
+        activityDelegate?.isIndicatorActive(value: true)
+        mapView.selectedMarker?.map = nil
+        DispatchQueue.main.async {
+            
+            if mapView.superview!.tag == MapViewSource.Main.rawValue {
+                
+                self.calculateRoute(toMarker: marker)
+                
+                switch self.currentZoomLevel {
+                case 15..<18:
+                    marker.icon = UIImage(named: "fullRedCircle")
+                case 18...mapView.maxZoom:
+                    marker.icon = UIImage(named: (marker.userData as! [String: Any])["markerImage"] as! String + "Full")
+                default:
+                    break
+                }
+            } else {
                 marker.icon = UIImage(named: "fullRedCircle")
-            case 18...mapView.maxZoom:
-                marker.icon = UIImage(named: (marker.userData as! [String: Any])["markerImage"] as! String + "Full")
-            default:
-                break
             }
-        } else {
-            marker.icon = UIImage(named: "fullRedCircle")
+            
+            CATransaction.begin()
+            CATransaction.setAnimationDuration(0.5)
+            let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: self.currentZoomLevel, bearing: self.currentBearing, viewingAngle: self.currentAngle)
+            mapView.animate(to: camera)
+            CATransaction.commit()
+            
+            self.currentMarkerIcon.image = marker.icon
+            mapView.selectedMarker = marker //Zbog ovoga malo cima kad se ide sa markera na marker
+            
+            self.notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
+            self.labelAnimate(string: self.notificationLabel.text!)
+            self.activityDelegate?.isIndicatorActive(value: false)
         }
-        
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(0.5)
-        let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: currentZoomLevel, bearing: currentBearing, viewingAngle: currentAngle)
-        mapView.animate(to: camera)
-        CATransaction.commit()
-        
-        currentMarkerIcon.image = marker.icon
-        mapView.selectedMarker = marker
-        
-        notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
-        labelAnimate(string: notificationLabel.text!)
         return true
     }
     
