@@ -51,7 +51,7 @@ class ViewForTransportButtons: UIView {
         view.present(navController, animated: true, completion: nil)
 
     
- //       controller.setupTransportTitle(transport: string)
+        controller.setupTransportTitle(transport: string)
         controller.backButton.title = language == "latin" ? "Back" : "Назад"
         controller.delegate = view as! InitialViewController
         controller.firstTableViewDataSource = FirstTableViewDataSource(selectedTransport: array)
