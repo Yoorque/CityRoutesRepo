@@ -18,7 +18,7 @@ class FirstTableViewDataSource: NSObject {
     }
 }
 
-extension FirstTableViewDataSource: UITableViewDataSource, UITableViewDelegate {
+extension FirstTableViewDataSource: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -36,17 +36,6 @@ extension FirstTableViewDataSource: UITableViewDataSource, UITableViewDelegate {
         cell.model = FirstTableViewCell.Model(route: route, transport: transport)
         return cell
     }
+
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let index = indexPath.row
-        let routes = selectedTransport[index].routes
-        let transport = selectedTransport[index].route
-        let lineRef = selectedTransport[index].ref
-        let route = selectedTransport[index]
-        
-        delegate?.instantiateViewController(routes: routes, route: route, transport: transport, ref: lineRef)
-    
-    }
 }

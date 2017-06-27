@@ -22,9 +22,11 @@ class DetailTableViewController: UIViewController, UITableViewDelegate {
             detailMapView.createMap(view: detailMapView)
         }
     }
+    
     @IBOutlet var tableView: UITableView!
+    
     @IBAction func backBarButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     var detailTableViewDataSource: DetailTableViewDataSource?

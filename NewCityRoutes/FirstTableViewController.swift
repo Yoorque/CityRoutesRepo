@@ -39,43 +39,31 @@ class FirstTableViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard let indexPath = tableView.indexPathForSelectedRow else {return}
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     private func setupTableView() {
         tableView.dataSource = firstTableViewDataSource
-        tableView.delegate = firstTableViewDataSource
-        firstTableViewDataSource?.delegate = self
         tableView.reloadData()
     }
-
-}
-
-extension FirstTableViewController: InstantiateDVCDelegate {
-    func instantiateViewController(routes: [Relations], route: Routes, transport: String, ref: String) {
-        let controller = storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
-        
-        delegate?.recentSearchWasSaved(route: route)
-        
-        let navController = UINavigationController(rootViewController: controller)
-        self.present(navController, animated: true, completion: nil)
-        
-        controller.detailTableViewDataSource = DetailTableViewDataSource(lineRoutes: routes)
-        
-        if language == "latin" {
-            let titleText = "Selected \(transport) is: \(ref)"
-            controller.title = titleText
-            
-        } else {
-            var i = ""
-            if transport == "bus" {
-                i = "аутобус"
-            } else if transport == "tram" {
-                i = "трамвај"
-            } else if transport == "trolleybus" {
-                i = "тролејбус"
-            }
-            
-            let titleText = "Одабрани \(i) је: \(ref)"
-            controller.title = titleText
-        }
-        controller.backButton.title = language == "latin" ? "Back" : "Назад"
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "showDetails" else {return}
+        guard let detailViewController = segue.destination as? DetailTableViewController,
+              let selectedIndex = tableView.indexPathForSelectedRow?.row
+            else {return}
+        let routes = firstTableViewDataSource?.selectedTransport[selectedIndex].routes
+        let route = firstTableViewDataSource?.selectedTransport[selectedIndex]
+        let transport = firstTableViewDataSource?.selectedTransport[selectedIndex].route
+        let ref = firstTableViewDataSource?.selectedTransport[selectedIndex].ref
+        detailViewController.detailTableViewDataSource = DetailTableViewDataSource(lineRoutes: routes!)
+        detailViewController.setupTransportTitleWithRef(transport: transport!, ref: ref!)
+        detailViewController.backButton.title = language == "latin" ? "Back" : "Назад"
+        delegate?.recentSearchWasSaved(route: route!)
     }
+
 }
+

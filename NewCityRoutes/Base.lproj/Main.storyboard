@@ -458,6 +458,7 @@
                         <outlet property="trolleybusTitleLabel" destination="RmY-FM-ZVK" id="Lo5-XR-tWi"/>
                         <outlet property="viewForTransportButtons" destination="5UA-5H-HzT" id="GBA-Y5-jfR"/>
                         <segue destination="5Uv-Ft-JWd" kind="show" identifier="showFirstTVC" id="5G3-Kt-v8o"/>
+                        <segue destination="sOS-oI-J1R" kind="show" identifier="ShowDetailMapSegue" id="wuw-oH-lda"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -534,6 +535,7 @@
                                             <outlet property="cellImageView" destination="Jel-PP-3Qk" id="E4s-E1-pQb"/>
                                             <outlet property="refNumber" destination="fb8-Ws-yPQ" id="Wkz-GT-h3L"/>
                                             <outlet property="titleLabel" destination="Lfr-aZ-MYy" id="Iiu-Dq-pqp"/>
+                                            <segue destination="sOS-oI-J1R" kind="show" identifier="showDetails" id="wLT-PL-J9C"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -562,12 +564,11 @@
                         <outlet property="backButton" destination="v4G-fG-wjb" id="ECp-oz-8rj"/>
                         <outlet property="backgroundImageView" destination="oup-7F-8Zt" id="Prn-Pn-Q7m"/>
                         <outlet property="tableView" destination="uKb-D7-Wx6" id="jaZ-gG-Bfn"/>
-                        <segue destination="sOS-oI-J1R" kind="show" identifier="showDetails" id="JDj-ae-Xbl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j1m-qw-o3r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852" y="123"/>
+            <point key="canvasLocation" x="1839" y="-198"/>
         </scene>
         <!--Detail Table View Controller-->
         <scene sceneID="vOR-O2-Run">
@@ -696,7 +697,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gO0-VE-DoA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2636" y="122.78860569715144"/>
+            <point key="canvasLocation" x="1838" y="493"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ueQ-ox-DGy">
@@ -723,4 +724,7 @@
         <image name="tram" width="25" height="25"/>
         <image name="trolleybus" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="wuw-oH-lda"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -89,7 +89,7 @@ extension RecentSearchDataSource: UITableViewDataSource, UITableViewDelegate {
         }, completion: {_ in
             UIView.animate(withDuration: 0.2, animations: { _ in
                 tableView.cellForRow(at: indexPath)?.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }, completion: {[weak self] _ in
+            },completion: {[weak self] _ in
                 
                 self?.recentSearchDelegate?.instantiateViewControllerFrom(routes: routes, route: route, transport: transport, ref: lineRef)
             })
@@ -105,6 +105,7 @@ extension RecentSearchDataSource: UITableViewDataSource, UITableViewDelegate {
         })
         return [deleteAction]
     }
+    
 
     
 
