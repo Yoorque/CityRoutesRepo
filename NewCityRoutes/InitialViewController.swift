@@ -279,7 +279,7 @@ extension InitialViewController: InstantiateVCDelegate {
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
         
         controller.detailTableViewDataSource = DetailTableViewDataSource(lineRoutes: routes)
-        controller.setupTransportTitleWithRef(transport: transport, ref: ref)
+//        controller.setupTransportTitleWithRef(transport: transport, ref: ref)
         controller.backButton.title = language == "latin" ? "Back" : "Назад"
         navigationController?.pushViewController(controller, animated: true)
         recentSearchWasSaved(route: route)
@@ -287,87 +287,5 @@ extension InitialViewController: InstantiateVCDelegate {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-extension UIViewController {
-    func setupTransportTitleWithRef(transport: String, ref: String) {
-        if language == "latin" {
-            let titleText = "Selected \(transport) is: \(ref)"
-            self.title = titleText
-        } else {
-            var i = ""
-            if transport == "bus" {
-                i = "аутобус"
-            } else if transport == "tram" {
-                i = "трамвај"
-            } else if transport == "trolleybus" {
-                i = "тролејбус"
-            }
-            
-            let titleText = "Одабрани \(i) је: \(ref)"
-            self.title = titleText
-        }
-    }
-    
-    func setupTransportTitle(transport: String) {
-        var typeOfRoute: String = ""
-        if language == "latin" {
-            if transport == "tram" {
-                typeOfRoute = transport + "s"
-            } else {
-                typeOfRoute = transport + "es"
-            }
-            self.title = "List of \(typeOfRoute)"
-        } else {
-            var i = transport
-            if transport == "bus" {
-                i = "аутобуса"
-            } else if transport == "tram" {
-                i = "трамваја"
-            } else if transport == "trolleybus" {
-                i = "тролејбуса"
-            }
-            typeOfRoute = i
-            
-            self.title = "Списак \(typeOfRoute)"
-        }
-    }
-}
 
 

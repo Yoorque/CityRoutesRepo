@@ -60,7 +60,7 @@ class FirstTableViewController: UIViewController {
         let transport = firstTableViewDataSource?.selectedTransport[selectedIndex].route
         let ref = firstTableViewDataSource?.selectedTransport[selectedIndex].ref
         detailViewController.detailTableViewDataSource = DetailTableViewDataSource(lineRoutes: routes!)
-        detailViewController.setupTransportTitleWithRef(transport: transport!, ref: ref!)
+//        detailViewController.setupTransportTitleWithRef(transport: transport!, ref: ref!)
         detailViewController.backButton.title = language == "latin" ? "Back" : "Назад"
         delegate?.recentSearchWasSaved(route: route!)
     }
