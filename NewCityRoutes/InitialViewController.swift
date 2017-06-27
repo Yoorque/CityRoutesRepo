@@ -36,8 +36,10 @@ class InitialViewController: UIViewController {
             myMapView.createMap(view: myMapView)
             myMapView.createCrosshair(view: myMapView)
             myMapView.alertDelegate = self
+            myMapView.activityDelegate = self
         }
     }
+    var activityIndicator = UIActivityIndicatorView()
     
     let recentSearchController = RecentSearchController()
     
@@ -91,7 +93,11 @@ class InitialViewController: UIViewController {
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
                 view.addGestureRecognizer(tapGesture)
             }
-        }  
+        }
+        
+        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        let barButton = UIBarButtonItem(customView: activityIndicator)
+        self.navigationItem.leftBarButtonItems?.append(barButton)
     }
     
     private func setupRecentSearch() {
@@ -273,7 +279,8 @@ extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate
     }
 }
 
-extension InitialViewController: InstantiateVCDelegate {
+extension InitialViewController: InstantiateVCDelegate, NotificationForIndicatorDelegate {
+    
     func instantiateViewControllerFrom(routes: [Relations], route: Routes, transport: String, ref: String) {
         
         let controller = self.storyboard?.instantiateViewController(withIdentifier: "DetailTableViewController") as! DetailTableViewController
@@ -284,6 +291,21 @@ extension InitialViewController: InstantiateVCDelegate {
         navigationController?.pushViewController(controller, animated: true)
         recentSearchWasSaved(route: route)
  
+    }
+    
+    func isIndicatorActive(value: Bool) {
+        if currentReachabilityStatus == .reachableViaWiFi {
+            
+        if value == true {
+                self.activityIndicator.isHidden = false
+                self.activityIndicator.startAnimating()
+            title = language == "latin" ? "Calculating distance" : "Рачунам раздаљину"
+        } else {
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
+            title = language == "latin" ? "City Routes" : "Градске руте"
+        }
+        }
     }
 }
 
