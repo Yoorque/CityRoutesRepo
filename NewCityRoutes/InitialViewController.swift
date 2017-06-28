@@ -11,14 +11,15 @@ import GoogleMaps
 
 var justOnce = true
 
-
 protocol InstantiateVCDelegate: NSObjectProtocol {
     func instantiateViewControllerFrom(routes: [Relations], route: Routes, transport: String, ref: String)
 }
 
 class InitialViewController: UIViewController {
     
-    @IBOutlet var borderView: UIView!
+    var tutView = UIImageView()
+    var button = UIButton()
+   
     @IBOutlet var infoButton: UIBarButtonItem!
     @IBOutlet var languageButton: UIBarButtonItem!
     var blurClass = BlurEffect()
@@ -40,14 +41,8 @@ class InitialViewController: UIViewController {
         }
     }
     var activityIndicator = UIActivityIndicatorView()
-    
     let recentSearchController = RecentSearchController()
-    
     var recentSearchDataSource: RecentSearchDataSource?
-    
-    @IBAction func infoButton(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "showInfo", sender: self)
-    }
     
     @IBAction func languageButton(_ sender: UIBarButtonItem) {
         var message: String {
@@ -73,7 +68,6 @@ class InitialViewController: UIViewController {
         actionsSheet.addAction(UIAlertAction(title: titleCancel, style: .cancel, handler: nil))
         present(actionsSheet, animated: true)
     }
-    
     
     //MARK: Life cycle
     
@@ -130,7 +124,7 @@ class InitialViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
         setupRecentSearch()
-       
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -146,9 +140,36 @@ class InitialViewController: UIViewController {
                 defaults.set("latin", forKey: "language")
             }))
             
-            present(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: { _ in
+                self.tutorialView()
+            })
             defaults.set(true, forKey: "launchedBefore")
         }
+    }
+    
+    func tutorialView() {
+        infoButton.isEnabled = false
+        languageButton.isEnabled = false
+        tutView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        tutView.image = UIImage(named: "tutorial1")
+        tutView.contentMode = .scaleToFill
+        tutView.isUserInteractionEnabled = true
+        view.addSubview(tutView)
+        
+        button = UIButton()
+        button.frame.size = CGSize(width: 150, height: 30)
+        button.center = CGPoint(x: tutView.frame.width / 2, y: tutView.frame.height * 0.95)
+        button.setTitle("Close the tutorial", for: .normal)
+        button.addTarget(self, action: #selector(dismissTutorial), for: .touchUpInside)
+        button.tintColor = UIColor.white
+        view.addSubview(button)
+    }
+    
+    func dismissTutorial(view: UIImageView) {
+        tutView.removeFromSuperview()
+        button.removeFromSuperview()
+        infoButton.isEnabled = true
+        languageButton.isEnabled = true
     }
     
     //MARK: Gesture Recognizer
@@ -220,7 +241,7 @@ class InitialViewController: UIViewController {
         }
         tableView.reloadData()
     }
-
+    
 }
 
 //MARK: Colors
@@ -264,7 +285,7 @@ extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate
     
     func removeRecentSearch(fromRow row: Int) {
         recentSearchDataSource?.recentSearches.remove(at: row)
-
+        
         recentSearchController.savedRoutes = (recentSearchDataSource?.recentSearches)!
         tableView.reloadData()
     }
@@ -290,21 +311,21 @@ extension InitialViewController: InstantiateVCDelegate, NotificationForIndicator
         controller.backButton.title = language == "latin" ? "Back" : "Назад"
         navigationController?.pushViewController(controller, animated: true)
         recentSearchWasSaved(route: route)
- 
+        
     }
     
     func isIndicatorActive(value: Bool) {
         if currentReachabilityStatus == .reachableViaWiFi {
             
-        if value == true {
+            if value == true {
                 self.activityIndicator.isHidden = false
                 self.activityIndicator.startAnimating()
-            title = language == "latin" ? "Calculating distance" : "Рачунам раздаљину"
-        } else {
+                title = language == "latin" ? "Calculating distance" : "Рачунам раздаљину"
+            } else {
                 self.activityIndicator.isHidden = true
                 self.activityIndicator.stopAnimating()
-            title = language == "latin" ? "City Routes" : "Градске руте"
-        }
+                title = language == "latin" ? "City Routes" : "Градске руте"
+            }
         }
     }
 }
