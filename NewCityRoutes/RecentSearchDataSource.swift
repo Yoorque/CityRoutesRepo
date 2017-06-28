@@ -106,7 +106,7 @@ extension RecentSearchDataSource: UITableViewDataSource, UITableViewDelegate {
         return [deleteAction]
     }
     
-
     
-
+    
+    
 }

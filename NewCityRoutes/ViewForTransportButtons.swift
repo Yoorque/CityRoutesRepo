@@ -35,7 +35,6 @@ class ViewForTransportButtons: UIView {
     }
     
     func setShadow(view: UIView) {
-        //view.layer.cornerRadius = view.frame.width / 2
         view.layer.shadowOpacity = 1
         view.layer.masksToBounds = false
         view.clipsToBounds = false
@@ -49,8 +48,8 @@ class ViewForTransportButtons: UIView {
         let controller = storyboard.instantiateViewController(withIdentifier: "FirstTableViewController") as! FirstTableViewController
         let navController = UINavigationController(rootViewController: controller)
         view.present(navController, animated: true, completion: nil)
-
-    
+        
+        
         controller.setupTransportTitle(transport: string)
         controller.backButton.title = language == "latin" ? "Back" : "Назад"
         controller.delegate = view as! InitialViewController

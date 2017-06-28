@@ -38,6 +38,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    var alertCounter = 0
     weak var alertDelegate: AlertDelegate?
     var walkPolyLineArray = [GMSPolyline]()
     var currentZoomLevel: Float!
@@ -60,7 +61,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     weak var activityDelegate: NotificationForIndicatorDelegate?
     
     
-    //MARK: MapView Helper Methods
+    //MARK: - MapView Helper Methods
     
     func createMap(view: UIView) {
         // Testing on a device
@@ -110,6 +111,17 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         notificationLabel.translatesAutoresizingMaskIntoConstraints = false
         notificationLabel.font = UIFont.boldSystemFont(ofSize: 12)
         view.addSubview(notificationLabel)
+    }
+    
+    func labelAnimate(string: String) {
+        UIView.animate(withDuration: 0.5, animations: {[weak self] in
+            self?.notificationLabel.text = string
+            self?.notificationLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            }, completion: {_ in
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.notificationLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
+                })
+        })
     }
     
     //Izvlaci i filtrira odabranu vrstu prevoza i poziva se iz DetailViewController-a
@@ -270,6 +282,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    //MARK: - InfoWindows
+    
     func mainScreenMarkerInfoWindow(marker: GMSMarker) -> UIView{
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
         let markerDict = marker.userData as! [String: Any]
@@ -312,19 +326,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         return infoWindow
     }
     
-    func labelAnimate(string: String) {
-        UIView.animate(withDuration: 0.5, animations: {[weak self] in
-            self?.notificationLabel.text = string
-            self?.notificationLabel.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-            }, completion: {_ in
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.notificationLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
-                })
-        })
-    }
-    
-    
-    var alertCounter = 0
+    // MARK: - WalkPolylines
     
     func calculateRoute(toMarker marker: GMSMarker) {
         clearWalkPolylines()
@@ -427,7 +429,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         walkPolyLineArray = []
     }
     
-    //MARK: MapView Delegates
+    //MARK: - MapView Delegates
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         currentBearing = position.bearing
@@ -544,7 +546,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         labelAnimate(string: notificationLabel.text!)
     }
     
-    //MARK: Location button delegates
+    //MARK: - Location button delegates
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         if let myLocation = mapView.myLocation?.coordinate {

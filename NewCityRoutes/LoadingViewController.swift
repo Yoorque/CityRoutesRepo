@@ -24,7 +24,7 @@ class LoadingViewController: UIViewController {
         super.viewDidAppear(animated)
         json.readJson()
         instantiateViewController()
-        actIndicator.actIndicator(isShowed: false)
+        actIndicator.actIndicator(isShown: false)
     }
     
     private func setupIndicator() {
@@ -33,7 +33,7 @@ class LoadingViewController: UIViewController {
         actIndicator.layer.cornerRadius = 10
         actIndicator.layer.borderWidth = 0.3
         imageView.addSubview(actIndicator)
-        actIndicator.actIndicator(isShowed: true)
+        actIndicator.actIndicator(isShown: true)
         actIndicator.translatesAutoresizingMaskIntoConstraints = false
         
         let widthConstraint = NSLayoutConstraint(item: actIndicator,

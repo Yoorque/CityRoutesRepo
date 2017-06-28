@@ -9,13 +9,13 @@
 import UIKit
 
 class CustomActivityIndicator: UIView {
-
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-  
+    
     @IBOutlet weak var statusLabel: UILabel!
     
-    func actIndicator(isShowed: Bool) {
-        if isShowed {
+    func actIndicator(isShown: Bool) {
+        if isShown {
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
         } else {

@@ -53,7 +53,7 @@ class FirstTableViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "showDetails" else {return}
         guard let detailViewController = segue.destination as? DetailTableViewController,
-              let selectedIndex = tableView.indexPathForSelectedRow?.row
+            let selectedIndex = tableView.indexPathForSelectedRow?.row
             else {return}
         let routes = firstTableViewDataSource?.selectedTransport[selectedIndex].routes
         let route = firstTableViewDataSource?.selectedTransport[selectedIndex]
@@ -64,6 +64,6 @@ class FirstTableViewController: UIViewController {
         detailViewController.backButton.title = language == "latin" ? "Back" : "Назад"
         delegate?.recentSearchWasSaved(route: route!)
     }
-
+    
 }
 

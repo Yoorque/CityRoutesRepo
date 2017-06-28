@@ -36,6 +36,6 @@ extension FirstTableViewDataSource: UITableViewDataSource {
         cell.model = FirstTableViewCell.Model(route: route, transport: transport)
         return cell
     }
-
+    
     
 }

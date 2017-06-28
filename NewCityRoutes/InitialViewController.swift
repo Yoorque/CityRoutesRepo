@@ -19,7 +19,7 @@ class InitialViewController: UIViewController {
     
     var tutView = UIImageView()
     var button = UIButton()
-   
+    
     @IBOutlet var infoButton: UIBarButtonItem!
     @IBOutlet var languageButton: UIBarButtonItem!
     var blurClass = BlurEffect()
@@ -69,12 +69,13 @@ class InitialViewController: UIViewController {
         present(actionsSheet, animated: true)
     }
     
-    //MARK: Life cycle
+    //MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerSettingsBundle()
         blurClass.blurTheBackgound(view: backgroundImageView)
+        
         //Notification for language changes in Settings
         NotificationCenter.default.addObserver(self, selector: #selector(updateLanguageFromDefaults), name: UserDefaults.didChangeNotification , object: nil)
         
@@ -124,7 +125,6 @@ class InitialViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
         setupRecentSearch()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -147,32 +147,7 @@ class InitialViewController: UIViewController {
         }
     }
     
-    func tutorialView() {
-        infoButton.isEnabled = false
-        languageButton.isEnabled = false
-        tutView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
-        tutView.image = UIImage(named: "tutorial1")
-        tutView.contentMode = .scaleToFill
-        tutView.isUserInteractionEnabled = true
-        view.addSubview(tutView)
-        
-        button = UIButton()
-        button.frame.size = CGSize(width: 150, height: 30)
-        button.center = CGPoint(x: tutView.frame.width / 2, y: tutView.frame.height * 0.95)
-        button.setTitle("Close the tutorial", for: .normal)
-        button.addTarget(self, action: #selector(dismissTutorial), for: .touchUpInside)
-        button.tintColor = UIColor.white
-        view.addSubview(button)
-    }
-    
-    func dismissTutorial(view: UIImageView) {
-        tutView.removeFromSuperview()
-        button.removeFromSuperview()
-        infoButton.isEnabled = true
-        languageButton.isEnabled = true
-    }
-    
-    //MARK: Gesture Recognizer
+    //MARK: - Gesture Recognizer
     
     func tap(sender: UITapGestureRecognizer) {
         if let view = sender.view {
@@ -194,7 +169,7 @@ class InitialViewController: UIViewController {
         }
     }
     
-    //MARK: UserDefaults helper methods
+    //MARK: - UserDefaults helper methods
     
     func registerSettingsBundle() {
         let appDefaults = [String: Any]()
@@ -216,7 +191,7 @@ class InitialViewController: UIViewController {
         }
     }
     
-    //MARK: Helper methods
+    //MARK: - Helper methods
     
     func reloadFor(language: String) {
         for subview in self.myMapView.subviews {
@@ -242,9 +217,33 @@ class InitialViewController: UIViewController {
         tableView.reloadData()
     }
     
+    func tutorialView() {
+        infoButton.isEnabled = false
+        languageButton.isEnabled = false
+        tutView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+        tutView.image = UIImage(named: "tutorial7")
+        tutView.contentMode = .scaleToFill
+        tutView.isUserInteractionEnabled = true
+        view.addSubview(tutView)
+        
+        button = UIButton()
+        button.frame.size = CGSize(width: 150, height: 30)
+        button.center = CGPoint(x: tutView.frame.width / 2, y: tutView.frame.height * 0.95)
+        button.setTitle("Close the tutorial", for: .normal)
+        button.addTarget(self, action: #selector(dismissTutorial), for: .touchUpInside)
+        button.tintColor = UIColor.white
+        view.addSubview(button)
+    }
+    
+    func dismissTutorial(view: UIImageView) {
+        tutView.removeFromSuperview()
+        button.removeFromSuperview()
+        infoButton.isEnabled = true
+        languageButton.isEnabled = true
+    }
 }
 
-//MARK: Colors
+//MARK: - Extensions
 
 extension UIColor {
     @nonobjc class var busRed: UIColor {

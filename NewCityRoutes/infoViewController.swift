@@ -29,7 +29,7 @@ class infoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-       
+        
         titleLabel.text = language == "latin" ? "City Routes" : "Градске Руте"
         longTextLabel.text = language == "latin" ? "This application was developed using openstreetmap.com and overpas-turbo.eu. Considering that openstreetmap.com is an open source map editing website, our data may slightly differ from the actual state. Any temporary changes to transport routes will not be reflected in the app. Should you notice any errors with data or have any suggestions to make our maps better, please, let us know at your own convenience, so we can correct the map data in our next update. You will find our team's emails below." : "Ова апликација је прављена са подацима креираним или преузетим са openstreetmap.org, помоћу overpass-turbo.eu. С обзиром да је openstreetmap.org, отворени сајт за рад са мапама и подацима, може доћи до неслагања наших података са реалним стањем на улицама. Привремене промене у режиму саобраћаја се неће рефлектовати у апликацији. Уколико приметите икаква неслагања или имате предлоге и сугестије како бисмо побољшали квалитет мапа, молимо Вас да нам пошаљете имејл са свим релевантним подацима. Имејл адресе нашег тима су излистане испод."
         developerLabel.text = language == "latin" ? "Developer Team:" : "Тим:"
