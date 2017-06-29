@@ -221,7 +221,7 @@ class InitialViewController: UIViewController {
         infoButton.isEnabled = false
         languageButton.isEnabled = false
         tutView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
-        tutView.image = UIImage(named: "tutorial7")
+        tutView.image = UIImage(named: "tutorial")
         tutView.contentMode = .scaleToFill
         tutView.isUserInteractionEnabled = true
         view.addSubview(tutView)
