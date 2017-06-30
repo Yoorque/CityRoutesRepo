@@ -38,9 +38,11 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    var drivingCoords = [CLLocationCoordinate2D]()
     var alertCounter = 0
     weak var alertDelegate: AlertDelegate?
     var walkPolyLineArray = [GMSPolyline]()
+    var drivePolyLineArray = [GMSPolyline]()
     var currentZoomLevel: Float!
     var currentBearing: CLLocationDirection!
     var currentAngle: Double!
@@ -263,7 +265,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             case 15..<18:
                 detailMarker.icon = UIImage(named: "redCircle")
             case 18...mapView.maxZoom:
-                detailMarker.icon = UIImage(named: finalIconImageName)
+                detailMarker.icon = UIImage(named: finalIconImageName != "" ? finalIconImageName : "ada")
             default:
                 break
             }
@@ -271,7 +273,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             let stationName = language == "latin" ? feature.property.nameSrLatn : feature.property.name
             let code = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
             
-            let dictionary: [String: Any] = ["lines": lines, "markerImage": finalIconImageName, "code": code, "stationName": stationName]
+            let dictionary: [String: Any] = ["lines": lines, "markerImage": finalIconImageName != "" ? finalIconImageName : "ada", "code": code, "stationName": stationName]
             detailMarker.userData = dictionary
             
             currentSelectedMarkers.append(detailMarker)
@@ -327,11 +329,142 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     // MARK: - WalkPolylines
+//    func snap(coordinates: [CLLocationCoordinate2D]) {
+//       
+//        var coordsString = ""
+//        for coord in coordinates {
+//            coordsString += "\(coord.latitude),\(coord.longitude)|"
+//        }
+//        coordsString.remove(at: coordsString.index(before: coordsString.endIndex))
+//        let snapToRoads = "https://roads.googleapis.com/v1/snapToRoads?path=\(coordsString)&interpolate=true&key=AIzaSyDrBwOZfhxn9PxoCOR18GMIaTBuDjamzRA"
+//        let urlEncoding = snapToRoads.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
+//        
+//        if let path = URL(string: urlEncoding!) {
+//            do {
+//                let data = try String(contentsOf: path, encoding: String.Encoding.utf8)
+//                let jData = data.data(using: String.Encoding.utf8)
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: jData!, options: []) as! [String: Any]
+//                    
+//                    let snappedPoints = json["snappedPoints"] as! [[String: Any]]
+//                    
+//                    let polyPath = GMSMutablePath()
+//                    for snappedPoint in snappedPoints {
+//                    
+//                        let location = snappedPoint["location"] as! [String: Any]
+//                        
+//                        let latitude = location["latitude"] as! CLLocationDegrees
+//                        let longitude = location["longitude"] as! CLLocationDegrees
+//                        
+//                        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+//                        
+//                        polyPath.add(coordinates)
+//                        
+//                    }
+//                    let interpolatedPolyline = GMSPolyline(path: polyPath)
+//                    interpolatedPolyline.strokeColor = UIColor.red
+//                    interpolatedPolyline.strokeWidth = 2
+//                    interpolatedPolyline.map = mapView
+//                    drivePolyLineArray.append(interpolatedPolyline)
+//                } catch {
+//                    print("Bad json")
+//                }
+//            } catch {
+//                print("Bad path")
+//            }
+//        }
+//        
+//    }
+    
+//    func calculateDrivingRoute(toDestination location: CLLocationCoordinate2D) {
+//        clearPolylines()
+//        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.currentLocation.latitude),\(self.currentLocation.longitude)&destination=\(location.latitude),\(location.longitude)&mode=driving&key=AIzaSyDrBwOZfhxn9PxoCOR18GMIaTBuDjamzRA"
+//        
+//        if let path = URL(string: url) {
+//            do {
+//                
+//                let data = try String(contentsOf: path, encoding: String.Encoding.utf8)
+//                let jData = data.data(using: String.Encoding.utf8)
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: jData!, options: []) as? [String: Any]
+//                    
+//                    let routes = json!["routes"] as! [[String: Any]]
+//                    for route in routes {
+//                        
+//                        let legs = route["legs"] as! [[String: Any]]
+//                        //var totalDistance = 0
+//                        for leg in legs {
+//                            
+//                            let steps = leg["steps"] as! [[String: Any]]
+//                            for step in steps {
+//                                
+//                                // let distance = step["distance"] as! [String:Any]
+//                                //let distanceValue = distance["value"] as! Int
+//                                let startLocation = step["start_location"] as! [String: Any]
+//                                let endLocation = step["end_location"] as! [String: Any]
+//                                
+//                                let startCoords = CLLocationCoordinate2DMake(startLocation["lat"] as! CLLocationDegrees, startLocation["lng"] as! CLLocationDegrees)
+//                                let endCoords = CLLocationCoordinate2DMake(endLocation["lat"] as! CLLocationDegrees, endLocation["lng"] as! CLLocationDegrees)
+//                                
+//                                drivingCoords.append(startCoords)
+//                                drivingCoords.append(endCoords)
+//                            }
+//                        }
+//                        
+//                        snap(coordinates: drivingCoords)
+//                        drivingCoords = []
+//                        
+//                    }
+//                } catch {
+//                    print("Bad json")
+//                    let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+//                    let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
+//                    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    self.alertDelegate?.showAlert(title: title, message: message, actions: [action])
+//                }
+//            } catch {
+//                print("Bad path")
+//                if self.currentReachabilityStatus == .notReachable {
+//                    if self.alertCounter == 0 || self.alertCounter == 5 {
+//                        
+//                        let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+//                        let message = language == "latin" ? "You need internet connection for directions to station!" : "Потребна је интернет конекција за навођење до станице!"
+//                        let cancelAction = UIAlertAction(title: language == "latin" ? "Cancel" : "Откажи", style: .default, handler: nil)
+//                        let settingsAction = UIAlertAction(title: language == "latin" ? "Settings" : "Подешавања", style: .default) { (_) -> Void in
+//                            guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+//                                return
+//                            }
+//                            if UIApplication.shared.canOpenURL(settingsUrl) {
+//                                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+//                                })
+//                            }
+//                        }
+//                        self.alertDelegate?.showAlert(title: title, message: message, actions: [settingsAction, cancelAction])
+//                        
+//                    }
+//                    self.alertCounter += 1
+//                    if self.alertCounter == 5 {
+//                        self.alertCounter = 0
+//                    }
+//                } else {
+//                    let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+//                    let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
+//                    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                    self.alertDelegate?.showAlert(title: title, message: message, actions: [action])
+//                }
+//            }
+//        } else {
+//            print("Bad url")
+//            let title = language == "latin" ? "WARNING!" : "УПОЗОРЕЊЕ!"
+//            let message = language == "latin" ? "Something went wrong with our data, but we're working on it. Please, try again later." : "Дошло је до грешке у нашим подацима, али радимо на томе. Молимо вас да покушате касније."
+//            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+//            self.alertDelegate?.showAlert(title: title, message: message, actions: [action])
+//        }
+//    }
     
     func calculateRoute(toMarker marker: GMSMarker) {
-        clearWalkPolylines()
-        
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.currentLocation.latitude),\(self.currentLocation.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyAPHh0MlzzwOkvjPPqWFC7EpT9omBLf6GE"
+        clearPolylines()
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.currentLocation.latitude),\(self.currentLocation.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyDrBwOZfhxn9PxoCOR18GMIaTBuDjamzRA"
         
         if let path = URL(string: url) {
             do {
@@ -343,12 +476,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                     
                     let routes = json!["routes"] as! [[String: Any]]
                     for route in routes {
-                        let legs = route["legs"] as! [[String: Any]]
                         
+                        let legs = route["legs"] as! [[String: Any]]
                         var totalDistance = 0
                         for leg in legs {
+                            
                             let steps = leg["steps"] as! [[String: Any]]
                             for step in steps {
+                                
                                 let distance = step["distance"] as! [String:Any]
                                 let distanceValue = distance["value"] as! Int
                                 let startLocation = step["start_location"] as! [String: Any]
@@ -422,14 +557,28 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
-    func clearWalkPolylines() {
+    func clearPolylines() {
         for line in walkPolyLineArray {
             line.map = nil
         }
         walkPolyLineArray = []
+        for line in drivePolyLineArray {
+            line.map = nil
+        }
+        drivePolyLineArray = []
     }
     
     //MARK: - MapView Delegates
+    
+//    let destinationMarker = GMSMarker()
+//    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+//        
+//        destinationMarker.map = nil
+//        destinationMarker.map = mapView
+//        destinationMarker.position = coordinate
+//        destinationMarker.userData = ["latitude": coordinate.latitude, "longitude": coordinate.longitude]
+//        //  calculateDrivingRoute(toDestination: coordinate)
+//    }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         currentBearing = position.bearing
@@ -461,7 +610,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        clearWalkPolylines()
+        // destinationMarker.map = nil
+        clearPolylines()
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
