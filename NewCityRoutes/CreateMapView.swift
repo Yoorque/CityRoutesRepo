@@ -271,7 +271,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             }
             
             let stationName = language == "latin" ? feature.property.nameSrLatn : feature.property.name
-            let code = feature.property.phone != "" ? feature.property.phone : "*011*\(feature.property.codeRef)#"
+            let code = feature.property.phone != "" ? feature.property.phone : feature.property.codeRef != "" ? "*011*\(feature.property.codeRef)#" : "no code"
             
             let dictionary: [String: Any] = ["lines": lines, "markerImage": finalIconImageName != "" ? finalIconImageName : "ada", "code": code, "stationName": stationName]
             detailMarker.userData = dictionary
@@ -291,6 +291,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         let markerDict = marker.userData as! [String: Any]
         
         infoWindow.otherLinesLabel.attributedText = markerDict["lines"] as? NSAttributedString
+        
+        if infoWindow.otherLinesLabel.attributedText?.string == "" {
+            infoWindow.underView.isHidden = true
+        }
         infoWindow.distance.text = markerDict["distance"] as? String
         infoWindow.code.text = markerDict["code"] as? String
         infoWindow.stationName.text = markerDict["stationName"] as? String
@@ -327,8 +331,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         return infoWindow
     }
+    // MARK: - POLYLINES
     
-    // MARK: - WalkPolylines
+    // MARK: DrivePolylines
 //    func snap(coordinates: [CLLocationCoordinate2D]) {
 //       
 //        var coordsString = ""
@@ -462,6 +467,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
 //        }
 //    }
     
+    // MARK: WalkPolylines
+    
     func calculateRoute(toMarker marker: GMSMarker) {
         clearPolylines()
         let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.currentLocation.latitude),\(self.currentLocation.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyDrBwOZfhxn9PxoCOR18GMIaTBuDjamzRA"
@@ -504,6 +511,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                                 walkPolyline.map = self.mapView
                                 self.walkPolyLineArray.append(walkPolyline)
                                 totalDistance += distanceValue
+                                
                             }
                         }
                         var newDictValue = marker.userData as! [String:Any]
@@ -556,7 +564,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             self.alertDelegate?.showAlert(title: title, message: message, actions: [action])
         }
     }
-    
+    //MARK: Clear Polylines
     func clearPolylines() {
         for line in walkPolyLineArray {
             line.map = nil
@@ -616,7 +624,6 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         activityDelegate?.isIndicatorActive(value: true)
-        mapView.selectedMarker?.map = nil
         DispatchQueue.main.async {
             
             if mapView.superview!.tag == MapViewSource.Main.rawValue {
@@ -642,7 +649,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             CATransaction.commit()
             
             self.currentMarkerIcon.image = marker.icon
-            mapView.selectedMarker = marker //Zbog ovoga malo cima kad se ide sa markera na marker
+            mapView.selectedMarker = marker
             
             self.notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
             self.labelAnimate(string: self.notificationLabel.text!)
