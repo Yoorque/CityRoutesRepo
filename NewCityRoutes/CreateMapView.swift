@@ -624,13 +624,19 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         activityDelegate?.isIndicatorActive(value: true)
-        mapView.selectedMarker?.map = nil // kad se ovo skine, onda cima kod prelaska sa markera na marker, a sa ovim, klik na centrirani marker, brise marker
-        DispatchQueue.main.async {
-            
+        //mapView.selectedMarker?.map = nil // kad se ovo skine, onda cima kod prelaska sa markera na marker, a sa ovim, klik na centrirani marker, brise marker
+        //mapView.selectedMarker = marker
+        
             if mapView.superview!.tag == MapViewSource.Main.rawValue {
                 
+                DispatchQueue.global().async {
                 self.calculateRoute(toMarker: marker)
-                
+                    DispatchQueue.main.async {
+                        mapView.selectedMarker = marker
+                        self.activityDelegate?.isIndicatorActive(value: false)
+                    }
+                }
+            
                 switch self.currentZoomLevel {
                 case 15..<18:
                     marker.icon = UIImage(named: "fullRedCircle")
@@ -642,20 +648,18 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             } else {
                 marker.icon = UIImage(named: "fullRedCircle")
             }
-            
+        
             CATransaction.begin()
             CATransaction.setAnimationDuration(0.5)
             let camera = GMSCameraPosition.camera(withTarget: marker.position, zoom: self.currentZoomLevel, bearing: self.currentBearing, viewingAngle: self.currentAngle)
             mapView.animate(to: camera)
             CATransaction.commit()
-            
+        
             self.currentMarkerIcon.image = marker.icon
             mapView.selectedMarker = marker
-            
+        
             self.notificationLabel.text = language == "latin" ? "Tap the USSD code to copy to clipboard" : "Кликните на USSD код, да га копирате"
             self.labelAnimate(string: self.notificationLabel.text!)
-            self.activityDelegate?.isIndicatorActive(value: false)
-        }
         return true
     }
     
