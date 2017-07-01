@@ -174,7 +174,7 @@ class InitialViewController: UIViewController {
         if let languageFromDefaults = defaults.value(forKey: "language") as? String {
             language = languageFromDefaults
             infoButton.title = language == "latin" ? "Info": "Инфо"
-            languageButton.title = language == "latin" ? "Language" : "Језик"
+            languageButton.title = language == "latin" ? "Језик" : "Language"
             title = language == "latin" ? "City Routes" : "Градске Руте"
         }
     }
