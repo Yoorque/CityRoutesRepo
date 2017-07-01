@@ -624,6 +624,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         activityDelegate?.isIndicatorActive(value: true)
+        mapView.selectedMarker?.map = nil // kad se ovo skine, onda cima kod prelaska sa markera na marker, a sa ovim, klik na centrirani marker, brise marker
         DispatchQueue.main.async {
             
             if mapView.superview!.tag == MapViewSource.Main.rawValue {

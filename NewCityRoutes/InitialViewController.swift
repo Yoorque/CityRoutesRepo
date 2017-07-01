@@ -20,6 +20,7 @@ class InitialViewController: UIViewController {
     var tutView = UIImageView()
     var button = UIButton()
     
+    var activityIndicator = UIActivityIndicatorView()
     @IBOutlet var infoButton: UIBarButtonItem!
     @IBOutlet var languageButton: UIBarButtonItem!
     var blurClass = BlurEffect()
@@ -38,9 +39,10 @@ class InitialViewController: UIViewController {
             myMapView.createCrosshair(view: myMapView)
             myMapView.alertDelegate = self
             myMapView.activityDelegate = self
+            setupActIndicator()
         }
     }
-    var activityIndicator = UIActivityIndicatorView()
+    
     let recentSearchController = RecentSearchController()
     var recentSearchDataSource: RecentSearchDataSource?
     
@@ -89,20 +91,6 @@ class InitialViewController: UIViewController {
                 view.addGestureRecognizer(tapGesture)
             }
         }
-        
-        activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-        let barButton = UIBarButtonItem(customView: activityIndicator)
-        self.navigationItem.leftBarButtonItems?.append(barButton)
-    }
-    
-    private func setupRecentSearch() {
-        recentSearchDataSource = RecentSearchDataSource(recentSearches: recentSearchController.savedRoutes)
-        recentSearchDataSource?.delegate = self
-        recentSearchDataSource?.recentSearchDelegate = self
-        tableView.dataSource = recentSearchDataSource
-        tableView.delegate = recentSearchDataSource
-        tableView.reloadData()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -192,6 +180,23 @@ class InitialViewController: UIViewController {
     }
     
     //MARK: - Helper methods
+    
+    private func setupActIndicator() {
+        activityIndicator.frame.size = CGSize(width: 30, height: 30)
+        activityIndicator.center = myMapView.center
+        activityIndicator.activityIndicatorViewStyle = .whiteLarge
+        activityIndicator.color = UIColor.blue
+        myMapView.addSubview(activityIndicator)
+    }
+    
+    private func setupRecentSearch() {
+        recentSearchDataSource = RecentSearchDataSource(recentSearches: recentSearchController.savedRoutes)
+        recentSearchDataSource?.delegate = self
+        recentSearchDataSource?.recentSearchDelegate = self
+        tableView.dataSource = recentSearchDataSource
+        tableView.delegate = recentSearchDataSource
+        tableView.reloadData()
+    }
     
     func reloadFor(language: String) {
         for subview in self.myMapView.subviews {

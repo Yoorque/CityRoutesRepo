@@ -19,7 +19,10 @@ class FirstTableViewCell: UITableViewCell {
             cellImageView.image = model?.cellImage
             titleLabel.text = model?.titleLabel
             refNumber.text = model?.refNumber
-            refNumber.textColor = model?.color
+            refNumber.textColor = UIColor.white
+            refNumber.backgroundColor = model?.color.withAlphaComponent(0.5)
+            refNumber.layer.masksToBounds = true
+            refNumber.layer.cornerRadius = 15
         }
     }
 }
@@ -34,9 +37,9 @@ extension FirstTableViewCell {
         init(route: Routes, transport: String) {
             self.cellImage = UIImage(named: transport)!
             if language == "latin" {
-                self.titleLabel = route.routes[0].reltags.fromSrLatn + "-" + route.routes[0].reltags.toSrLatn
+                self.titleLabel = route.routes[0].reltags.fromSrLatn + " - " + route.routes[0].reltags.toSrLatn
             } else {
-                self.titleLabel = route.routes[0].reltags.from + "-" + route.routes[0].reltags.to
+                self.titleLabel = route.routes[0].reltags.from + " - " + route.routes[0].reltags.to
             }
             self.refNumber = route.ref
             self.color = UIColor.color(forTransport: transport)

@@ -36,6 +36,7 @@ extension DetailTableViewDataSource: UITableViewDataSource, UITableViewDelegate 
         let transport = lineRoutes[index].reltags.route
         cell.modelRelation = DetailTableViewCell.ModelRelation(relation: relation, transport: transport!)
         
+        
         return cell
     }
     
