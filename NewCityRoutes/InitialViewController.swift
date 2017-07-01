@@ -48,13 +48,13 @@ class InitialViewController: UIViewController {
     
     @IBAction func languageButton(_ sender: UIBarButtonItem) {
         var message: String {
-            return language == "latin" ? "Choose your preffered language" : "Одаберите жељени језик"
+            return language == "latin" ? "Одаберите жељени језик" : "Choose your preffered language"
         }
         var title: String {
-            return language == "latin" ? "Language" : "Језик"
+            return language == "latin" ? "Језик" : "Language"
         }
         var titleCancel: String {
-            return language == "latin" ? "Cancel" : "Откажи"
+            return language == "latin" ? "Откажи" : "Cancel"
         }
         let actionsSheet = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         actionsSheet.addAction(UIAlertAction(title: "English", style: .default, handler: {_ in
