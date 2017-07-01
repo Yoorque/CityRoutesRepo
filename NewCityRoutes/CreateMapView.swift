@@ -225,9 +225,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 marker.map = nil
             } else {
                 switch currentZoomLevel {
-                case 15..<18:
+                case 15..<17:
                     marker.icon = UIImage(named: "fullRedCircle")
-                case 18...mapView.maxZoom:
+                case 17...mapView.maxZoom:
                     marker.icon = UIImage(named: (marker.userData as! [String:Any])["markerImage"] as! String + "Full")
                 default:
                     break
@@ -262,9 +262,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             finalIconImageName = transportImageNames.reduce("", +)
             
             switch position.zoom {
-            case 15..<18:
+            case 15..<17:
                 detailMarker.icon = UIImage(named: "redCircle")
-            case 18...mapView.maxZoom:
+            case 17...mapView.maxZoom:
                 detailMarker.icon = UIImage(named: finalIconImageName != "" ? finalIconImageName : "ada")
             default:
                 break
@@ -626,7 +626,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         activityDelegate?.isIndicatorActive(value: true)
         //mapView.selectedMarker?.map = nil // kad se ovo skine, onda cima kod prelaska sa markera na marker, a sa ovim, klik na centrirani marker, brise marker
         //mapView.selectedMarker = marker
-        
+            
             if mapView.superview!.tag == MapViewSource.Main.rawValue {
                 
                 DispatchQueue.global().async {
@@ -638,9 +638,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
                 }
             
                 switch self.currentZoomLevel {
-                case 15..<18:
+                case 15..<17:
                     marker.icon = UIImage(named: "fullRedCircle")
-                case 18...mapView.maxZoom:
+                case 17...mapView.maxZoom:
                     marker.icon = UIImage(named: (marker.userData as! [String: Any])["markerImage"] as! String + "Full")
                 default:
                     break
@@ -692,9 +692,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         if mapView.superview?.tag == 1 {
             
             switch currentZoomLevel {
-            case 15..<18:
+            case 15..<17:
                 marker.icon = UIImage(named: "redCircle")
-            case 18...mapView.maxZoom:
+            case 17...mapView.maxZoom:
                 marker.icon = UIImage(named: (marker.userData as! [String: Any])["markerImage"] as! String)
             default:
                 break
