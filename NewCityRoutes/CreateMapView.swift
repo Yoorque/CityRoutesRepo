@@ -259,13 +259,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             detailMarker = GMSMarker(position: pos)
             detailMarker.map = mapView
             
-            finalIconImageName = transportImageNames.reduce("", +)
+            finalIconImageName = transportImageNames.reduce(finalIconImageName, +)
             
             switch position.zoom {
             case 15..<17:
                 detailMarker.icon = UIImage(named: "redCircle")
             case 17...mapView.maxZoom:
                 detailMarker.icon = UIImage(named: finalIconImageName != "" ? finalIconImageName : "ada")
+        
             default:
                 break
             }
@@ -630,7 +631,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             if mapView.superview!.tag == MapViewSource.Main.rawValue {
                 
                 DispatchQueue.global().async {
-                self.calculateRoute(toMarker: marker)
+                    self.calculateRoute(toMarker: marker)
                     DispatchQueue.main.async {
                         mapView.selectedMarker = marker
                         self.activityDelegate?.isIndicatorActive(value: false)
