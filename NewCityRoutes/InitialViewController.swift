@@ -252,15 +252,15 @@ class InitialViewController: UIViewController {
 
 extension UIColor {
     @nonobjc class var busRed: UIColor {
-        return UIColor(red: 1, green: 58/255, blue: 58/255, alpha: 1)
+        return UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1)
     }
     
     @nonobjc class var tramGreen: UIColor {
-        return UIColor(red: 112/255, green: 193/255, blue: 106/255, alpha: 1)
+        return UIColor(red: 48/255, green: 204/255, blue: 113/255, alpha: 1)
     }
     
     @nonobjc class var trolleyOrange: UIColor {
-        return UIColor.orange
+        return UIColor(red: 243/255, green: 156/255, blue: 17/255, alpha: 1)
     }
     
     class func color(forTransport transport: String) -> UIColor {

@@ -17,7 +17,7 @@ protocol NotificationForIndicatorDelegate: class {
     func isIndicatorActive(value: Bool)
 }
 
-func + (left: NSAttributedString, right: NSAttributedString) -> NSAttributedString {
+func + (left: NSMutableAttributedString, right: NSMutableAttributedString) -> NSMutableAttributedString {
     let result = NSMutableAttributedString()
     result.append(left)
     result.append(right)
@@ -38,6 +38,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
+    let parahraph = NSMutableParagraphStyle()
     var drivingCoords = [CLLocationCoordinate2D]()
     var alertCounter = 0
     weak var alertDelegate: AlertDelegate?
@@ -48,7 +49,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var currentAngle: Double!
     var currentSelectedMarkers = [GMSMarker]()
     var circle: GMSCircle?
-    var lines = NSAttributedString()
+    var lines = NSMutableAttributedString()
     var viewController = InitialViewController()
     var selectedFeature = [Feature]()
     var selectedRelation = [Relations]()
@@ -180,7 +181,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     
     private func setCoords(coord: Coordinates, feature: Feature, relation: Relations) {
-        lines = NSAttributedString()
+        lines = NSMutableAttributedString()
         var dictionary = [String: Any]()
         
         selectedFeature.append(feature)
@@ -205,9 +206,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         let sortedRelationArray = relationArray.sorted{$0.reltags.reltagRef.localizedStandardCompare($1.reltags.reltagRef) == .orderedAscending}
         
-        for sorted in sortedRelationArray {
-            lines = lines + NSAttributedString(string: " ") + NSAttributedString(string: sorted.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: sorted.reltags.route)])
-        }
+        parahraph.lineSpacing = 2
+        
+        lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.color(forTransport: $0.reltags.route), NSParagraphStyleAttributeName: parahraph])}.joined(separator: " ")
+        
         relationArray = []
 
         
@@ -250,7 +252,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         var transportImageNames = Set<String>()
         var finalIconImageName = ""
-        lines = NSAttributedString()
+        lines = NSMutableAttributedString()
         
         selectedFeature.removeAll()
         
@@ -259,16 +261,13 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         for feature in selectedFeature {
             for relation in feature.property.relations {
                 relationArray.append(relation)
+                transportImageNames.insert(relation.reltags.route)
             }
             
             let sortedRelationArray = relationArray.sorted{$0.reltags.reltagRef.localizedStandardCompare($1.reltags.reltagRef) == .orderedAscending}
+            parahraph.lineSpacing = 2
+            lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.color(forTransport: $0.reltags.route), NSParagraphStyleAttributeName: parahraph])}.joined(separator: " ")
             
-            for sorted in sortedRelationArray {
-                lines = lines + NSAttributedString(string: " ") + NSAttributedString(string: sorted.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: sorted.reltags.route)])
-                
-                transportImageNames.insert(sorted.reltags.route)
-            }
-            relationArray = []
             
             let lat = feature.geometry.coordinates[0].lat
             let lon = feature.geometry.coordinates[0].lon
@@ -297,9 +296,10 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             
             currentSelectedMarkers.append(detailMarker)
             
-            lines = NSAttributedString()
+            lines = NSMutableAttributedString()
             transportImageNames = []
             finalIconImageName = ""
+            relationArray = []
         }
     }
     
@@ -309,7 +309,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         let infoWindow = Bundle.main.loadNibNamed("InitialMapInfoWindow", owner: self, options: nil)?.first as! InitialMapInfoWindow
         let markerDict = marker.userData as! [String: Any]
         
-        infoWindow.otherLinesLabel.attributedText = markerDict["lines"] as? NSAttributedString
+        infoWindow.otherLinesLabel.attributedText = markerDict["lines"] as? NSMutableAttributedString
         
         if infoWindow.otherLinesLabel.attributedText?.string == "" {
             infoWindow.underView.isHidden = true
@@ -344,8 +344,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.wheelchairImage.image = UIImage(named: markerDict["wheelchair"] as! String)
         infoWindow.code.text = markerDict["code"] as? String
         infoWindow.stationName.text  = markerDict["stationName"] as? String
-        infoWindow.otherLines.attributedText = markerDict["lines"] as? NSAttributedString
-        infoWindow.selectedLine.attributedText = NSAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: markerDict["route"] as! String)])
+        
+        infoWindow.otherLines.attributedText = markerDict["lines"] as? NSMutableAttributedString
+        
+        infoWindow.otherLines.lineBreakMode = .byTruncatingTail // Ovo je dodato da bi se smanjio font
+        
+        infoWindow.selectedLine.attributedText = NSMutableAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: markerDict["route"] as! String)])
         infoWindow.imageView.image = UIImage(named: markerDict["route"] as! String)
         
         return infoWindow
@@ -738,3 +742,22 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
 }
 
+extension Array where Element: NSMutableAttributedString {
+    func joined(separator: NSMutableAttributedString) -> NSMutableAttributedString {
+        var isFirst = true
+        return self.reduce(NSMutableAttributedString()) {
+            (r, e) in
+            if isFirst {
+                isFirst = false
+            } else {
+                r.append(separator)
+            }
+            r.append(e)
+            return r
+        }
+    }
+    
+    func joined(separator: String) -> NSMutableAttributedString {
+        return joined(separator: NSMutableAttributedString(string: separator))
+    }
+}
