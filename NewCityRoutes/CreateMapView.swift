@@ -195,12 +195,23 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         detailMarker.icon = UIImage(named: "whiteRedCircle")
         detailMarker.map = mapView
         
+        var relationArray = [Relations]()
+        
         for rela in feature.property.relations {
             if rela.reltags.reltagRef != relation.reltags.reltagRef {
-                
-                lines = lines + NSAttributedString(string: " ") + NSAttributedString(string: rela.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: rela.reltags.route)])
+                relationArray.append(rela)
             }
         }
+        
+        let sortedRelationArray = relationArray.sorted{$0.reltags.reltagRef.localizedStandardCompare($1.reltags.reltagRef) == .orderedAscending}
+        
+        for sorted in sortedRelationArray {
+            lines = lines + NSAttributedString(string: " ") + NSAttributedString(string: sorted.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: sorted.reltags.route)])
+        }
+        relationArray = []
+
+        
+        
         let covered = feature.property.covered != "" ? feature.property.covered : feature.property.shelter != "" ? feature.property.shelter : "no"
         let wheelchair = feature.property.wheelchair != "" ? feature.property.wheelchair : "no"
         let code = feature.property.phone != "" ? feature.property.phone : feature.property.codeRef != "" ? "*011*\(feature.property.codeRef)#" : "no code"
@@ -244,13 +255,20 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         selectedFeature.removeAll()
         
         selectedFeature = nearestLocation.featuresForNearestStation
-        
+        var relationArray = [Relations]()
         for feature in selectedFeature {
             for relation in feature.property.relations {
-                lines = lines + NSAttributedString(string: " ") + NSAttributedString(string: relation.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: relation.reltags.route)])
-                
-                transportImageNames.insert(relation.reltags.route)
+                relationArray.append(relation)
             }
+            
+            let sortedRelationArray = relationArray.sorted{$0.reltags.reltagRef.localizedStandardCompare($1.reltags.reltagRef) == .orderedAscending}
+            
+            for sorted in sortedRelationArray {
+                lines = lines + NSAttributedString(string: " ") + NSAttributedString(string: sorted.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: sorted.reltags.route)])
+                
+                transportImageNames.insert(sorted.reltags.route)
+            }
+            relationArray = []
             
             let lat = feature.geometry.coordinates[0].lat
             let lon = feature.geometry.coordinates[0].lon
@@ -627,7 +645,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         activityDelegate?.isIndicatorActive(value: true)
         //mapView.selectedMarker?.map = nil // kad se ovo skine, onda cima kod prelaska sa markera na marker, a sa ovim, klik na centrirani marker, brise marker
         //mapView.selectedMarker = marker
-            
+        
             if mapView.superview!.tag == MapViewSource.Main.rawValue {
                 
                 DispatchQueue.global().async {
