@@ -38,7 +38,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         }
     }
     
-    let parahraph = NSMutableParagraphStyle()
+    let paragraph = NSMutableParagraphStyle()
     var drivingCoords = [CLLocationCoordinate2D]()
     var alertCounter = 0
     weak var alertDelegate: AlertDelegate?
@@ -206,14 +206,12 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         let sortedRelationArray = relationArray.sorted{$0.reltags.reltagRef.localizedStandardCompare($1.reltags.reltagRef) == .orderedAscending}
         
-        parahraph.lineSpacing = 2
+        paragraph.lineSpacing = 2
         
-        lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.color(forTransport: $0.reltags.route), NSParagraphStyleAttributeName: parahraph])}.joined(separator: " ")
+        lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.color(forTransport: $0.reltags.route), NSParagraphStyleAttributeName: paragraph])}.joined(separator: " ")
         
         relationArray = []
 
-        
-        
         let covered = feature.property.covered != "" ? feature.property.covered : feature.property.shelter != "" ? feature.property.shelter : "no"
         let wheelchair = feature.property.wheelchair != "" ? feature.property.wheelchair : "no"
         let code = feature.property.phone != "" ? feature.property.phone : feature.property.codeRef != "" ? "*011*\(feature.property.codeRef)#" : "no code"
@@ -265,9 +263,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             }
             
             let sortedRelationArray = relationArray.sorted{$0.reltags.reltagRef.localizedStandardCompare($1.reltags.reltagRef) == .orderedAscending}
-            parahraph.lineSpacing = 2
-            lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.color(forTransport: $0.reltags.route), NSParagraphStyleAttributeName: parahraph])}.joined(separator: " ")
+            paragraph.lineSpacing = 2
             
+            lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.color(forTransport: $0.reltags.route), NSParagraphStyleAttributeName: paragraph])}.joined(separator: " ")
             
             let lat = feature.geometry.coordinates[0].lat
             let lon = feature.geometry.coordinates[0].lon
@@ -314,6 +312,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         if infoWindow.otherLinesLabel.attributedText?.string == "" {
             infoWindow.underView.isHidden = true
         }
+        
         infoWindow.distance.text = markerDict["distance"] as? String
         infoWindow.code.text = markerDict["code"] as? String
         infoWindow.stationName.text = markerDict["stationName"] as? String
@@ -346,10 +345,14 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.stationName.text  = markerDict["stationName"] as? String
         
         infoWindow.otherLines.attributedText = markerDict["lines"] as? NSMutableAttributedString
-        
         infoWindow.otherLines.lineBreakMode = .byTruncatingTail // Ovo je dodato da bi se smanjio font
         
-        infoWindow.selectedLine.attributedText = NSMutableAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSForegroundColorAttributeName: UIColor.color(forTransport: markerDict["route"] as! String)])
+        infoWindow.selectedLine.attributedText = NSMutableAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSForegroundColorAttributeName: UIColor.white])
+        infoWindow.selectedLine.layer.cornerRadius = 10
+        infoWindow.selectedLine.layer.masksToBounds = true
+        infoWindow.selectedLine.backgroundColor = UIColor.color(forTransport: markerDict["route"] as! String)
+        
+        
         infoWindow.imageView.image = UIImage(named: markerDict["route"] as! String)
         
         return infoWindow

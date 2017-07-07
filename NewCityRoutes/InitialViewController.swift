@@ -75,6 +75,7 @@ class InitialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         registerSettingsBundle()
         blurClass.blurTheBackgound(view: backgroundImageView)
         

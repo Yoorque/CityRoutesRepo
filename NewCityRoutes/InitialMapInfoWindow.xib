@@ -16,26 +16,26 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ec-aq-sC1">
-                    <rect key="frame" x="15" y="5" width="182" height="15.5"/>
+                    <rect key="frame" x="15" y="5" width="182" height="14.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="station name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="95a-mL-Gv7">
-                            <rect key="frame" x="2" y="1" width="131" height="13.5"/>
+                            <rect key="frame" x="2" y="1" width="131" height="12.5"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="131" id="aQE-Qf-5J2"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
+                            <color key="textColor" red="0.088871218259999996" green="0.23708668350000001" blue="0.58243620399999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="jlc-HZ-tKp">
-                            <rect key="frame" x="137" y="2" width="42" height="11.5"/>
+                            <rect key="frame" x="137" y="2" width="42" height="10.5"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="42" id="kIV-af-FeI"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="9"/>
-                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="9"/>
+                            <color key="textColor" red="0.088871218259999996" green="0.23708668350000001" blue="0.58243620399999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -51,20 +51,20 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11Y-i4-Z7t">
-                    <rect key="frame" x="15" y="23.5" width="182" height="26"/>
+                    <rect key="frame" x="15" y="22.5" width="182" height="24.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="33" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jp-CD-oZy">
-                            <rect key="frame" x="5" y="5" width="118" height="16"/>
+                            <rect key="frame" x="5" y="5" width="115" height="15"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="118" id="99f-l8-wPD"/>
+                                <constraint firstAttribute="width" constant="115" id="99f-l8-wPD"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                            <fontDescription key="fontDescription" name="Copperplate-Light" family="Copperplate" pointSize="14"/>
                             <color key="textColor" red="1" green="0.1088287268" blue="0.076310160520000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="sme-K3-AlI">
-                            <rect key="frame" x="131" y="7" width="46" height="12"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                            <rect key="frame" x="120" y="7" width="57" height="12"/>
+                            <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="11"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -76,7 +76,7 @@
                         <constraint firstAttribute="trailing" secondItem="sme-K3-AlI" secondAttribute="trailing" constant="5" id="Yni-bZ-SBG"/>
                         <constraint firstAttribute="bottom" secondItem="5Jp-CD-oZy" secondAttribute="bottom" constant="5" id="cZR-mO-jpo"/>
                         <constraint firstItem="5Jp-CD-oZy" firstAttribute="top" secondItem="11Y-i4-Z7t" secondAttribute="top" constant="5" id="gjx-hv-adt"/>
-                        <constraint firstItem="sme-K3-AlI" firstAttribute="leading" secondItem="5Jp-CD-oZy" secondAttribute="trailing" constant="8" id="ogs-Ng-hut"/>
+                        <constraint firstItem="sme-K3-AlI" firstAttribute="leading" secondItem="5Jp-CD-oZy" secondAttribute="trailing" id="ogs-Ng-hut"/>
                     </constraints>
                 </view>
             </subviews>
