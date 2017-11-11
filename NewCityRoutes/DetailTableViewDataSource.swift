@@ -35,7 +35,9 @@ extension DetailTableViewDataSource: UITableViewDataSource, UITableViewDelegate 
         let relation = lineRoutes[index]
         let transport = lineRoutes[index].reltags.route
         cell.modelRelation = DetailTableViewCell.ModelRelation(relation: relation, transport: transport!)
-        
+        if indexPath.row == 1 || tableView.numberOfRows(inSection: 0) == 1{
+            cell.separatorInset = UIEdgeInsets.zero
+        }
         
         return cell
     }

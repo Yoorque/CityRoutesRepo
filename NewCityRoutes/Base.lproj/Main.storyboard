@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Xwx-d5-0oh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Copperplate.ttc">
+            <string>Copperplate</string>
+            <string>Copperplate-Bold</string>
+            <string>Copperplate-Light</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Loading View Controller-->
         <scene sceneID="77y-qO-vjN">
@@ -26,7 +33,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City Routes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="R4D-bA-Tm9">
-                                <rect key="frame" x="23" y="28" width="329" height="29"/>
+                                <rect key="frame" x="103" y="28" width="169" height="29"/>
                                 <fontDescription key="fontDescription" name="Copperplate-Light" family="Copperplate" pointSize="28"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -34,9 +41,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="R4D-bA-Tm9" firstAttribute="leading" secondItem="czV-1U-HmO" secondAttribute="leadingMargin" constant="7" id="0F9-gR-tIL"/>
                             <constraint firstItem="W9N-1y-ofT" firstAttribute="leading" secondItem="czV-1U-HmO" secondAttribute="leading" id="8hQ-9N-rJ9"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="R4D-bA-Tm9" secondAttribute="trailing" constant="7" id="LOo-gH-QY9"/>
                             <constraint firstItem="W9N-1y-ofT" firstAttribute="top" secondItem="czV-1U-HmO" secondAttribute="top" id="Mpm-Ij-9IC"/>
                             <constraint firstAttribute="trailing" secondItem="W9N-1y-ofT" secondAttribute="trailing" id="fkT-qx-e0z"/>
                             <constraint firstItem="R4D-bA-Tm9" firstAttribute="centerX" secondItem="czV-1U-HmO" secondAttribute="centerX" id="g2V-md-MTD"/>
@@ -253,7 +258,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="lGC-C8-N37"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Direction" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="rzp-hs-t9l">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Direction" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="rzp-hs-t9l">
                                                     <rect key="frame" x="104" y="21.5" width="230" height="17.5"/>
                                                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -262,7 +267,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="jf2-DJ-dPB">
                                                     <rect key="frame" x="46" y="14" width="50" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="RxW-fe-mUw"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="RxW-fe-mUw"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.1088287268" blue="0.076310160520000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -437,18 +442,14 @@
                                 <segue destination="Ofm-uf-S5h" kind="show" identifier="showInfo" id="RLJ-mq-f1W"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Language" id="cW9-xS-7ZT">
-                            <connections>
-                                <action selector="languageButton:" destination="BYZ-38-t0r" id="caZ-It-dm7"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="2Ya-Ks-IX2"/>
                     </navigationItem>
                     <connections>
                         <outlet property="backgroundImageView" destination="h1t-S2-9Jo" id="ZRA-nG-ymI"/>
                         <outlet property="busButton" destination="ZhK-39-jLL" id="ddg-3l-vB5"/>
                         <outlet property="busTitleLabel" destination="Xs6-Kn-MKX" id="UYl-4y-SHW"/>
                         <outlet property="infoButton" destination="6A6-ha-iiM" id="wQB-dV-2C0"/>
-                        <outlet property="languageButton" destination="cW9-xS-7ZT" id="IlH-ee-NO5"/>
+                        <outlet property="languageButton" destination="2Ya-Ks-IX2" id="vdr-Xa-JQa"/>
                         <outlet property="myMapView" destination="ePc-9L-Efw" id="B8C-LN-eZU"/>
                         <outlet property="tableView" destination="zNS-rI-c4B" id="1In-JG-b2j"/>
                         <outlet property="tramButton" destination="diI-OL-i6s" id="03E-13-zFS"/>
@@ -503,13 +504,13 @@
                                                     <rect key="frame" x="46" y="6" width="50" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="CGB-R0-bZ6"/>
-                                                        <constraint firstAttribute="width" constant="50" id="jgN-B9-jmq"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="jgN-B9-jmq"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.1088287268" blue="0.076310160520000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="4" translatesAutoresizingMaskIntoConstraints="NO" id="Lfr-aZ-MYy">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="4" translatesAutoresizingMaskIntoConstraints="NO" id="Lfr-aZ-MYy">
                                                     <rect key="frame" x="104" y="11" width="238" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -608,14 +609,14 @@
                                                     <rect key="frame" x="56" y="8" width="50" height="30"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="Osl-C6-pwj"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Osl-C6-pwj"/>
                                                         <constraint firstAttribute="height" constant="30" id="uTv-DV-khX"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.1088287268" blue="0.076310160520000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Direction" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wft-qH-u6N">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Direction" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wft-qH-u6N">
                                                     <rect key="frame" x="114" y="13" width="215" height="21"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -704,7 +705,7 @@
                 <navigationController storyboardIdentifier="navController" automaticallyAdjustsScrollViewInsets="NO" id="ATt-Fu-mbX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4H-H2-hQg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

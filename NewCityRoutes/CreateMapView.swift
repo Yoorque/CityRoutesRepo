@@ -42,6 +42,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     var drivingCoords = [CLLocationCoordinate2D]()
     var alertCounter = 0
     weak var alertDelegate: AlertDelegate?
+    
+    var initialVC = InitialViewController()
     var walkPolyLineArray = [GMSPolyline]()
     var drivePolyLineArray = [GMSPolyline]()
     var currentZoomLevel: Float!
@@ -57,8 +59,8 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     var nearestLocation = CalculateNearestStation()
     let simPosition = CLLocationCoordinate2D(latitude: 44.818611, longitude: 20.468056)
-    var currentLocation: CLLocationCoordinate2D {
-        return locationManager.location?.coordinate ?? simPosition
+    var currentLocation: CLLocationCoordinate2D? {
+        return locationManager.location?.coordinate
     }
     
     weak var activityDelegate: NotificationForIndicatorDelegate?
@@ -68,17 +70,22 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func createMap(view: UIView) {
         // Testing on a device
+        if let currentLocation = currentLocation {
+            let camera = GMSCameraPosition.camera(withTarget: currentLocation, zoom: 15)
+            mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height), camera: camera)
+        } else {
+        mapView = GMSMapView(frame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        }
         
-        let camera = GMSCameraPosition.camera(withTarget: currentLocation, zoom: 15)
-        
-        mapView = GMSMapView.map(withFrame: CGRect(x:0, y: 0, width: view.bounds.width, height: view.bounds.height) ,camera: camera)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         mapView.settings.compassButton = true
         
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
+        
         mapView.delegate = self
         view.addSubview(mapView)
         
@@ -208,7 +215,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         paragraph.lineSpacing = 2
         
-        lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.color(forTransport: $0.reltags.route), NSParagraphStyleAttributeName: paragraph])}.joined(separator: " ")
+        lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.backgroundColor: UIColor.color(forTransport: $0.reltags.route), NSAttributedStringKey.paragraphStyle: paragraph])}.joined(separator: " ")
         
         relationArray = []
 
@@ -265,7 +272,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             let sortedRelationArray = relationArray.sorted{$0.reltags.reltagRef.localizedStandardCompare($1.reltags.reltagRef) == .orderedAscending}
             paragraph.lineSpacing = 2
             
-            lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSForegroundColorAttributeName: UIColor.white, NSBackgroundColorAttributeName: UIColor.color(forTransport: $0.reltags.route), NSParagraphStyleAttributeName: paragraph])}.joined(separator: " ")
+            lines = sortedRelationArray.map{NSMutableAttributedString(string: $0.reltags.reltagRef, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.backgroundColor: UIColor.color(forTransport: $0.reltags.route), NSAttributedStringKey.paragraphStyle: paragraph])}.joined(separator: " ")
             
             let lat = feature.geometry.coordinates[0].lat
             let lon = feature.geometry.coordinates[0].lon
@@ -347,7 +354,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
         infoWindow.otherLines.attributedText = markerDict["lines"] as? NSMutableAttributedString
         infoWindow.otherLines.lineBreakMode = .byTruncatingTail // Ovo je dodato da bi se smanjio font
         
-        infoWindow.selectedLine.attributedText = NSMutableAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSForegroundColorAttributeName: UIColor.white])
+        infoWindow.selectedLine.attributedText = NSMutableAttributedString(string: markerDict["selectedLine"] as! String, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         infoWindow.selectedLine.layer.cornerRadius = 10
         infoWindow.selectedLine.layer.masksToBounds = true
         infoWindow.selectedLine.backgroundColor = UIColor.color(forTransport: markerDict["route"] as! String)
@@ -497,7 +504,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func calculateRoute(toMarker marker: GMSMarker) {
         clearPolylines()
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.currentLocation.latitude),\(self.currentLocation.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyDrBwOZfhxn9PxoCOR18GMIaTBuDjamzRA"
+        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.currentLocation!.latitude),\(self.currentLocation!.longitude)&destination=\(marker.position.latitude),\(marker.position.longitude)&mode=walking&key=AIzaSyDrBwOZfhxn9PxoCOR18GMIaTBuDjamzRA"
         
         if let path = URL(string: url) {
             do {
@@ -656,7 +663,9 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
             if mapView.superview!.tag == MapViewSource.Main.rawValue {
                 
                 DispatchQueue.global().async {
-                    self.calculateRoute(toMarker: marker)
+                    if self.currentLocation != nil {
+                        self.calculateRoute(toMarker: marker)
+                    }
                     DispatchQueue.main.async {
                         mapView.selectedMarker = marker
                         self.activityDelegate?.isIndicatorActive(value: false)
@@ -737,11 +746,26 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     //MARK: - Location button delegates
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        if let myLocation = mapView.myLocation?.coordinate {
+        if let myLocation = locationManager.location?.coordinate {
             let camera = GMSCameraPosition.camera(withTarget: myLocation, zoom: 15)
             mapView.camera = camera
+        } else {
+            let settingsAction = UIAlertAction(title: "Settings", style: .default, handler: {_ in
+                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+            })
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertDelegate?.showAlert(title: "Location Services Off", message: "Enable Location Services in Settings > Privacy to enable your location", actions: [settingsAction, okAction])
         }
         return true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .notDetermined || status == .denied || status == .restricted {
+            locationManager.stopUpdatingLocation()
+            mapView.isMyLocationEnabled = false
+        } else {
+            mapView.isMyLocationEnabled = true
+        }
     }
 }
 

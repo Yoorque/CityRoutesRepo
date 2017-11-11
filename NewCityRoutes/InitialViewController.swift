@@ -15,15 +15,28 @@ protocol InstantiateVCDelegate: NSObjectProtocol {
     func instantiateViewControllerFrom(routes: [Relations], route: Routes, transport: String, ref: String)
 }
 
-class InitialViewController: UIViewController {
+class InitialViewController: UIViewController, CLLocationManagerDelegate {
     
     var tutView = UIImageView()
     var button = UIButton()
-    
     var activityIndicator = UIActivityIndicatorView()
     @IBOutlet var infoButton: UIBarButtonItem!
-    @IBOutlet var languageButton: UIBarButtonItem!
+   
     var blurClass = BlurEffect()
+    @IBOutlet var languageButton: UIBarButtonItem!{
+        didSet{
+            let button = UIButton()
+            button.addTarget(self, action: #selector(changeLanguageButton), for: .touchUpInside)
+            //button.setTitle("eng/срб", for: .normal)
+            button.bounds.size = CGSize(width: 40, height: 20)
+            button.setImage(UIImage(named: "uk-ser"), for: .normal)
+            button.imageView?.contentMode = .scaleAspectFit
+            languageButton.customView = button
+            
+            self.navigationItem.rightBarButtonItem = languageButton
+        }
+    }
+    
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var busTitleLabel: UILabel!
@@ -45,31 +58,7 @@ class InitialViewController: UIViewController {
     
     let recentSearchController = RecentSearchController()
     var recentSearchDataSource: RecentSearchDataSource?
-    
-    @IBAction func languageButton(_ sender: UIBarButtonItem) {
-        var message: String {
-            return language == "latin" ? "Одаберите жељени језик" : "Choose your preffered language"
-        }
-        var title: String {
-            return language == "latin" ? "Језик" : "Language"
-        }
-        var titleCancel: String {
-            return language == "latin" ? "Откажи" : "Cancel"
-        }
-        let actionsSheet = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        actionsSheet.addAction(UIAlertAction(title: "English", style: .default, handler: {_ in
-            language = "latin"
-            self.reloadFor(language: language)
-        }))
-        
-        actionsSheet.addAction(UIAlertAction(title: "Српски", style: .default, handler: {_ in
-            language = "cyrillic"
-            self.reloadFor(language: language)
-        }))
-        
-        actionsSheet.addAction(UIAlertAction(title: titleCancel, style: .cancel, handler: nil))
-        present(actionsSheet, animated: true)
-    }
+
     
     //MARK: - Life cycle
     
@@ -129,7 +118,7 @@ class InitialViewController: UIViewController {
                 defaults.set("latin", forKey: "language")
             }))
             
-            present(alert, animated: true, completion: { _ in
+            present(alert, animated: true, completion: {
                 self.tutorialView()
             })
             defaults.set(true, forKey: "launchedBefore")
@@ -138,16 +127,16 @@ class InitialViewController: UIViewController {
     
     //MARK: - Gesture Recognizer
     
-    func tap(sender: UITapGestureRecognizer) {
+    @objc func tap(sender: UITapGestureRecognizer) {
         if let view = sender.view {
             //Izvlaci identifier string iz odabranog dugmeta na pocetnom view i prosledjuje u funkciju
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {_ in
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
                 view.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
                 view.layer.shadowOffset = CGSize(width: -10, height: 10)
                 //view.clipsToBounds = true
                 
             }, completion: {_ in
-                UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { _ in
+                UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { 
                     view.transform = CGAffineTransform(scaleX: 1, y: 1)
                     view.layer.shadowOffset = CGSize(width: -5, height: 5)
                     //view.clipsToBounds = false
@@ -170,17 +159,40 @@ class InitialViewController: UIViewController {
         defaults.set(string, forKey: "language")
     }
     
-    func updateLanguageFromDefaults() {
+    @objc func updateLanguageFromDefaults() {
         let defaults = UserDefaults.standard
         if let languageFromDefaults = defaults.value(forKey: "language") as? String {
             language = languageFromDefaults
             infoButton.title = language == "latin" ? "Info": "Инфо"
-            languageButton.title = language == "latin" ? "Језик" : "Language"
             title = language == "latin" ? "City Routes" : "Градске Руте"
         }
     }
     
     //MARK: - Helper methods
+    @objc func changeLanguageButton() {
+        var message: String {
+            return language == "latin" ? "Choose your preffered language" : "Одаберите жељени језик"
+        }
+        var title: String {
+            return language == "latin" ? "Language" : "Језик"
+        }
+        var titleCancel: String {
+            return language == "latin" ? "Cancel" : "Откажи"
+        }
+        let actionsSheet = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        actionsSheet.addAction(UIAlertAction(title: "English", style: .default, handler: {_ in
+            language = "latin"
+            self.reloadFor(language: language)
+        }))
+        
+        actionsSheet.addAction(UIAlertAction(title: "Српски", style: .default, handler: {_ in
+            language = "cyrillic"
+            self.reloadFor(language: language)
+        }))
+        
+        actionsSheet.addAction(UIAlertAction(title: titleCancel, style: .cancel, handler: nil))
+        present(actionsSheet, animated: true)
+    }
     
     private func setupActIndicator() {
         activityIndicator.frame.size = CGSize(width: 30, height: 30)
@@ -241,7 +253,7 @@ class InitialViewController: UIViewController {
         view.addSubview(button)
     }
     
-    func dismissTutorial(view: UIImageView) {
+    @objc func dismissTutorial(view: UIImageView) {
         tutView.removeFromSuperview()
         button.removeFromSuperview()
         infoButton.isEnabled = true
@@ -303,6 +315,7 @@ extension InitialViewController: FirstTableViewControllerDelegate, AlertDelegate
         }
         self.present(alert, animated: true, completion: nil)
     }
+    
 }
 
 extension InitialViewController: InstantiateVCDelegate, NotificationForIndicatorDelegate {

@@ -84,10 +84,10 @@ extension RecentSearchDataSource: UITableViewDataSource, UITableViewDelegate {
         let lineRef = recentSearches[index].ref
         let route = recentSearches[index]
         
-        UIView.animate(withDuration: 0.2, animations: { _ in
+        UIView.animate(withDuration: 0.2, animations: { 
             tableView.cellForRow(at: indexPath)?.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
         }, completion: {_ in
-            UIView.animate(withDuration: 0.2, animations: { _ in
+            UIView.animate(withDuration: 0.2, animations: { 
                 tableView.cellForRow(at: indexPath)?.transform = CGAffineTransform(scaleX: 1, y: 1)
             },completion: {[weak self] _ in
                 
@@ -99,7 +99,7 @@ extension RecentSearchDataSource: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = language == "latin" ? "Delete" : "Обриши"
         
-        let deleteAction = UITableViewRowAction(style: .destructive, title: delete, handler: {_ in
+        let deleteAction = UITableViewRowAction(style: .destructive, title: delete, handler: {_,_ in
             
             self.delegate?.removeRecentSearch(fromRow: indexPath.row)
         })

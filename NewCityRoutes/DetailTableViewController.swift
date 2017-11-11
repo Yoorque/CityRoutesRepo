@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import GoogleMaps
 
 protocol DetailTableViewDelegate: NSObjectProtocol {
     func drawLine(route: Relations)
 }
 
-class DetailTableViewController: UIViewController, UITableViewDelegate {
+class DetailTableViewController: UIViewController, UITableViewDelegate, AlertDelegate {
     @IBOutlet var backButton: UIBarButtonItem!
     
     let blurClass = BlurEffect()
@@ -20,6 +21,7 @@ class DetailTableViewController: UIViewController, UITableViewDelegate {
     @IBOutlet var detailMapView: CreateMapView! {
         didSet {
             detailMapView.createMap(view: detailMapView)
+            detailMapView.alertDelegate = self
         }
     }
     
@@ -43,6 +45,15 @@ class DetailTableViewController: UIViewController, UITableViewDelegate {
         tableView.delegate = detailTableViewDataSource
         detailTableViewDataSource?.delegate = self
         tableView.reloadData()
+    }
+    
+    func showAlert(title: String, message: String, actions: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        for action in actions {
+            alert.addAction(action)
+        }
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
