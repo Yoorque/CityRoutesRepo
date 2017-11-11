@@ -769,6 +769,7 @@ class CreateMapView: UIView, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
 }
 
+
 extension Array where Element: NSMutableAttributedString {
     func joined(separator: NSMutableAttributedString) -> NSMutableAttributedString {
         var isFirst = true
