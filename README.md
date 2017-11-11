@@ -1,29 +1,3 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+CityRoutes is a simple app that represents city transportation in Belgrade City area. It includes buses, trams and trolleybuses, along with their routes and info about every station on their route. Most of the stations have an USSD code which is copied to your clipboard by tapping in the marker for a certain station on the map and it is easily pasted to your phone dialer for sending an USSD message in order to get the arrival times of the transport for the desired station. You can easily reach your 3 most recent searches from the Recent Search list on the main page. Also, public transport stations in a 300m radius around your current position are shown in the main map, as well as walking route to the selected station and the distance to it from your current location.
