@@ -19,7 +19,6 @@ func ==(left: Routes, right: Routes) -> Bool {
 
 import Foundation
 
-
 //Deklaracije
 
 var language = "latin"
